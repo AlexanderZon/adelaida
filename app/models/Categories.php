@@ -11,4 +11,10 @@ class Categories extends \Eloquent {
 
 	protected $fillable = [];
 
+	public function materials(){
+
+		return $this->hasMany('Materials', 'id_category', 'id');
+
+	}
+
 }

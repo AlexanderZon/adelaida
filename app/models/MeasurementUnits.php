@@ -11,4 +11,10 @@ class MeasurementUnits extends \Eloquent {
 
 	protected $fillable = [];
 
+	public function stock(){
+
+		return $this->hasMany('Stock', 'id_measurement_unit', 'id');
+		
+	}
+
 }

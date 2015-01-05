@@ -11,4 +11,16 @@ class Materials extends \Eloquent {
 
 	protected $fillable = [];
 
+	public function project(){
+
+		return $this->belongsTo('Projects', 'id_project');
+
+	}
+
+	public function stock(){
+
+		return $this->belongsTo('Stock', 'id_stock');
+		
+	}
+
 }

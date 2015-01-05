@@ -15,7 +15,10 @@ class CreateStockTable extends Migration {
 		Schema::create('stock', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('id_material');
+			$table->string('name');
+			$table->longText('description');
+			$table->integer('id_measurement_unit');
+			$table->integer('id_category');
 			$table->float('units');
 			$table->timestamps();
 			$table->softDeletes();

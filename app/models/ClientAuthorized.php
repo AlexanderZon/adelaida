@@ -11,4 +11,16 @@ class ClientAuthorized extends \Eloquent {
 
 	protected $fillable = [];
 
+	public function client(){
+
+		return $this->belongsTo('Clients', 'id_client');
+
+	}
+
+	public function person(){
+
+		return $this->belongsTo('Persons', 'id_person');
+		
+	}
+
 }

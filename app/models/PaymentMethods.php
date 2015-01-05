@@ -11,4 +11,10 @@ class PaymentMethods extends \Eloquent {
 
 	protected $fillable = [];
 
+	public function receipts(){
+
+		return $this->hasMany('Receipts', 'id_payment_method', 'id');
+		
+	}
+
 }

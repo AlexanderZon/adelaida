@@ -10,5 +10,17 @@ class Locations extends \Eloquent {
 	protected $table = 'locations';
 
 	protected $fillable = [];
+
+	public function clients(){
+
+		return $this->hasMany('Clients', 'id_location');
+
+	}
+
+	public function providers(){
+
+		return $this->hasMany('Providers', 'id_location');
+		
+	}
 	
 }

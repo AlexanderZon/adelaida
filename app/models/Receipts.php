@@ -11,4 +11,16 @@ class Receipts extends \Eloquent {
 
 	protected $fillable = [];
 
+	public function saleOrder(){
+
+		return $this->belongsTo('SaleOrders', 'id_sale_order');
+
+	}
+
+	public function paymentMethod(){
+
+		return $this->belognsTo('PaymentMethods', 'id_payment_method');
+		
+	}
+
 }

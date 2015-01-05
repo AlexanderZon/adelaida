@@ -16,7 +16,8 @@ class CreateProviderItemsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->float('units');
-			$table->integer('id_material');
+			$table->integer('id_stock');
+			$table->integer('id_purchase_order');
 			$table->string('type');
 			$table->string('status');
 			$table->timestamps();

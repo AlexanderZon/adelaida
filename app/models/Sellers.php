@@ -11,4 +11,22 @@ class Sellers extends \Eloquent {
 
 	protected $fillable = [];
 
+	public function person(){
+
+		return $this->belognsTo('Persons', 'id_person');
+
+	}
+
+	public function saleOrders(){
+
+		return $this->hasMany('SaleOreders', 'id_seller', 'id');
+
+	}
+
+	public function invoices(){
+
+		return $this->hasMany('Invoices', 'id_seller', 'id');
+		
+	}
+
 }

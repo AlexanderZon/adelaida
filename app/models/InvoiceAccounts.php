@@ -10,5 +10,11 @@ class InvoiceAccounts extends \Eloquent {
 	protected $table = 'invoice_accounts';
 
 	protected $fillable = [];
+
+	public function invoices(){
+
+		return $this->hasMany('Invoices', 'id_invoice_account', 'id');
+		
+	}
 	
 }
