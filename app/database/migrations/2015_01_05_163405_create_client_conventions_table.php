@@ -16,6 +16,7 @@ class CreateClientConventionsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

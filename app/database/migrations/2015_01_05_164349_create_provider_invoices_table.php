@@ -15,7 +15,12 @@ class CreateProviderInvoicesTable extends Migration {
 		Schema::create('provider_invoices', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('correlative');
+			$table->integer('id_purchase_order');
+			$table->string('type');
+			$table->string('status');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

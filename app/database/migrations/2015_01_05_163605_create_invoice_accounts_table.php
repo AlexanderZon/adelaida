@@ -15,7 +15,14 @@ class CreateInvoiceAccountsTable extends Migration {
 		Schema::create('invoice_accounts', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('name');
+			$table->longText('header');
+			$table->longText('footer');
+			$table->string('image_url');
+			$table->string('type');
+			$table->string('status');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

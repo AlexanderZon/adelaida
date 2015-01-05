@@ -52,7 +52,7 @@ return array(
 			'prefix'   => '',
 		),
 
-		'mysql' => array(
+		/*'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
 			'database'  => 'forge',
@@ -82,7 +82,7 @@ return array(
 			'password' => '',
 			'prefix'   => '',
 		),
-
+*/
 	),
 
 	/*

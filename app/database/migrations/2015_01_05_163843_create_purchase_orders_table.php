@@ -15,7 +15,11 @@ class CreatePurchaseOrdersTable extends Migration {
 		Schema::create('purchase_orders', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->date('date');
+			$table->integer('id_project');
+			$table->integer('id_provider');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

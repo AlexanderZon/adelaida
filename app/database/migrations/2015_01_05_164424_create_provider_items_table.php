@@ -15,7 +15,12 @@ class CreateProviderItemsTable extends Migration {
 		Schema::create('provider_items', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->float('units');
+			$table->integer('id_material');
+			$table->string('type');
+			$table->string('status');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

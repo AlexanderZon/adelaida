@@ -15,7 +15,16 @@ class CreateInvoicesTable extends Migration {
 		Schema::create('invoices', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('correlative');
+			$table->date('date');
+			$table->integer('id_seller');
+			$table->integer('id_client');
+			$table->integer('id_invoice_account');
+			$table->integer('id_sale_order');
+			$table->string('type');
+			$table->string('status');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
