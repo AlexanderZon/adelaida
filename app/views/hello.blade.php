@@ -1,42 +1,1675 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Laravel PHP Framework</title>
-	<style>
-		@import url(//fonts.googleapis.com/css?family=Lato:700);
+@extends ('layouts.master')
 
-		body {
-			margin:0;
-			font-family:'Lato', sans-serif;
-			text-align:center;
-			color: #999;
-		}
+@section ("content")
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+	<div class="page-content">
+		<!-- BEGIN PAGE HEAD -->
+		<div class="page-head">
+			<!-- BEGIN PAGE TITLE -->
+			<div class="page-title">
+				<h1>Escritorio <small>Estadísticas y Reportes</small></h1>
+			</div>
+			<!-- END PAGE TITLE -->
+			<!-- BEGIN PAGE TOOLBAR -->
+			<div class="page-toolbar">
+				<!-- BEGIN THEME PANEL -->
+				<div class="btn-group btn-theme-panel">
+					<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+					<i class="icon-settings"></i>
+					</a>
+					<div class="dropdown-menu theme-panel pull-right dropdown-custom hold-on-click">
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<h3>THEME</h3>
+								<ul class="theme-colors">
+									<li class="theme-color theme-color-default" data-theme="default">
+										<span class="theme-color-view"></span>
+										<span class="theme-color-name">Dark Header</span>
+									</li>
+									<li class="theme-color theme-color-light active" data-theme="light">
+										<span class="theme-color-view"></span>
+										<span class="theme-color-name">Light Header</span>
+									</li>
+								</ul>
+							</div>
+							<div class="col-md-8 col-sm-8 col-xs-12 seperator">
+								<h3>LAYOUT</h3>
+								<ul class="theme-settings">
+									<li>
+										Theme Style
+										<select class="layout-style-option form-control input-small input-sm">
+											<option value="square" selected="selected">Square corners</option>
+											<option value="rounded">Rounded corners</option>
+										</select>
+									</li>
+									<li>
+										Layout
+										<select class="layout-option form-control input-small input-sm">
+											<option value="fluid" selected="selected">Fluid</option>
+											<option value="boxed">Boxed</option>
+										</select>
+									</li>
+									<li>
+										Header
+										<select class="page-header-option form-control input-small input-sm">
+											<option value="fixed" selected="selected">Fixed</option>
+											<option value="default">Default</option>
+										</select>
+									</li>
+									<li>
+										Top Dropdowns
+										<select class="page-header-top-dropdown-style-option form-control input-small input-sm">
+											<option value="light">Light</option>
+											<option value="dark" selected="selected">Dark</option>
+										</select>
+									</li>
+									<li>
+										Sidebar Mode
+										<select class="sidebar-option form-control input-small input-sm">
+											<option value="fixed">Fixed</option>
+											<option value="default" selected="selected">Default</option>
+										</select>
+									</li>
+									<li>
+										Sidebar Menu
+										<select class="sidebar-menu-option form-control input-small input-sm">
+											<option value="accordion" selected="selected">Accordion</option>
+											<option value="hover">Hover</option>
+										</select>
+									</li>
+									<li>
+										Sidebar Position
+										<select class="sidebar-pos-option form-control input-small input-sm">
+											<option value="left" selected="selected">Left</option>
+											<option value="right">Right</option>
+										</select>
+									</li>
+									<li>
+										Footer
+										<select class="page-footer-option form-control input-small input-sm">
+											<option value="fixed">Fixed</option>
+											<option value="default" selected="selected">Default</option>
+										</select>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END THEME PANEL -->
+			</div>
+			<!-- END PAGE TOOLBAR -->
+		</div>
+		<!-- END PAGE HEAD -->
+		<!-- BEGIN PAGE BREADCRUMB -->
+		<ul class="page-breadcrumb breadcrumb">
+			<li>
+				<a href="#">Home</a><i class="fa fa-circle"></i>
+			</li>
+			<li>
+				<a href="#">Features</a><i class="fa fa-circle"></i>
+			</li>
+			<li class="active">
+				Dashboard 
+			</li>
+		</ul>
+		<!-- END PAGE BREADCRUMB -->
+		<!-- BEGIN PAGE CONTENT INNER -->
+		<!--
+		<div class="note note-danger">
+			<h4>
+				Meet Meronic's brand new admin layout - Admin 4! 
+				</h4>
+				<p>Admin 4 layout supports all the features from <a href="../admin/" target="_blank">Admin 1</a>, <a href="../admin2/" target="_blank">Admin 2</a> and <a href="../admin3/" target="_blank">Admin 3</a> layout demo pages. Admin 4 also comes with <a href="angularjs">AngularJS Version!</a>.
+			</p>
+		</div>
+		-->
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				<div class="dashboard-stat2">
+					<div class="display">
+						<div class="number">
+							<h3 class="font-green-sharp">7800<small class="font-green-sharp">$</small></h3>
+							<small>TOTAL DE INGRESOS</small>
+						</div>
+						<div class="icon">
+							<i class="icon-like"></i>
+						</div>
+					</div>
+					<div class="progress-info">
+						<div class="progress">
+							<span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+							<span class="sr-only">76% progress</span>
+							</span>
+						</div>
+						<div class="status">
+							<div class="status-title">porcentaje adquirido</div>
+							<div class="status-number">76%</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				<div class="dashboard-stat2">
+					<div class="display">
+						<div class="number">
+							<h3 class="font-red-haze">1349<small class="font-red-haze">$</small></h3>
+							<small>TOTAL DE EGRESOS</small>
+						</div>
+						<div class="icon">
+							<i class="icon-dislike"></i>
+						</div>
+					</div>
+					<div class="progress-info">
+						<div class="progress">
+							<span style="width: 85%;" class="progress-bar progress-bar-success red-haze">
+							<span class="sr-only">85% change</span>
+							</span>
+						</div>
+						<div class="status">
+							<div class="status-title">porcentaje pagado</div>
+							<div class="status-number">85%</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				<div class="dashboard-stat2">
+					<div class="display">
+						<div class="number">
+							<h3 class="font-blue-sharp">567</h3>
+							<small>PROYECTOS ACTIVOS</small>
+						</div>
+						<div class="icon">
+							<i class="icon-wrench"></i>
+						</div>
+					</div>
+					<div class="progress-info">
+						<div class="progress">
+							<span style="width: 45%;" class="progress-bar progress-bar-success blue-sharp">
+							<span class="sr-only">80% grow</span>
+							</span>
+						</div>
+						<div class="status">
+							<div class="status-title">en ejecución</div>
+							<div class="status-number">45%</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				<div class="dashboard-stat2">
+					<div class="display">
+						<div class="number">
+							<h3 class="font-purple-soft">276</h3>
+							<small>PROYECTOS A FINALIZAR</small>
+						</div>
+						<div class="icon">
+							<i class="icon-clock"></i>
+						</div>
+					</div>
+					<div class="progress-info">
+						<div class="progress">
+							<span style="width: 57%;" class="progress-bar progress-bar-success purple-soft">
+							<span class="sr-only">56% change</span>
+							</span>
+						</div>
+						<div class="status">
+							<div class="status-title">tareas finalizadas</div>
+							<div class="status-number">57%</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-sm-12">
+				<!-- BEGIN PORTLET-->
+				<div class="portlet light ">
+					<div class="portlet-title">
+						<div class="caption caption-md">
+							<i class="icon-bar-chart theme-font-color hide"></i>
+							<span class="caption-subject theme-font-color bold uppercase">Movimientos</span>
+							<span class="caption-helper hide">estadísticas semanales...</span>
+						</div>
+						<div class="actions">
+							<div class="btn-group btn-group-devided" data-toggle="buttons">
+								<label class="btn btn-transparent grey-salsa btn-circle btn-sm active">
+								<input type="radio" name="options" class="toggle" id="option1">Hoy</label>
+								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
+								<input type="radio" name="options" class="toggle" id="option2">Semana</label>
+								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
+								<input type="radio" name="options" class="toggle" id="option2">Mes</label>
+							</div>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="row list-separated">
+							<div class="col-md-3 col-sm-3 col-xs-6">
+								<div class="font-grey-mint font-sm">
+									Recibidos
+								</div>
+								<div class="uppercase font-hg font-green">
+									11,760 <span class="font-lg font-grey-mint">$</span>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-6">
+								<div class="font-grey-mint font-sm">
+									Ventas Totales
+								</div>
+								<div class="uppercase font-hg theme-font-color">
+									4,760 <span class="font-lg font-grey-mint">$</span>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-6">
+								<div class="font-grey-mint font-sm">
+									Pagos
+								</div>
+								<div class="uppercase font-hg font-yellow-casablanca">
+									9,760 <span class="font-lg font-grey-mint">$</span>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-6">
+								<div class="font-grey-mint font-sm">
+									Gastos Estimado Total
+								</div>
+								<div class="uppercase font-hg font-red-flamingo">
+									13,760 <span class="font-lg font-grey-mint">$</span>
+								</div>
+							</div>
+						</div>
+						<ul class="list-separated list-inline-xs hide">
+							<li>
+								<div class="font-grey-mint font-sm">
+									Total Sales
+								</div>
+								<div class="uppercase font-hg font-red-flamingo">
+									13,760 <span class="font-lg font-grey-mint">$</span>
+								</div>
+							</li>
+							<li>
+							</li>
+							<li class="border">
+								<div class="font-grey-mint font-sm">
+									Revenue
+								</div>
+								<div class="uppercase font-hg theme-font-color">
+									4,760 <span class="font-lg font-grey-mint">$</span>
+								</div>
+							</li>
+							<li class="divider">
+							</li>
+							<li>
+								<div class="font-grey-mint font-sm">
+									Expenses
+								</div>
+								<div class="uppercase font-hg font-purple">
+									11,760 <span class="font-lg font-grey-mint">$</span>
+								</div>
+							</li>
+							<li class="divider">
+							</li>
+							<li>
+								<div class="font-grey-mint font-sm">
+									Growth
+								</div>
+								<div class="uppercase font-hg font-blue-sharp">
+									9,760 <span class="font-lg font-grey-mint">$</span>
+								</div>
+							</li>
+						</ul>
+						<div id="sales_statistics" class="portlet-body-morris-fit morris-chart" style="height: 260px"></div>
+					</div>
+				</div>
+				<!-- END PORTLET-->
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<!-- BEGIN PORTLET-->
+				<div class="portlet light ">
+					<div class="portlet-title">
+						<div class="caption caption-md">
+							<i class="icon-bar-chart theme-font-color hide"></i>
+							<span class="caption-subject theme-font-color bold uppercase">Proyectos Atrasados</span>
+							<span class="caption-helper hide">estadísticas semanales...</span>
+						</div>
+						<div class="actions">
+							<div class="btn-group btn-group-devided" data-toggle="buttons">
+								<label class="btn btn-transparent grey-salsa btn-circle btn-sm active">
+								<input type="radio" name="options" class="toggle" id="option1">Hoy</label>
+								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
+								<input type="radio" name="options" class="toggle" id="option2">Semana</label>
+								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
+								<input type="radio" name="options" class="toggle" id="option2">Mes</label>
+							</div>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="row number-stats margin-bottom-30">
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<div class="stat-left">
+									<div class="stat-chart">
+										<!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+										<div id="sparkline_bar"></div>
+									</div>
+									<div class="stat-number">
+										<div class="title">
+											Atrasados
+										</div>
+										<div class="number">
+											2460
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<div class="stat-right">
+									<div class="stat-chart">
+										<!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+										<div id="sparkline_bar2"></div>
+									</div>
+									<div class="stat-number">
+										<div class="title">
+											En Curso
+										</div>
+										<div class="number">
+											719
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="table-scrollable table-scrollable-borderless">
+							<table class="table table-hover table-light">
+								<thead>
+									<tr class="uppercase">
+										<th colspan="2">
+											PROYECTO
+										</th>
+										<th>
+											PROSUPUESTO
+										</th>
+										<th>
+											DIAS RESTANTES
+										</th>
+										<th>
+											TAREAS
+										</th>
+										<th>
+											TAREAS FINALIZADAS
+										</th>
+									</tr>
+								</thead>
+								<tr>
+									<td class="fit">
+										<img class="user-pic" src="/assets/admin/layout3/img/avatar4.jpg">
+									</td>
+									<td>
+										<a href="javascript:;" class="primary-link">Brain</a>
+									</td>
+									<td>
+										$345
+									</td>
+									<td>
+										45
+									</td>
+									<td>
+										124
+									</td>
+									<td>
+										<span class="bold theme-font-color">80%</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="fit">
+										<img class="user-pic" src="/assets/admin/layout3/img/avatar5.jpg">
+									</td>
+									<td>
+										<a href="javascript:;" class="primary-link">Nick</a>
+									</td>
+									<td>
+										$560
+									</td>
+									<td>
+										12
+									</td>
+									<td>
+										24
+									</td>
+									<td>
+										<span class="bold theme-font-color">67%</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="fit">
+										<img class="user-pic" src="/assets/admin/layout3/img/avatar6.jpg">
+									</td>
+									<td>
+										<a href="javascript:;" class="primary-link">Tim</a>
+									</td>
+									<td>
+										$1,345
+									</td>
+									<td>
+										450
+									</td>
+									<td>
+										46
+									</td>
+									<td>
+										<span class="bold theme-font-color">98%</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="fit">
+										<img class="user-pic" src="/assets/admin/layout3/img/avatar7.jpg">
+									</td>
+									<td>
+										<a href="javascript:;" class="primary-link">Tom</a>
+									</td>
+									<td>
+										$645
+									</td>
+									<td>
+										50
+									</td>
+									<td>
+										89
+									</td>
+									<td>
+										<span class="bold theme-font-color">58%</span>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- END PORTLET-->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-sm-12">
+				<!-- BEGIN PORTLET-->
+				<div class="portlet light tasks-widget">
+					<div class="portlet-title">
+						<div class="caption caption-md">
+							<i class="icon-bar-chart theme-font-color hide"></i>
+							<span class="caption-subject theme-font-color bold uppercase">TAREAS PARA HOY</span>
+							<span class="caption-helper">16 pendientes</span>
+						</div>
+						<div class="inputs">
+							<div class="portlet-input input-small input-inline">
+								<div class="input-icon right">
+									<i class="icon-magnifier"></i>
+									<input type="text" class="form-control form-control-solid" placeholder="buscar...">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="task-content">
+							<div class="scroller" style="height: 282px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+								<!-- START TASK LIST -->
+								<ul class="task-list">
+									<li>
+										<div class="task-checkbox">
+											<input type="hidden" value="1" name="test"/>
+											<input type="checkbox" class="liChild" value="2" name="test"/>
+										</div>
+										<div class="task-title">
+											<span class="task-title-sp">
+											Present 2013 Year IPO Statistics at Board Meeting </span>
+											<span class="label label-sm label-success">Company</span>
+											<span class="task-bell">
+											<i class="fa fa-bell-o"></i>
+											</span>
+										</div>
+										<div class="task-config">
+											<div class="task-config-btn btn-group">
+												<a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+												<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+												</a>
+												<ul class="dropdown-menu pull-right">
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-check"></i> Complete </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-pencil"></i> Edit </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-trash-o"></i> Cancel </a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="task-checkbox">
+											<input type="checkbox" class="liChild" value=""/>
+										</div>
+										<div class="task-title">
+											<span class="task-title-sp">
+											Hold An Interview for Marketing Manager Position </span>
+											<span class="label label-sm label-danger">Marketing</span>
+										</div>
+										<div class="task-config">
+											<div class="task-config-btn btn-group">
+												<a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+												<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+												</a>
+												<ul class="dropdown-menu pull-right">
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-check"></i> Complete </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-pencil"></i> Edit </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-trash-o"></i> Cancel </a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="task-checkbox">
+											<input type="checkbox" class="liChild" value=""/>
+										</div>
+										<div class="task-title">
+											<span class="task-title-sp">
+											AirAsia Intranet System Project Internal Meeting </span>
+											<span class="label label-sm label-success">AirAsia</span>
+											<span class="task-bell">
+											<i class="fa fa-bell-o"></i>
+											</span>
+										</div>
+										<div class="task-config">
+											<div class="task-config-btn btn-group">
+												<a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+												<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+												</a>
+												<ul class="dropdown-menu pull-right">
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-check"></i> Complete </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-pencil"></i> Edit </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-trash-o"></i> Cancel </a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="task-checkbox">
+											<input type="checkbox" class="liChild" value=""/>
+										</div>
+										<div class="task-title">
+											<span class="task-title-sp">
+											Technical Management Meeting </span>
+											<span class="label label-sm label-warning">Company</span>
+										</div>
+										<div class="task-config">
+											<div class="task-config-btn btn-group">
+												<a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+												<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+												</a>
+												<ul class="dropdown-menu pull-right">
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-check"></i> Complete </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-pencil"></i> Edit </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-trash-o"></i> Cancel </a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="task-checkbox">
+											<input type="checkbox" class="liChild" value=""/>
+										</div>
+										<div class="task-title">
+											<span class="task-title-sp">
+											Kick-off Company CRM Mobile App Development </span>
+											<span class="label label-sm label-info">Internal Products</span>
+										</div>
+										<div class="task-config">
+											<div class="task-config-btn btn-group">
+												<a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+												<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+												</a>
+												<ul class="dropdown-menu pull-right">
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-check"></i> Complete </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-pencil"></i> Edit </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-trash-o"></i> Cancel </a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="task-checkbox">
+											<input type="checkbox" class="liChild" value=""/>
+										</div>
+										<div class="task-title">
+											<span class="task-title-sp">
+											Prepare Commercial Offer For SmartVision Website Rewamp </span>
+											<span class="label label-sm label-danger">SmartVision</span>
+										</div>
+										<div class="task-config">
+											<div class="task-config-btn btn-group">
+												<a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+												<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+												</a>
+												<ul class="dropdown-menu pull-right">
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-check"></i> Complete </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-pencil"></i> Edit </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-trash-o"></i> Cancel </a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="task-checkbox">
+											<input type="checkbox" class="liChild" value=""/>
+										</div>
+										<div class="task-title">
+											<span class="task-title-sp">
+											Sign-Off The Comercial Agreement With AutoSmart </span>
+											<span class="label label-sm label-default">AutoSmart</span>
+											<span class="task-bell">
+											<i class="fa fa-bell-o"></i>
+											</span>
+										</div>
+										<div class="task-config">
+											<div class="task-config-btn btn-group">
+												<a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+												<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+												</a>
+												<ul class="dropdown-menu pull-right">
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-check"></i> Complete </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-pencil"></i> Edit </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-trash-o"></i> Cancel </a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="task-checkbox">
+											<input type="checkbox" class="liChild" value=""/>
+										</div>
+										<div class="task-title">
+											<span class="task-title-sp">
+											Company Staff Meeting </span>
+											<span class="label label-sm label-success">Cruise</span>
+											<span class="task-bell">
+											<i class="fa fa-bell-o"></i>
+											</span>
+										</div>
+										<div class="task-config">
+											<div class="task-config-btn btn-group">
+												<a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+												<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+												</a>
+												<ul class="dropdown-menu pull-right">
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-check"></i> Complete </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-pencil"></i> Edit </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-trash-o"></i> Cancel </a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li class="last-line">
+										<div class="task-checkbox">
+											<input type="checkbox" class="liChild" value=""/>
+										</div>
+										<div class="task-title">
+											<span class="task-title-sp">
+											KeenThemes Investment Discussion </span>
+											<span class="label label-sm label-warning">KeenThemes </span>
+										</div>
+										<div class="task-config">
+											<div class="task-config-btn btn-group">
+												<a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+												<i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+												</a>
+												<ul class="dropdown-menu pull-right">
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-check"></i> Complete </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-pencil"></i> Edit </a>
+													</li>
+													<li>
+														<a href="javascript:;">
+														<i class="fa fa-trash-o"></i> Cancel </a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+								<!-- END START TASK LIST -->
+							</div>
+						</div>
+						<div class="task-footer">
+							<div class="btn-arrow-link pull-right">
+								<a href="javascript:;">Ver Todas</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END PORTLET-->
+			</div>
 
-		.welcome {
-			width: 300px;
-			height: 200px;
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			margin-left: -150px;
-			margin-top: -100px;
-		}
+			<div class="col-md-6 col-sm-6">
+				<!-- BEGIN PORTLET-->
+				<div class="portlet light">
+					<div class="portlet-title tabbable-line">
+						<div class="caption caption-md">
+							<i class="icon-globe theme-font-color hide"></i>
+							<span class="caption-subject theme-font-color bold uppercase">Auditoría</span>
+						</div>
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a href="#tab_1_1" data-toggle="tab">
+								Sistema </a>
+							</li>
+							<li>
+								<a href="#tab_1_2" data-toggle="tab">
+								Actividades </a>
+							</li>
+						</ul>
+					</div>
+					<div class="portlet-body">
+						<!--BEGIN TABS-->
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab_1_1">
+								<div class="scroller" style="height: 305px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+									<ul class="feeds">
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-success">
+															<i class="fa fa-bell-o"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															You have 4 pending tasks. <span class="label label-sm label-info">
+															Take action <i class="fa fa-share"></i>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													Just now
+												</div>
+											</div>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																New version v1.4 just lunched!
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														20 mins
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-danger">
+															<i class="fa fa-bolt"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															Database server #12 overloaded. Please fix the issue.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													24 mins
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-info">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															New order received and pending for process.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													30 mins
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-success">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															New payment refund and pending approval.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													40 mins
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-warning">
+															<i class="fa fa-plus"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															New member registered. Pending approval.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													1.5 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-success">
+															<i class="fa fa-bell-o"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															Web server hardware needs to be upgraded. <span class="label label-sm label-default ">
+															Overdue </span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													2 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-default">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															Prod01 database server is overloaded 90%.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													3 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-warning">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															New group created. Pending manager review.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													5 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-info">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															Order payment failed.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													18 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-default">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															New application received.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													21 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-info">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															Dev90 web server restarted. Pending overall system check.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													22 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-default">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															New member registered. Pending approval
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													21 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-info">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															L45 Network failure. Schedule maintenance.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													22 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-default">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															Order canceled with failed payment.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													21 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-info">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															Web-A2 clound instance created. Schedule full scan.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													22 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-default">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															Member canceled. Schedule account review.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													21 hours
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-info">
+															<i class="fa fa-bullhorn"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															New order received. Please take care of it.
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													22 hours
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab_1_2">
+								<div class="scroller" style="height: 337px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+									<ul class="feeds">
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																New user registered
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														Just now
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																New order received
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														10 mins
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-sm label-danger">
+															<i class="fa fa-bolt"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															Order #24DOP4 has been rejected. <span class="label label-sm label-danger ">
+															Take action <i class="fa fa-share"></i>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col2">
+												<div class="date">
+													24 mins
+												</div>
+											</div>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																New user registered
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														Just now
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																New user registered
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														Just now
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																New user registered
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														Just now
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																New user registered
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														Just now
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																New user registered
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														Just now
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																New user registered
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														Just now
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																New user registered
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														Just now
+													</div>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!--END TABS-->
+					</div>
+				</div>
+				<!-- END PORTLET-->
+			</div>
+		</div>
+		<!--
+		<div class="row">
+			<div class="col-md-6 col-sm-6">
 
-		a, a:visited {
-			text-decoration:none;
-		}
-
-		h1 {
-			font-size: 32px;
-			margin: 16px 0 0 0;
-		}
-	</style>
-</head>
-<body>
-	<div class="welcome">
-		<a href="http://laravel.com" title="Laravel PHP Framework"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIcAAACHCAYAAAA850oKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoyNUVCMTdGOUJBNkExMUUyOTY3MkMyQjZGOTYyREVGMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoyNUVCMTdGQUJBNkExMUUyOTY3MkMyQjZGOTYyREVGMiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjI1RUIxN0Y3QkE2QTExRTI5NjcyQzJCNkY5NjJERUYyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjI1RUIxN0Y4QkE2QTExRTI5NjcyQzJCNkY5NjJERUYyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+g6J7EAAAEL1JREFUeNrsXQmU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" alt="Laravel PHP Framework"></a>
-		<h1>You have arrived.</h1>
+				<div class="portlet light ">
+					<div class="portlet-title">
+						<div class="caption caption-md">
+							<i class="icon-bar-chart theme-font-color hide"></i>
+							<span class="caption-subject theme-font-color bold uppercase">Regional Stats</span>
+						</div>
+						<div class="actions">
+							<a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+							<i class="icon-cloud-upload"></i>
+							</a>
+							<a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+							<i class="icon-wrench"></i>
+							</a>
+							<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#">
+							</a>
+							<a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+							<i class="icon-trash"></i>
+							</a>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div id="region_statistics_loading">
+							<img src="/assets/admin/layout/img/loading.gif" alt="loading"/>
+						</div>
+						<div id="region_statistics_content" class="display-none">
+							<div class="btn-toolbar margin-bottom-10">
+								<div class="btn-group btn-group-circle" data-toggle="buttons">
+									<a href="" class="btn grey-salsa btn-sm active">
+									Users </a>
+									<a href="" class="btn grey-salsa btn-sm">
+									Orders </a>
+								</div>
+								<div class="btn-group pull-right">
+									<a href="" class="btn btn-circle grey-salsa btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+									Select Region <span class="fa fa-angle-down">
+									</span>
+									</a>
+									<ul class="dropdown-menu pull-right">
+										<li>
+											<a href="javascript:;" id="regional_stat_world">
+											World </a>
+										</li>
+										<li>
+											<a href="javascript:;" id="regional_stat_usa">
+											USA </a>
+										</li>
+										<li>
+											<a href="javascript:;" id="regional_stat_europe">
+											Europe </a>
+										</li>
+										<li>
+											<a href="javascript:;" id="regional_stat_russia">
+											Russia </a>
+										</li>
+										<li>
+											<a href="javascript:;" id="regional_stat_germany">
+											Germany </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div id="vmap_world" class="vmaps display-none">
+							</div>
+							<div id="vmap_usa" class="vmaps display-none">
+							</div>
+							<div id="vmap_europe" class="vmaps display-none">
+							</div>
+							<div id="vmap_russia" class="vmaps display-none">
+							</div>
+							<div id="vmap_germany" class="vmaps display-none">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<div class="portlet light">
+					<div class="portlet-title">
+						<div class="caption caption-md">
+							<i class="icon-bar-chart theme-font-color hide"></i>
+							<span class="caption-subject theme-font-color bold uppercase">Customer Support</span>
+							<span class="caption-helper">45 pending</span>
+						</div>
+						<div class="inputs">
+							<div class="portlet-input input-inline input-small ">
+								<div class="input-icon right">
+									<i class="icon-magnifier"></i>
+									<input type="text" class="form-control form-control-solid" placeholder="search...">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="scroller" style="height: 337px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<div class="general-item-list">
+								<div class="item">
+									<div class="item-head">
+										<div class="item-details">
+											<img class="item-pic" src="/assets/admin/layout3/img/avatar4.jpg">
+											<a href="" class="item-name primary-link">Nick Larson</a>
+											<span class="item-label">3 hrs ago</span>
+										</div>
+										<span class="item-status"><span class="badge badge-empty badge-success"></span> Open</span>
+									</div>
+									<div class="item-body">
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+									</div>
+								</div>
+								<div class="item">
+									<div class="item-head">
+										<div class="item-details">
+											<img class="item-pic" src="/assets/admin/layout3/img/avatar3.jpg">
+											<a href="" class="item-name primary-link">Mark</a>
+											<span class="item-label">5 hrs ago</span>
+										</div>
+										<span class="item-status"><span class="badge badge-empty badge-warning"></span> Pending</span>
+									</div>
+									<div class="item-body">
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat tincidunt ut laoreet.
+									</div>
+								</div>
+								<div class="item">
+									<div class="item-head">
+										<div class="item-details">
+											<img class="item-pic" src="/assets/admin/layout3/img/avatar6.jpg">
+											<a href="" class="item-name primary-link">Nick Larson</a>
+											<span class="item-label">8 hrs ago</span>
+										</div>
+										<span class="item-status"><span class="badge badge-empty badge-primary"></span> Closed</span>
+									</div>
+									<div class="item-body">
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh.
+									</div>
+								</div>
+								<div class="item">
+									<div class="item-head">
+										<div class="item-details">
+											<img class="item-pic" src="/assets/admin/layout3/img/avatar7.jpg">
+											<a href="" class="item-name primary-link">Nick Larson</a>
+											<span class="item-label">12 hrs ago</span>
+										</div>
+										<span class="item-status"><span class="badge badge-empty badge-danger"></span> Pending</span>
+									</div>
+									<div class="item-body">
+										Consectetuer adipiscing elit Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+									</div>
+								</div>
+								<div class="item">
+									<div class="item-head">
+										<div class="item-details">
+											<img class="item-pic" src="/assets/admin/layout3/img/avatar9.jpg">
+											<a href="" class="item-name primary-link">Richard Stone</a>
+											<span class="item-label">2 days ago</span>
+										</div>
+										<span class="item-status"><span class="badge badge-empty badge-danger"></span> Open</span>
+									</div>
+									<div class="item-body">
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, ut laoreet dolore magna aliquam erat volutpat.
+									</div>
+								</div>
+								<div class="item">
+									<div class="item-head">
+										<div class="item-details">
+											<img class="item-pic" src="/assets/admin/layout3/img/avatar8.jpg">
+											<a href="" class="item-name primary-link">Dan</a>
+											<span class="item-label">3 days ago</span>
+										</div>
+										<span class="item-status"><span class="badge badge-empty badge-warning"></span> Pending</span>
+									</div>
+									<div class="item-body">
+										Lorem ipsum dolor sit amet, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+									</div>
+								</div>
+								<div class="item">
+									<div class="item-head">
+										<div class="item-details">
+											<img class="item-pic" src="/assets/admin/layout3/img/avatar2.jpg">
+											<a href="" class="item-name primary-link">Larry</a>
+											<span class="item-label">4 hrs ago</span>
+										</div>
+										<span class="item-status"><span class="badge badge-empty badge-success"></span> Open</span>
+									</div>
+									<div class="item-body">
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			-->
+		</div>
+		<!-- END PAGE CONTENT INNER -->
 	</div>
-</body>
-</html>
+</div>
+<!-- END CONTENT -->
+@stop

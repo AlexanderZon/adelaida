@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration {
 			$table->string('username');
 			$table->string('email');
 			$table->string('password');
-			$table->string('type');
+			$table->integer('id_role');
 			$table->string('status');
 			$table->timestamps();
 			$table->softDeletes();

@@ -11,7 +11,25 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+if(Auth::check()):
+
+	Route::controller('/users', 'UserController');
+	Route::controller('/projects', 'ProjectController');
+	Route::controller('/stock', 'StockController');
+	Route::controller('/clients', 'ClientController');
+	Route::controller('/providers', 'ProviderController');
+	Route::controller('/sells', 'SellController');
+	Route::controller('/reports', 'ReportController');
+	Route::controller('/me', 'MeController');
+	Route::controller('/auth', 'AuthenticationController');
+	Route::controller('/', 'DashboardController');
+
+else:
+
+	Route::controller('/auth', 'AuthenticationController');
+	Route::any('/{arg1?}/{arg2?}/{arg3?}/{arg4?}/', function($arg1 = '' ,$arg2 = '' ,$arg3 = '' ,$arg4 = '' ){
+		$route = '/'.$arg1.'/'.$arg2.'/'.$arg3.'/'.$arg4.'/';
+		return Redirect::to('/auth/login')->with('redirectTo', $route);
+	});
+
+endif;
