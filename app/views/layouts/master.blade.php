@@ -25,6 +25,10 @@
 <link href="/assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 <!-- END PAGE LEVEL PLUGIN STYLES -->
 <!-- BEGIN PAGE STYLES -->
 <link href="/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
@@ -529,61 +533,79 @@
 					<li class="heading">
 						<h3>GENERAL</h3>
 					</li>
-					<li class="active">
+					<li class="tooltips {{ $module['name'] == 'dashboard' ? 'active open' : '' }}">
 						<a href="/">
 						<i class="icon-home"></i>
 						<span class="title">Escritorio</span>
 						</a>
 					</li>
 					<!-- BEGIN ANGULARJS LINK -->
-					<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
-						<a href="/projects" target="_blank">
+					<li class="tooltips {{ $module['name'] == 'projects' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+						<a href="/projects">
 						<i class="icon-paper-plane"></i>
 						<span class="title">
 						Proyectos </span>
 						</a>
 					</li>
-					<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
-						<a href="/stock" target="_blank">
+					<li class="tooltips {{ $module['name'] == 'stock' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+						<a href="/stock">
 						<i class="icon-puzzle"></i>
 						<span class="title">
 						Stock </span>
 						</a>
 					</li>
-					<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
-						<a href="/clients" target="_blank">
+					<li class="tooltips {{ $module['name'] == 'clients' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+						<a href="/clients">
 						<i class="icon-user"></i>
 						<span class="title">
 						Clientes </span>
 						</a>
 					</li>
-					<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
-						<a href="/providers" target="_blank">
+					<li class="tooltips {{ $module['name'] == 'providers' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+						<a href="/providers">
 						<i class="icon-briefcase"></i>
 						<span class="title">
 						Proveedores </span>
 						</a>
 					</li>
-					<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
-						<a href="/sells" target="_blank">
+					<li class="tooltips {{ $module['name'] == 'sells' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+						<a href="/sells">
 						<i class="icon-basket-loaded"></i>
 						<span class="title">
 						Ventas </span>
 						</a>
 					</li>
-					<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
-						<a href="/reports" target="_blank">
+					<li class="tooltips {{ $module['name'] == 'reports' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+						<a href="/reports">
 						<i class="icon-bar-chart"></i>
 						<span class="title">
 						Reportes </span>
 						</a>
 					</li>
-					<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
-						<a href="/users" target="_blank">
+					<li class="tooltips {{ $module['name'] == 'users' || $module['name'] == 'roles' || $module['name'] == 'capabilities' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+						<a href="/users">
 						<i class="icon-users"></i>
 						<span class="title">
 						Usuarios </span>
+						<span class="arrow"></span>
 						</a>
+						<ul class="sub-menu">
+							<li class="{{ $module['name'] == 'users' ? 'active' : '' }}">
+								<a href="/users">
+								<i class="icon-list"></i>
+								Todos</a>
+							</li>
+							<li class="{{ $module['name'] == 'roles' ? 'active' : '' }}">
+								<a href="/roles">
+								<i class="icon-lock"></i>
+								Roles</a>
+							</li>
+							<li class="{{ $module['name'] == 'capabilities' ? 'active' : '' }}">
+								<a href="/capabilities">
+								<i class="icon-key"></i>
+								Capacidades</a>
+							</li>
+						</ul>
 					</li>
 					<!-- END ANGULARJS LINK -->
 					<!--
@@ -1012,16 +1034,17 @@
 	<script src="/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
 	<script src="/assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
 	<script src="/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+
+	<script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
+	<script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+
+	<script type="text/javascript" src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+	<script type="text/javascript" src="/assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
+	<script type="text/javascript" src="/assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
+	<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+
+	<script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<!-- END PAGE LEVEL SCRIPTS -->
-	<script>
-		jQuery(document).ready(function() {    
-		   	Metronic.init(); // init metronic core componets
-		   	Layout.init(); // init layout
-		   	Demo.init(); // init demo features 
-		    Index.init(); // init index page
-		 	Tasks.initDashboardWidget(); // init tash dashboard widget  
-		});
-	</script>
 	<!-- END JAVASCRIPTS -->
 
 	@yield('javascripts')

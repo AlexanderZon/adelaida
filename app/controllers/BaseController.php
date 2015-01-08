@@ -2,6 +2,13 @@
 
 class BaseController extends Controller {
 
+	protected $breadcumbs = array(
+		array(
+			'name' => 'Escritorio',
+			'route' => '/'
+			),
+		);
+
 	/**
 	 * Setup the layout used by the controller.
 	 *

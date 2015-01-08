@@ -15,15 +15,20 @@ var TableAjax = function () {
         grid.init({
             src: $("#datatable_ajax"),
             onSuccess: function (grid) {
+                console.log('table success');
                 // execute some code after table records loaded
+                console.log(grid);
             },
             onError: function (grid) {
+                console.log('table error');
+                console.log(grid);
                 // execute some code on network or other general error  
             },
             onDataLoad: function(grid) {
+                console.log('table load');
                 // execute some code on ajax data load
             },
-            loadingMessage: 'Loading...',
+            loadingMessage: 'Cargando...',
             dataTable: { // here you can define a typical datatable settings from http://datatables.net/usage/options 
 
                 // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
@@ -39,8 +44,18 @@ var TableAjax = function () {
                 ],
                 "pageLength": 10, // default record count per page
                 "ajax": {
-                    "url": "demo/table_ajax.php", // ajax source
-                },
+                    "url": "/users", // ajax source
+                }, 
+                "columns": [
+                    { "data": "bulk" },
+                    { "data": "first_name" },
+                    { "data": "last_name" },
+                    { "data": "username" },
+                    { "data": "email" },
+                    { "data": "role" },
+                    { "data": "status" },
+                    { "data": "actions" }
+                ],
                 "order": [
                     [1, "asc"]
                 ]// set first column as a default sort by asc

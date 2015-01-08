@@ -46,21 +46,21 @@ var Datatable = function() {
                     "language": { // language settings
                         // metronic spesific
                         "metronicGroupActions": "_TOTAL_ records selected:  ",
-                        "metronicAjaxRequestGeneralError": "Could not complete request. Please check your internet connection",
+                        "metronicAjaxRequestGeneralError": "No se ha podido completar la solicitud. Por favor, compruebe su conexión a Internet",
 
                         // data tables spesific
-                        "lengthMenu": "<span class='seperator'>|</span>View _MENU_ records",
-                        "info": "<span class='seperator'>|</span>Found total _TOTAL_ records",
-                        "infoEmpty": "No records found to show",
-                        "emptyTable": "No data available in table",
-                        "zeroRecords": "No matching records found",
+                        "lengthMenu": "<span class='seperator'>|</span>Ver _MENU_ registros",
+                        "info": "<span class='seperator'>|</span>Encontrados _TOTAL_ registros",
+                        "infoEmpty": "No se encontraron registros para mostrar",
+                        "emptyTable": "No hay datos disponibles en la tabla",
+                        "zeroRecords": "No hay registros coincidentes encontrados",
                         "paginate": {
-                            "previous": "Prev",
-                            "next": "Next",
-                            "last": "Last",
-                            "first": "First",
-                            "page": "Page",
-                            "pageOf": "of"
+                            "previous": "Anterior",
+                            "next": "Siguiente",
+                            "last": "Último",
+                            "first": "Primero",
+                            "page": "Página",
+                            "pageOf": "de"
                         }
                     },
 

@@ -2,7 +2,26 @@
 
 class DashboardController extends \BaseController {
 
-	protected $route = '/';
+	protected $sections = array(
+		'index' => 'Inicio',
+		);
+
+	public function __construct(){
+
+		$this->module = array(
+			'route' => '/',
+			'name' => 'dashboard',
+			'title' => 'Escritorio',
+			'description' => 'Estadísticas y Reportes',
+			'breadcumbs' => $this->getBreadcumbs(),
+			'sections' => $this->sections,
+			'msg_danger' => Session::get('msg_danger'),
+			'msg_warning' => Session::get('msg_warning'),
+			'msg_success' => Session::get('msg_success'),
+			'msg_active' => Session::get('msg_active'),
+			);
+
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -12,7 +31,16 @@ class DashboardController extends \BaseController {
 	 */
 	public function getIndex()
 	{
-		return View::make('hello');
+		$args = array(
+			'module' => $this->module
+			);
+		return View::make('hello')->with($args);
+	}
+
+	private function getBreadcumbs(){
+
+		return array();
+
 	}
 
 }

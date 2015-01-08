@@ -14,7 +14,7 @@
 			<!-- BEGIN PAGE TOOLBAR -->
 			<div class="page-toolbar">
 				<!-- BEGIN THEME PANEL -->
-				<div class="btn-group btn-theme-panel">
+				<!-- <div class="btn-group btn-theme-panel">
 					<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-settings"></i>
 					</a>
@@ -96,7 +96,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- END THEME PANEL -->
 			</div>
 			<!-- END PAGE TOOLBAR -->
@@ -104,14 +104,13 @@
 		<!-- END PAGE HEAD -->
 		<!-- BEGIN PAGE BREADCRUMB -->
 		<ul class="page-breadcrumb breadcrumb">
+			@foreach( $module['breadcumbs'] as $breadcumb )
 			<li>
-				<a href="#">Home</a><i class="fa fa-circle"></i>
+				<a href="{{ $breadcumb['route'] }}">{{ $breadcumb['name'] }}</a><i class="fa fa-circle"></i>
 			</li>
-			<li>
-				<a href="#">Features</a><i class="fa fa-circle"></i>
-			</li>
+			@endforeach
 			<li class="active">
-				Dashboard 
+				{{ $module['sections']['index'] }}
 			</li>
 		</ul>
 		<!-- END PAGE BREADCRUMB -->
@@ -1672,4 +1671,18 @@
 	</div>
 </div>
 <!-- END CONTENT -->
+@stop
+
+@section('javascripts')
+	<!-- END PAGE LEVEL SCRIPTS -->
+	<script>
+		jQuery(document).ready(function() {    
+		   	Metronic.init(); // init metronic core componets
+		   	Layout.init(); // init layout
+		   	Demo.init(); // init demo features 
+		    Index.init(); // init index page
+		 	Tasks.initDashboardWidget(); // init tash dashboard widget  
+		});
+	</script>
+
 @stop
