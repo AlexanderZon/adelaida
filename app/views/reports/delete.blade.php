@@ -1,0 +1,1 @@
+C:\wamp\www\magicmediaprojects\adelaida\app/views/reports/delete.blade.php
