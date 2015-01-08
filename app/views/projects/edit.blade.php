@@ -1,0 +1,1 @@
+C:\wamp\www\magicmediaprojects\adelaida\app/views/projects/edit.blade.php
