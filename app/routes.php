@@ -29,7 +29,7 @@ else:
 	Route::controller('/auth', 'AuthenticationController');
 	Route::any('/{arg1?}/{arg2?}/{arg3?}/{arg4?}/', function($arg1 = '' ,$arg2 = '' ,$arg3 = '' ,$arg4 = '' ){
 		$route = '/'.$arg1.'/'.$arg2.'/'.$arg3.'/'.$arg4.'/';
-		return Redirect::to('/auth/login')->with('redirectTo', $route);
+		return Redirect::to('/auth/login')->with('redirect_to', $route);
 	});
 
 endif;

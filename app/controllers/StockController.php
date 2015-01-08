@@ -2,6 +2,8 @@
 
 class StockController extends \BaseController {
 
+	protected $route = '/stock';
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /stock

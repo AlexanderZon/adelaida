@@ -2,6 +2,8 @@
 
 class UserController extends \BaseController {
 
+	protected $route = '/users';
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /user

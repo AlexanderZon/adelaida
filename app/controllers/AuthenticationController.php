@@ -3,6 +3,7 @@
 class AuthenticationController extends \BaseController {
 
 	protected $route = '/auth';
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /auth
@@ -28,7 +29,8 @@ class AuthenticationController extends \BaseController {
 
 		$args = array(
 			'route' => $this->route,
-			'redirectTo' => Session::get('redirectTo'),
+			'msg_error' => Session::get('msg_error'),
+			'redirect_to' => Session::get('redirect_to'),
 			);
 		return View::make('auth.login')->with($args);
 	}
@@ -42,13 +44,22 @@ class AuthenticationController extends \BaseController {
 	public function postLogin()
 	{
 		$credentials = array(
-			'email' => Input::get('login'),
+			'username' => Input::get('username'),
 			'password' => Input::get('password')
 			);
+
 		if(Auth::attempt($credentials)):
-			return Redirect::to('/');
+			if(Input::get('redirect_to') != ''):
+				return Redirect::to( Input::get('redirect_to') );
+			else:
+				return Redirect::to('/');
+			endif;
 		else:
-			return Redirect::to( $this->route . '/login' )->with(array('msg_error'=>'Usuario o Contraseña Inválidos'));
+			$args = array(
+				'msg_error'=>'Usuario o Contraseña Inválidos',
+				'redirect_to' => Input::get('redirect_to')
+				);
+				return Redirect::to( $this->route . '/login' )->with( $args );
 		endif;
 	}
 

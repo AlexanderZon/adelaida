@@ -2,6 +2,8 @@
 
 class ClientController extends \BaseController {
 
+	protected $route = '/clients';
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /client

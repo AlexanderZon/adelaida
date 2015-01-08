@@ -2,6 +2,8 @@
 
 class ProviderController extends \BaseController {
 
+	protected $route = '/providers';
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /provider

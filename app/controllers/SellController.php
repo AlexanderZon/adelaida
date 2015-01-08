@@ -2,6 +2,8 @@
 
 class SellController extends \BaseController {
 
+	protected $route = '/sells';
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /sell

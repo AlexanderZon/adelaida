@@ -2,6 +2,8 @@
 
 class ReportController extends \BaseController {
 
+	protected $route = '/reports';
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /report

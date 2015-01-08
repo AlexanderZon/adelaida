@@ -2,6 +2,8 @@
 
 class MeController extends \BaseController {
 
+	protected $route = '/me';
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /me

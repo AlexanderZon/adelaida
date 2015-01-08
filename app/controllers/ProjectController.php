@@ -2,6 +2,8 @@
 
 class ProjectController extends \BaseController {
 
+	protected $route = '/projects';
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /project
