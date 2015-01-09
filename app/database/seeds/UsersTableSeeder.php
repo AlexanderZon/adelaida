@@ -14,6 +14,7 @@ class UsersTableSeeder extends Seeder {
 			'username' => 'AlexanderZon',
 			'displayname' => 'Alexis Montenegro',
 			'email' => 'amontenegro@gmaicmedia.com.ve',
+			'password' => Hash::make('alexis23498535'),
 			'id_role' => 1,
 			'status' => 'active'
 			));
