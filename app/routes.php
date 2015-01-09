@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/hash', function(){
+	return Hash::make('alexis23498535');
+})
+
 if(Auth::check()):
 
 	Route::controller('/users', 'UserController');
