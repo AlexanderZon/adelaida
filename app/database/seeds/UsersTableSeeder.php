@@ -9,6 +9,8 @@ class UsersTableSeeder extends Seeder {
 	{
 		
 		Users::create( array(
+			'first_name' => '',
+			'last_name' => '',
 			'username' => 'AlexanderZon',
 			'email' => 'amontenegro@gmaicmedia.com.ve',
 			'password' => Hash::make('alexis23498535'),
@@ -17,6 +19,8 @@ class UsersTableSeeder extends Seeder {
 			));
 		
 		Users::create( array(
+			'first_name' => '',
+			'last_name' => '',
 			'username' => 'robertdacorte',
 			'email' => 'aborges@gmaicmedia.com.ve',
 			'password' => Hash::make('robert18554560'),

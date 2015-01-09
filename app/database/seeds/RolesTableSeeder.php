@@ -7,14 +7,12 @@ class RolesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		$faker = Faker::create();
-
-		foreach(range(1, 10) as $index)
-		{
-			Role::create([
-
-			]);
-		}
+		
+		Roles::create( array(
+			'name' => 'superadmin',
+			'description' => 'Super Administrador',
+			'status' => 'active'
+			));
 	}
 
 }
