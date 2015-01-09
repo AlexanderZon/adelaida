@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'adelaida',
-			'username'  => 'root',
-			'password'  => '',
+			'database'  => 'inversio_admin',
+			'username'  => 'inversio_user',
+			'password'  => 'TheFourElemelons',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

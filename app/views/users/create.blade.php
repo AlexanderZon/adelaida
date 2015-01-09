@@ -40,17 +40,11 @@
 				<div class="portlet box green">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-gift"></i>Form Sample
+							<i class="fa fa-gift"></i>Creación de Usuarios
 						</div>
 						<div class="tools">
-							<a href="{{ $module['route'] }}">
+							<a href="{{ $module['route'] }}" class="font-white">
 								Volver
-							</a>
-							<a href="#portlet-config" data-toggle="modal" class="config">
-							</a>
-							<a href="javascript:;" class="reload">
-							</a>
-							<a href="javascript:;" class="remove">
 							</a>
 						</div>
 					</div>
