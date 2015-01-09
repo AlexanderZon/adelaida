@@ -15,7 +15,7 @@ class UserController extends \BaseController {
 			'route' => '/users',
 			'name' => 'users',
 			'title' => 'Usuarios',
-			'description' => 'nejdwqeuib',
+			'description' => 'Gestión de Usuarios del Sistema',
 			'breadcumbs' => $this->getBreadcumbs(),
 			'sections' => $this->sections,
 			'msg_danger' => Session::get('msg_danger'),

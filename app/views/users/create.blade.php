@@ -36,365 +36,200 @@
 		<!--
 		-->
 		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-				<div class="dashboard-stat2">
-					<div class="display">
-						<div class="number">
-							<h3 class="font-green-sharp">7800<small class="font-green-sharp">$</small></h3>
-							<small>TOTAL DE INGRESOS</small>
-						</div>
-						<div class="icon">
-							<i class="icon-like"></i>
-						</div>
-					</div>
-					<div class="progress-info">
-						<div class="progress">
-							<span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
-							<span class="sr-only">76% progress</span>
-							</span>
-						</div>
-						<div class="status">
-							<div class="status-title">porcentaje adquirido</div>
-							<div class="status-number">76%</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-				<div class="dashboard-stat2">
-					<div class="display">
-						<div class="number">
-							<h3 class="font-red-haze">1349<small class="font-red-haze">$</small></h3>
-							<small>TOTAL DE EGRESOS</small>
-						</div>
-						<div class="icon">
-							<i class="icon-dislike"></i>
-						</div>
-					</div>
-					<div class="progress-info">
-						<div class="progress">
-							<span style="width: 85%;" class="progress-bar progress-bar-success red-haze">
-							<span class="sr-only">85% change</span>
-							</span>
-						</div>
-						<div class="status">
-							<div class="status-title">porcentaje pagado</div>
-							<div class="status-number">85%</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-				<div class="dashboard-stat2">
-					<div class="display">
-						<div class="number">
-							<h3 class="font-blue-sharp">567</h3>
-							<small>PROYECTOS ACTIVOS</small>
-						</div>
-						<div class="icon">
-							<i class="icon-wrench"></i>
-						</div>
-					</div>
-					<div class="progress-info">
-						<div class="progress">
-							<span style="width: 45%;" class="progress-bar progress-bar-success blue-sharp">
-							<span class="sr-only">80% grow</span>
-							</span>
-						</div>
-						<div class="status">
-							<div class="status-title">en ejecución</div>
-							<div class="status-number">45%</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-				<div class="dashboard-stat2">
-					<div class="display">
-						<div class="number">
-							<h3 class="font-purple-soft">276</h3>
-							<small>PROYECTOS A FINALIZAR</small>
-						</div>
-						<div class="icon">
-							<i class="icon-clock"></i>
-						</div>
-					</div>
-					<div class="progress-info">
-						<div class="progress">
-							<span style="width: 57%;" class="progress-bar progress-bar-success purple-soft">
-							<span class="sr-only">56% change</span>
-							</span>
-						</div>
-						<div class="status">
-							<div class="status-title">tareas finalizadas</div>
-							<div class="status-number">57%</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6 col-sm-12">
-				<!-- BEGIN PORTLET-->
-				<div class="portlet light ">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="portlet box green">
 					<div class="portlet-title">
-						<div class="caption caption-md">
-							<i class="icon-bar-chart theme-font-color hide"></i>
-							<span class="caption-subject theme-font-color bold uppercase">Movimientos</span>
-							<span class="caption-helper hide">estadísticas semanales...</span>
+						<div class="caption">
+							<i class="fa fa-gift"></i>Form Sample
 						</div>
-						<div class="actions">
-							<div class="btn-group btn-group-devided" data-toggle="buttons">
-								<label class="btn btn-transparent grey-salsa btn-circle btn-sm active">
-								<input type="radio" name="options" class="toggle" id="option1">Hoy</label>
-								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
-								<input type="radio" name="options" class="toggle" id="option2">Semana</label>
-								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
-								<input type="radio" name="options" class="toggle" id="option2">Mes</label>
-							</div>
-						</div>
-					</div>
-					<div class="portlet-body">
-						<div class="row list-separated">
-							<div class="col-md-3 col-sm-3 col-xs-6">
-								<div class="font-grey-mint font-sm">
-									Recibidos
-								</div>
-								<div class="uppercase font-hg font-green">
-									11,760 <span class="font-lg font-grey-mint">$</span>
-								</div>
-							</div>
-							<div class="col-md-3 col-sm-3 col-xs-6">
-								<div class="font-grey-mint font-sm">
-									Ventas Totales
-								</div>
-								<div class="uppercase font-hg theme-font-color">
-									4,760 <span class="font-lg font-grey-mint">$</span>
-								</div>
-							</div>
-							<div class="col-md-3 col-sm-3 col-xs-6">
-								<div class="font-grey-mint font-sm">
-									Pagos
-								</div>
-								<div class="uppercase font-hg font-yellow-casablanca">
-									9,760 <span class="font-lg font-grey-mint">$</span>
-								</div>
-							</div>
-							<div class="col-md-3 col-sm-3 col-xs-6">
-								<div class="font-grey-mint font-sm">
-									Gastos Estimado Total
-								</div>
-								<div class="uppercase font-hg font-red-flamingo">
-									13,760 <span class="font-lg font-grey-mint">$</span>
-								</div>
-							</div>
-						</div>
-						<ul class="list-separated list-inline-xs hide">
-							<li>
-								<div class="font-grey-mint font-sm">
-									Total Sales
-								</div>
-								<div class="uppercase font-hg font-red-flamingo">
-									13,760 <span class="font-lg font-grey-mint">$</span>
-								</div>
-							</li>
-							<li>
-							</li>
-							<li class="border">
-								<div class="font-grey-mint font-sm">
-									Revenue
-								</div>
-								<div class="uppercase font-hg theme-font-color">
-									4,760 <span class="font-lg font-grey-mint">$</span>
-								</div>
-							</li>
-							<li class="divider">
-							</li>
-							<li>
-								<div class="font-grey-mint font-sm">
-									Expenses
-								</div>
-								<div class="uppercase font-hg font-purple">
-									11,760 <span class="font-lg font-grey-mint">$</span>
-								</div>
-							</li>
-							<li class="divider">
-							</li>
-							<li>
-								<div class="font-grey-mint font-sm">
-									Growth
-								</div>
-								<div class="uppercase font-hg font-blue-sharp">
-									9,760 <span class="font-lg font-grey-mint">$</span>
-								</div>
-							</li>
-						</ul>
-						<div id="sales_statistics" class="portlet-body-morris-fit morris-chart" style="height: 260px"></div>
-					</div>
-				</div>
-				<!-- END PORTLET-->
-			</div>
-			<div class="col-md-6 col-sm-12">
-				<!-- BEGIN PORTLET-->
-				<div class="portlet light ">
-					<div class="portlet-title">
-						<div class="caption caption-md">
-							<i class="icon-bar-chart theme-font-color hide"></i>
-							<span class="caption-subject theme-font-color bold uppercase">Proyectos Atrasados</span>
-							<span class="caption-helper hide">estadísticas semanales...</span>
-						</div>
-						<div class="actions">
-							<div class="btn-group btn-group-devided" data-toggle="buttons">
-								<label class="btn btn-transparent grey-salsa btn-circle btn-sm active">
-								<input type="radio" name="options" class="toggle" id="option1">Hoy</label>
-								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
-								<input type="radio" name="options" class="toggle" id="option2">Semana</label>
-								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
-								<input type="radio" name="options" class="toggle" id="option2">Mes</label>
-							</div>
+						<div class="tools">
+							<a href="{{ $module['route'] }}">
+								Volver
+							</a>
+							<a href="#portlet-config" data-toggle="modal" class="config">
+							</a>
+							<a href="javascript:;" class="reload">
+							</a>
+							<a href="javascript:;" class="remove">
+							</a>
 						</div>
 					</div>
-					<div class="portlet-body">
-						<div class="row number-stats margin-bottom-30">
-							<div class="col-md-6 col-sm-6 col-xs-6">
-								<div class="stat-left">
-									<div class="stat-chart">
-										<!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-										<div id="sparkline_bar"></div>
-									</div>
-									<div class="stat-number">
-										<div class="title">
-											Atrasados
+					<div class="portlet-body form">
+						<!-- BEGIN FORM-->
+						<form action="#" class="form-horizontal">
+							<div class="form-body">
+								<h3 class="form-section">Person Info</h3>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">First Name</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" placeholder="Chee Kin">
+												<span class="help-block">
+												This is inline help </span>
+											</div>
 										</div>
-										<div class="number">
-											2460
+									</div>
+									<!--/span-->
+									<div class="col-md-6">
+										<div class="form-group has-error">
+											<label class="control-label col-md-3">Last Name</label>
+											<div class="col-md-9">
+												<select name="foo" class="select2me form-control">
+													<option value="1">Abc</option>
+													<option value="1">Abc</option>
+													<option value="1">This is a really long value that breaks the fluid design for a select2</option>
+												</select>
+												<span class="help-block">
+												This field has error. </span>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+								<!--/row-->
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">Gender</label>
+											<div class="col-md-9">
+												<select class="form-control">
+													<option value="">Male</option>
+													<option value="">Female</option>
+												</select>
+												<span class="help-block">
+												Select your gender. </span>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">Date of Birth</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" placeholder="dd/mm/yyyy">
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+								<!--/row-->
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">Category</label>
+											<div class="col-md-9">
+												<select class="select2_category form-control" data-placeholder="Choose a Category" tabindex="1">
+													<option value="Category 1">Category 1</option>
+													<option value="Category 2">Category 2</option>
+													<option value="Category 3">Category 5</option>
+													<option value="Category 4">Category 4</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">Membership</label>
+											<div class="col-md-9">
+												<div class="radio-list">
+													<label class="radio-inline">
+													<input type="radio" name="optionsRadios2" value="option1"/>
+													Free </label>
+													<label class="radio-inline">
+													<input type="radio" name="optionsRadios2" value="option2" checked/>
+													Professional </label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+								<h3 class="form-section">Address</h3>
+								<!--/row-->
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">Address 1</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">Address 2</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control">
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-6 col-sm-6 col-xs-6">
-								<div class="stat-right">
-									<div class="stat-chart">
-										<!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-										<div id="sparkline_bar2"></div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">City</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control">
+											</div>
+										</div>
 									</div>
-									<div class="stat-number">
-										<div class="title">
-											En Curso
+									<!--/span-->
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">State</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control">
+											</div>
 										</div>
-										<div class="number">
-											719
+									</div>
+									<!--/span-->
+								</div>
+								<!--/row-->
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">Post Code</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control">
+											</div>
 										</div>
+									</div>
+									<!--/span-->
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">Country</label>
+											<div class="col-md-9">
+												<select class="form-control">
+													<option>Country 1</option>
+													<option>Country 2</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+								<!--/row-->
+							</div>
+							<div class="form-actions">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-offset-3 col-md-9">
+												<button type="submit" class="btn green">Submit</button>
+												<button type="button" class="btn default">Cancel</button>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="table-scrollable table-scrollable-borderless">
-							<table class="table table-hover table-light">
-								<thead>
-									<tr class="uppercase">
-										<th colspan="2">
-											PROYECTO
-										</th>
-										<th>
-											PROSUPUESTO
-										</th>
-										<th>
-											DIAS RESTANTES
-										</th>
-										<th>
-											TAREAS
-										</th>
-										<th>
-											TAREAS FINALIZADAS
-										</th>
-									</tr>
-								</thead>
-								<tr>
-									<td class="fit">
-										<img class="user-pic" src="/assets/admin/layout3/img/avatar4.jpg">
-									</td>
-									<td>
-										<a href="javascript:;" class="primary-link">Brain</a>
-									</td>
-									<td>
-										$345
-									</td>
-									<td>
-										45
-									</td>
-									<td>
-										124
-									</td>
-									<td>
-										<span class="bold theme-font-color">80%</span>
-									</td>
-								</tr>
-								<tr>
-									<td class="fit">
-										<img class="user-pic" src="/assets/admin/layout3/img/avatar5.jpg">
-									</td>
-									<td>
-										<a href="javascript:;" class="primary-link">Nick</a>
-									</td>
-									<td>
-										$560
-									</td>
-									<td>
-										12
-									</td>
-									<td>
-										24
-									</td>
-									<td>
-										<span class="bold theme-font-color">67%</span>
-									</td>
-								</tr>
-								<tr>
-									<td class="fit">
-										<img class="user-pic" src="/assets/admin/layout3/img/avatar6.jpg">
-									</td>
-									<td>
-										<a href="javascript:;" class="primary-link">Tim</a>
-									</td>
-									<td>
-										$1,345
-									</td>
-									<td>
-										450
-									</td>
-									<td>
-										46
-									</td>
-									<td>
-										<span class="bold theme-font-color">98%</span>
-									</td>
-								</tr>
-								<tr>
-									<td class="fit">
-										<img class="user-pic" src="/assets/admin/layout3/img/avatar7.jpg">
-									</td>
-									<td>
-										<a href="javascript:;" class="primary-link">Tom</a>
-									</td>
-									<td>
-										$645
-									</td>
-									<td>
-										50
-									</td>
-									<td>
-										89
-									</td>
-									<td>
-										<span class="bold theme-font-color">58%</span>
-									</td>
-								</tr>
-							</table>
-						</div>
+						</form>
+						<!-- END FORM-->
 					</div>
 				</div>
-				<!-- END PORTLET-->
 			</div>
 		</div>
 		<!-- END PAGE CONTENT INNER -->

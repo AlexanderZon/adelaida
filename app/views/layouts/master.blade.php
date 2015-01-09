@@ -465,7 +465,7 @@
 						<li class="dropdown dropdown-user">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 								<span class="username username-hide-on-mobile">
-								Nick 
+								{{ Auth::user()->displayname }}
 								</span>
 								<!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
 								&nbsp;
