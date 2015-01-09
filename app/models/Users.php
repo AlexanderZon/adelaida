@@ -17,6 +17,18 @@ class Users extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'users';
 
 	/**
+	 * The database rules used by the model.
+	 *
+	 * @var string
+	 */
+    private $rules = array(
+        'username' => 'required|alpha|min:6|unique:users',
+        'password'  => 'required',
+        'email' => 'unique:users'
+        // .. more rules here ..
+    );
+
+	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
@@ -51,6 +63,30 @@ class Users extends Eloquent implements UserInterface, RemindableInterface {
 
 		return $this->hasMany('Audits', 'id_user');
 		
+	}
+
+	public static function hasUsername( $username ){
+
+		$user = self::where('username', '=', $username )->take(1)->get();
+
+		if(empty($user[0])):
+			return false;
+		else:
+			return true;
+		endif;
+
+	}
+
+	public static function hasEmail( $email ){
+
+		$user = self::where('email', '=', $email )->take(1)->get();
+
+		if(empty($user[0])):
+			return false;
+		else:
+			return true;
+		endif;
+
 	}
 
 }

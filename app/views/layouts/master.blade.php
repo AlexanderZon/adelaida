@@ -1015,6 +1015,11 @@
 	<script src="/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 	<script src="/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 	<!-- END CORE PLUGINS -->
+	
+	<script type="text/javascript" src="/assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
+	<script type="text/javascript" src="/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script src="/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
 	<script src="/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
@@ -1034,15 +1039,14 @@
 	<script src="/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
 	<script src="/assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
 	<script src="/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
-
-	<script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
+	<!-- END PAGE LEVEL SCRIPTS -->
+	<!-- BEGIN PAGE DATATABLES SCRIPTS -->
 	<script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-
 	<script type="text/javascript" src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 	<script type="text/javascript" src="/assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
 	<script type="text/javascript" src="/assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
 	<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
-
+	<!-- END PAGE DATATABLES SCRIPTS -->
 	<script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<!-- END PAGE LEVEL SCRIPTS -->
 	<!-- END JAVASCRIPTS -->

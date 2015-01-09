@@ -91,6 +91,7 @@ class UserController extends \BaseController {
 	{
 		$args = array(
 			'users' => Users::all(),
+			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
 		return View::make('users.create')->with($args);
@@ -104,7 +105,95 @@ class UserController extends \BaseController {
 	 */
 	public function postCreate()
 	{
-		//
+
+		if( Users::hasUsername(Input::get('username')) ):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'user_username_err',
+					'title' => 'Error al agregar usuario',
+					'description' => 'El usuario ' . Input::get('username') . ' ya existe, por favor ingrese uno diferente'
+					)
+				);
+
+			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+		elseif( Users::hasEmail(Input::get('username')) ):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'user_username_err',
+					'title' => 'Error al agregar usuario',
+					'description' => 'El usuario ' . Input::get('username') . ' ya existe, por favor ingrese uno diferente'
+					)
+				);
+
+			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+		elseif( Input::get('password_1') != Input::get('password_2')):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'user_password_err',
+					'title' => 'Error al agregar usuario',
+					'description' => 'Las contraseñas deben ser iguales'
+					)
+				);
+
+			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+
+		elseif( Input::get('id_role') == 0 ):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'user_role_err',
+					'title' => 'Error al agregar usuario',
+					'description' => 'Debe indicar el rol del usuario'
+					)
+				);
+
+			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+		else:
+
+			$user = new Users();
+			$user->first_name = Input::get('first_name');
+			$user->last_name = Input::get('last_name');
+			$user->username = Input::get('username');
+			$user->displayname = Input::get('displayname') != '' ? Input::get('displayname') : Input::get('first_name').' '.Input::get('last_name');
+			$user->email = Input::get('email');
+			$user->password = Hash::make(Input::get('password'));
+			$user->id_role = Input::get('id_role');
+			$user->status = 'inactive';
+			
+			if( $user->save() ):
+
+				$args = array(
+					'msg_success' => array(
+						'name' => 'user_create',
+						'title' => 'Usuario Agregado',
+						'description' => 'El usuario ' . $user->displayname . ' fue agregado exitosamente'
+						)
+					);
+
+				return Redirect::to( $this->module['route'] )->with( $args );
+
+			else:
+
+				$args = array(
+					'msg_danger' => array(
+						'name' => 'user_create_err',
+						'title' => 'Error al agregar usuario',
+						'description' => 'Hubo un error al agregar el usuario ' . $user->displayname . ' fue agregado exitosamente'
+						)
+					);
+
+				return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+			endif;
+
+		endif;
 	}
 
 	/**
