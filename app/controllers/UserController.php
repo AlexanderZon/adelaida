@@ -118,13 +118,13 @@ class UserController extends \BaseController {
 
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
-		elseif( Users::hasEmail(Input::get('username')) ):
+		elseif( Users::hasEmail(Input::get('email')) ):
 
 			$args = array(
 				'msg_warning' => array(
-					'name' => 'user_username_err',
+					'name' => 'user_email_err',
 					'title' => 'Error al agregar usuario',
-					'description' => 'El usuario ' . Input::get('username') . ' ya existe, por favor ingrese uno diferente'
+					'description' => 'El correo ' . Input::get('email') . ' ya existe, por favor ingrese uno diferente'
 					)
 				);
 
