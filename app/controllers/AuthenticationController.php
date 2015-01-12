@@ -82,4 +82,8 @@ class AuthenticationController extends \BaseController {
 		endif;
 	}
 
+	public function getNotpermissions(){
+		return View::make('auth.notpermissions');
+	}
+
 }

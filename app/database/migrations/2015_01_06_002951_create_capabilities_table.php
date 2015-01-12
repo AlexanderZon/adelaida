@@ -16,7 +16,9 @@ class CreateCapabilitiesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
+			$table->string('title');
 			$table->longText('description');
+			$table->string('controller');
 			$table->timestamps();
 			$table->softDeletes();
 		});

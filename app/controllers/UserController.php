@@ -11,6 +11,10 @@ class UserController extends \BaseController {
 
 	public function __construct(){
 
+		$this->beforeFilter('auth');
+
+		$this->beforeFilter('capabilities');
+
 		$this->module = array(
 			'route' => '/users',
 			'name' => 'users',
@@ -36,6 +40,7 @@ class UserController extends \BaseController {
 	{
 		$args = array(
 			'users' => Users::all(),
+			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
 		return View::make('users.index')->with($args);
@@ -185,7 +190,7 @@ class UserController extends \BaseController {
 					'msg_danger' => array(
 						'name' => 'user_create_err',
 						'title' => 'Error al agregar usuario',
-						'description' => 'Hubo un error al agregar el usuario ' . $user->displayname . ' fue agregado exitosamente'
+						'description' => 'Hubo un error al agregar el usuario ' . $user->displayname
 						)
 					);
 
@@ -207,6 +212,7 @@ class UserController extends \BaseController {
 	{
 		$args = array(
 			'user' => Users::find( Crypt::decrypt($id) ),
+			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
 		return View::make('users.edit')->with($args);
@@ -235,6 +241,7 @@ class UserController extends \BaseController {
 	{
 		$args = array(
 			'user' => Users::find( Crypt::decrypt($id) ),
+			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
 		return View::make('users.delete')->with($args);

@@ -16,7 +16,7 @@
 			<div class="page-toolbar">
 				<!-- BEGIN THEME PANEL -->
 				<div class="btn-group btn-theme-panel">
-					<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir un nuevo usuario"><i class="icon-plus"></i></a>
+					<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir una nueva Capacidad"><i class="icon-plus"></i></a>
 				</div>
 				<!-- END THEME PANEL -->
 			</div>
@@ -71,7 +71,7 @@
 					<div class="portlet box green-haze">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-user"></i>Listado de Usuarios
+								<i class="fa fa-key"></i>Listado de Capacidades
 							</div>
 							<div class="tools">
 								<a href="{{ $module['route'] }}/create" class="label bg-green-haze"><i class="fa fa-plus-circle"></i> Añadir Nuevo</a>
@@ -82,65 +82,56 @@
 							<thead>
 							<tr>
 								<th>
+									 Título
+								</th>
+								<th>
+									 Description
+								</th>
+								<th>
 									 Nombre
 								</th>
 								<th>
-									 Apellido
+									 Controlador
+								</th>
+								<!-- <th>
+									 Método
 								</th>
 								<th>
-									 Usuario
-								</th>
-								<th>
-									 Correo
-								</th>
-								<th>
-									 Rol
-								</th>
-								<th>
-									 Estado
-								</th>
+									 Ruta
+								</th> -->
 								<th>
 									 Acciones
 								</th>
 							</tr>
 							</thead>
 							<tbody>
-							@foreach( $users as $user )
+							@foreach( $capabilities as $capability )
 							<tr>
 								<td>
-									{{ $user->first_name }}
+									{{ $capability->title }}
 								</td>
 								<td>
-									{{ $user->last_name }}
+									{{ $capability->description }}
 								</td>
 								<td>
-									{{ $user->username }}
+									{{ $capability->name }}
 								</td>
 								<td>
-									{{ $user->email }}
+									{{ $capability->controller }}
+								</td>
+								<!-- <td>
+									{{ $capability->method }}
 								</td>
 								<td>
-									{{ $user->role->description }}
-								</td>
+									{{ $capability->route }}
+								</td> -->
 								<td>
-									@if( $user->status == 'active' )
-										<a href="{{ $module['route'] . '/deactivate/' . Crypt::encrypt($user->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Desactivar"><span class="label bg-blue">{{ 'Activo' }}</span></a>
-									@elseif( $user->status == 'inactive' )
-										<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($user->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Activar"><span class="label bg-yellow-saffron">{{ 'Inactivo' }}</span>
-									@endif
-								</td>
-								<td>
-									@if( $user->status == 'active' )
-										&nbsp;&nbsp;
-										<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
-									@elseif( $user->status == 'inactive' )
-										&nbsp;&nbsp;
-										<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
-										&nbsp;&nbsp;
-										<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
-										&nbsp;&nbsp;
-										<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
-									@endif
+									&nbsp;&nbsp;
+									<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
+									&nbsp;&nbsp;
+									<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
+									&nbsp;&nbsp;
+									<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
 								</td>
 							</tr>
 							@endforeach

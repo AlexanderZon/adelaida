@@ -15,7 +15,7 @@ class Roles extends \Eloquent {
 
 	}
 
-	public function hasPermission( $permission ){
+	/*public function hasPermission( $permission ){
 
 		$caps = $this->belongsToMany('Capabilities', 'role_capabilities', 'id_role', 'id_capability');
 
@@ -27,6 +27,24 @@ class Roles extends \Eloquent {
 
 		return $bool;
 
+	}*/
+
+	public static function hasName( $name, $id = '' ){
+		$role = self::where('name','=',$name)->where('id','!=',$id)->take(1)->get();
+		if(isset($role[0])):
+			return true;
+		else:
+			return false;
+		endif;
+	}
+
+	public static function hasCapability( $role, $cap ){
+		$capabilities = $role->capabilities;
+		$bool = false;
+		foreach($capabilities as $capability):
+			if($capability->id == $cap->id) $bool = true;
+		endforeach;
+		return $bool;
 	}
 
 	public function users(){

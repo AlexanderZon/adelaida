@@ -16,7 +16,7 @@
 				<!-- BEGIN THEME PANEL -->
 				
 				<div class="btn-group btn-theme-panel">
-					<a href="{{ $module['route'] }}" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Volver al Listado de Usuarios"><i class="icon-arrow-left"></i></a>
+					<a href="{{ $module['route'] }}" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Volver al Listado de Roles"><i class="icon-arrow-left"></i></a>
 				</div>
 				<!-- END THEME PANEL -->
 			</div>
@@ -31,7 +31,7 @@
 			</li>
 			@endforeach
 			<li class="active">
-				{{ $module['sections']['delete'] }}
+				{{ $module['sections']['assign'] }}
 			</li>
 		</ul>
 		<!-- END PAGE BREADCRUMB -->
@@ -62,7 +62,7 @@
 				<div class="portlet box green-haze">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-user"></i>Eliminación de Usuarios
+							<i class="fa fa-lock"></i>Asignación de Capacidades
 						</div>
 						<div class="tools">
 							<a href="{{ $module['route'] }}" class="label bg-green-haze"><i class="fa fa-arrow-circle-left"></i> Volver</a>
@@ -72,17 +72,24 @@
 						<!-- BEGIN FORM-->
 						<form action="" method="post" class="form-horizontal">
 							<div class="form-body">
-								<h3 >¿Desea eliminar el usuario {{ $user->first_name }} {{ $user->last_name }}?</h3>
-								<input type="hidden" name="id" value="{{ $user->id }}"/>
-								<!--/row-->
+								<div class="form-group">
+									<label class="control-label col-md-3">Capacidades</label>
+									<div class="col-md-9">
+										<select multiple="multiple" class="multi-select" id="my_multi_select1" name="capabilities[]">
+											@foreach( $capabilities as $capability ):
+												<option value="{{$capability->id}}" {{ Roles::hasCapability($role, $capability) ? 'selected' : '' }}>{{ $capability->title }}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
 							</div>
 							<div class="form-actions">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="row">
 											<div class="col-md-offset-3 col-md-9">
-												<button type="submit" class="btn btn-danger">Si, Eliminar</button>
-												<a href="{{ $module['route'] }}" class="btn default">No, Volver</a>
+												<button type="submit" class="btn green">Asignar</button>
+												<a href="{{ $module['route'] }}" class="btn default">Volver</a>
 											</div>
 										</div>
 									</div>
@@ -103,11 +110,14 @@
 @stop
 
 @section('javascripts')
+
 	<script type="text/javascript">
         jQuery(document).ready(function() {  
            	Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
 			Demo.init(); // init demo features
+			ComponentsDropdowns.init();
+
         });
 	</script>
 @stop

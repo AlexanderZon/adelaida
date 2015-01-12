@@ -26,6 +26,7 @@
 <link href="/assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-multi-select/css/multi-select.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
@@ -540,49 +541,49 @@
 						</a>
 					</li>
 					<!-- BEGIN ANGULARJS LINK -->
-					<li class="tooltips {{ $module['name'] == 'projects' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+					<li class="tooltips {{ $module['name'] == 'projects' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Proyectos">
 						<a href="/projects">
 						<i class="icon-paper-plane"></i>
 						<span class="title">
 						Proyectos </span>
 						</a>
 					</li>
-					<li class="tooltips {{ $module['name'] == 'stock' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+					<li class="tooltips {{ $module['name'] == 'stock' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Stock">
 						<a href="/stock">
 						<i class="icon-puzzle"></i>
 						<span class="title">
 						Stock </span>
 						</a>
 					</li>
-					<li class="tooltips {{ $module['name'] == 'clients' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+					<li class="tooltips {{ $module['name'] == 'clients' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Clientes">
 						<a href="/clients">
 						<i class="icon-user"></i>
 						<span class="title">
 						Clientes </span>
 						</a>
 					</li>
-					<li class="tooltips {{ $module['name'] == 'providers' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+					<li class="tooltips {{ $module['name'] == 'providers' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Proveedores">
 						<a href="/providers">
 						<i class="icon-briefcase"></i>
 						<span class="title">
 						Proveedores </span>
 						</a>
 					</li>
-					<li class="tooltips {{ $module['name'] == 'sells' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+					<li class="tooltips {{ $module['name'] == 'sells' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Ventas">
 						<a href="/sells">
 						<i class="icon-basket-loaded"></i>
 						<span class="title">
 						Ventas </span>
 						</a>
 					</li>
-					<li class="tooltips {{ $module['name'] == 'reports' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+					<li class="tooltips {{ $module['name'] == 'reports' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Reportes">
 						<a href="/reports">
 						<i class="icon-bar-chart"></i>
 						<span class="title">
 						Reportes </span>
 						</a>
 					</li>
-					<li class="tooltips {{ $module['name'] == 'users' || $module['name'] == 'roles' || $module['name'] == 'capabilities' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+					<li class="tooltips {{ $module['name'] == 'users' || $module['name'] == 'roles' || $module['name'] == 'capabilities' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Usuario, Roles y Capacidades">
 						<a href="/users">
 						<i class="icon-users"></i>
 						<span class="title">
@@ -1019,6 +1020,7 @@
 	<script type="text/javascript" src="/assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
 	<script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 	<script type="text/javascript" src="/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+	<script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script src="/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>

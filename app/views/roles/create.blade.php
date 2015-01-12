@@ -16,7 +16,7 @@
 				<!-- BEGIN THEME PANEL -->
 				
 				<div class="btn-group btn-theme-panel">
-					<a href="{{ $module['route'] }}" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Volver al Listado de Usuarios"><i class="icon-arrow-left"></i></a>
+					<a href="{{ $module['route'] }}" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Volver al Listado de Roles"><i class="icon-arrow-left"></i></a>
 				</div>
 				<!-- END THEME PANEL -->
 			</div>
@@ -31,7 +31,7 @@
 			</li>
 			@endforeach
 			<li class="active">
-				{{ $module['sections']['edit'] }}
+				{{ $module['sections']['create'] }}
 			</li>
 		</ul>
 		<!-- END PAGE BREADCRUMB -->
@@ -62,7 +62,7 @@
 				<div class="portlet box green-haze">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-user"></i>Edición de Usuarios
+							<i class="fa fa-lock"></i>Creación de Roles
 						</div>
 						<div class="tools">
 							<a href="{{ $module['route'] }}" class="label bg-green-haze"><i class="fa fa-arrow-circle-left"></i> Volver</a>
@@ -72,13 +72,13 @@
 						<!-- BEGIN FORM-->
 						<form action="" method="post" class="form-horizontal">
 							<div class="form-body">
-								<h3 class="form-section">Información Personal</h3>
+								<h3 class="form-section">Información de Rol</h3>
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label class="control-label col-md-3">Nombre</label>
+											<label class="control-label col-md-3">Descripción</label>
 											<div class="col-md-9">
-												<input name="first_name" type="text" class="form-control" placeholder="Ingrese el nombre del Usuario" value="{{ $user->first_name }}">
+												<input name="description" type="text" class="form-control" placeholder="Ingrese la Descripción del Rol">
 												<!-- <span class="help-block">This is inline help</span> -->
 											</div>
 										</div>
@@ -86,107 +86,78 @@
 									<!--/span-->
 									<div class="col-md-6">
 										<div class="form-group {{ false ? 'has-error' : '' }}">
-											<label class="control-label col-md-3">Apellido</label>
+											<label class="control-label col-md-3">Nombre</label>
 											<div class="col-md-9">
-												<input name="last_name" type="text" class="form-control" placeholder="Ingrese el nombre del Usuario" value="{{ $user->last_name }}">
+												<input name="name" type="text" class="form-control" placeholder="Ingrese el Nombre del Rol">
 												<!-- <span class="help-block">This is inline help</span> -->
 											</div>
 										</div>
 									</div>
 									<!--/span-->
 								</div>
-								<h3 class="form-section">Información de Usuario</h3>
+								<!-- <h3 class="form-section">Información de Sistema</h3> -->
 								<!--/row-->
+								<!-- <div class="row">
+									<div class="col-md-6">
+										<div class="form-group {{ $module['msg_warning']['name'] == 'capability_name_err' ? 'has-error' : '' }}">
+											<label class="control-label col-md-3">Slug</label>
+											<div class="col-md-9">
+												<div class="input-icon right">
+													<i class="fa fa-code"></i>
+													<input name="name" type="text" class="form-control" placeholder="Ingrese el nombre del Rol" required>
+												</div>
+												<span class="help-block"><em>e.j.: name_of_capability</em></span> 
+											</div>
+										</div>
+									</div>
+									/span
+									<div class="col-md-6">
+										<div class="form-group {{ $module['msg_warning']['name'] == 'capability_controller_err' ? 'has-error' : '' }}">
+											<label class="control-label col-md-3">Controlador</label>
+											<div class="col-md-9">
+												<div class="input-icon right">
+													<i class="fa fa-crosshairs"></i>
+													<input name="controller" type="text" class="form-control" placeholder="Ingrese el nombre para mostrar">
+												</div>
+												<span class="help-block"><em>e.j.: ControllerName@actionName</em></span>
+											</div>
+										</div>
+									</div>
+									/span
+								</div> -->
+								<!--/row-->
+								<!--
 								<div class="row">
 									<div class="col-md-6">
-										<div class="form-group {{ $module['msg_warning']['name'] == 'user_username_err' ? 'has-error' : '' }}">
-											<label class="control-label col-md-3">Usuario</label>
+										<div class="form-group {{ $module['msg_warning']['name'] == 'capability_route_err' ? 'has-error' : '' }}">
+											<label class="control-label col-md-3">Ruta</label>
 											<div class="col-md-9">
 												<div class="input-icon right">
-													<i class="fa fa-user"></i>
-													<input name="username" type="text" class="form-control" placeholder="Ingrese el nombre del Usuario" value="{{ $user->username }}" readonly required>
-												</div>
-												<!-- <span class="help-block">This is inline help</span> -->
-											</div>
-										</div>
-									</div>
-									<!--/span-->
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label col-md-3">Nombre a mostrar</label>
-											<div class="col-md-9">
-												<div class="input-icon right">
-													<i class="fa fa-eye"></i>
-													<input name="displayname" type="text" class="form-control" placeholder="Ingrese el nombre para mostrar" value="{{ $user->displayname }}">
-												</div>
-												<!-- <span class="help-block">This is inline help</span> -->
-											</div>
-										</div>
-									</div>
-									<!--/span-->
-								</div>
-								<!--/row-->
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group {{ $module['msg_warning']['name'] == 'user_email_err' ? 'has-error' : '' }}">
-											<label class="control-label col-md-3">Correo</label>
-											<div class="col-md-9">
-												<div class="input-icon right">
-													<i class="fa fa-envelope"></i>
-													<input name="email" type="email" placeholder="Ingrese el Correo Electrónico" class="form-control"  value="{{ $user->email }}" required>
+													<i class="fa fa-bullseye"></i>
+													<input name="route" type="text" placeholder="Ingrese el Correo Electrónico" class="form-control" required>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="col-md-6">
-										<div class="form-group {{ $module['msg_warning']['name'] == 'user_role_err' ? 'has-error' : '' }}">
-											<label class="control-label col-md-3">Rol</label>
+										<div class="form-group {{ $module['msg_warning']['name'] == 'capability_method_err' ? 'has-error' : '' }}">
+											<label class="control-label col-md-3">Método</label>
 											<div class="col-md-9">
 												<div class="input-group ">
 													<span class="input-group-addon">
-													<i class="fa fa-user"></i>
+													<i class="fa fa-sliders"></i>
 													</span>
-													<select name="id_role" class="form-control select2me" data-placeholder="Seleccione un rol de usuario..." required>
-														<option value="0">--- SELECCIONE UN ROL DE USUARIO ---</option>
-														@foreach( $roles as $role )
-															@if( $role->id == $user->id_role )
-																<option value="{{ $role->id }}" selected>{{ $role->description }}</option>
-															@else
-																<option value="{{ $role->id }}">{{ $role->description }}</option>
-															@endif
-														@endforeach
+													<select name="method" class="form-control select2me" data-placeholder="Seleccione un rol de capacidad..." required>
+														<option value="0">--- SELECCIONE UN MÉTODO DE ACCESO ---</option>
+														<option value="GET">GET</option>
+														<option value="POST">POST</option>
 													</select>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group {{ $module['msg_warning']['name'] == 'user_password_err' ? 'has-error' : '' }}">
-											<label for="inputPassword1" class="col-md-3 control-label">Contraseña</label>
-											<div class="col-md-9">
-												<div class="input-icon right">
-													<i class="fa fa-lock"></i>
-													<input name="password_1" type="password" class="form-control" id="inputPassword1" placeholder="Ingrese la Contraseña del usuario" required>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!--/span-->
-									<div class="col-md-6">
-										<div class="form-group {{ $module['msg_warning']['name'] == 'user_password_err' ? 'has-error' : '' }}">
-											<label for="inputPassword1" class="col-md-3 control-label">Repita la Contraseña</label>
-											<div class="col-md-9">
-												<div class="input-icon right">
-													<i class="fa fa-lock"></i>
-													<input name="password_2" type="password" class="form-control" id="inputPassword1" placeholder="Ingrese de nuevo la Contraseña para el usuario" required>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!--/span-->
-								</div>
+								-->
 								<!--/row-->
 							</div>
 							<div class="form-actions">
@@ -194,7 +165,7 @@
 									<div class="col-md-6">
 										<div class="row">
 											<div class="col-md-offset-3 col-md-9">
-												<button type="submit" class="btn green">Actualizar</button>
+												<button type="submit" class="btn green">Crear</button>
 												<a href="{{ $module['route'] }}" class="btn default">Volver</a>
 											</div>
 										</div>

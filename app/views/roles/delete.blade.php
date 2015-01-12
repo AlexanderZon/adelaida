@@ -16,7 +16,7 @@
 				<!-- BEGIN THEME PANEL -->
 				
 				<div class="btn-group btn-theme-panel">
-					<a href="{{ $module['route'] }}" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Volver al Listado de Usuarios"><i class="icon-arrow-left"></i></a>
+					<a href="{{ $module['route'] }}" class="btn tooltips" data-container="body" data-placement="left" data-html="true"  data-original-title="Volver al Listado de Capacidades"><i class="icon-arrow-left"></i></a>
 				</div>
 				<!-- END THEME PANEL -->
 			</div>
@@ -62,7 +62,7 @@
 				<div class="portlet box green-haze">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-user"></i>Eliminación de Usuarios
+							<i class="fa fa-user"></i>Eliminación de Roles
 						</div>
 						<div class="tools">
 							<a href="{{ $module['route'] }}" class="label bg-green-haze"><i class="fa fa-arrow-circle-left"></i> Volver</a>
@@ -72,8 +72,8 @@
 						<!-- BEGIN FORM-->
 						<form action="" method="post" class="form-horizontal">
 							<div class="form-body">
-								<h3 >¿Desea eliminar el usuario {{ $user->first_name }} {{ $user->last_name }}?</h3>
-								<input type="hidden" name="id" value="{{ $user->id }}"/>
+								<h3 >¿Desea eliminar el Rol {{ $role->description }} <em>{{ $role->name }}</em>?</h3>
+								<input type="hidden" name="id" value="{{ $role->id }}"/>
 								<!--/row-->
 							</div>
 							<div class="form-actions">

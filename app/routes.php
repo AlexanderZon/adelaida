@@ -11,13 +11,11 @@
 |
 */
 
-Route::get('/hash', function(){
-	return Hash::make('alexis23498535');
-});
-
 if(Auth::check()):
 
 	Route::controller('/users', 'UserController');
+	Route::controller('/roles', 'RoleController');
+	Route::controller('/capabilities', 'CapabilityController');
 	Route::controller('/projects', 'ProjectController');
 	Route::controller('/stock', 'StockController');
 	Route::controller('/clients', 'ClientController');
@@ -31,9 +29,8 @@ if(Auth::check()):
 else:
 
 	Route::controller('/auth', 'AuthenticationController');
-	Route::any('/{arg1?}/{arg2?}/{arg3?}/{arg4?}/', function($arg1 = '' ,$arg2 = '' ,$arg3 = '' ,$arg4 = '' ){
-		$route = '/'.$arg1.'/'.$arg2.'/'.$arg3.'/'.$arg4.'/';
-		return Redirect::to('/auth/login')->with('redirect_to', $route);
+	Route::any('/{arg1?}/{arg2?}/{arg3?}/{arg4?}/{arg5?}/', function($arg1 = '' ,$arg2 = '' ,$arg3 = '' ,$arg4 = '' ,$arg5 = '' ){
+		return Redirect::to('/auth/login')->with('redirect_to', '/'.Request::path());
 	});
 
 endif;

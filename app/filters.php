@@ -33,7 +33,7 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
+/*Route::filter('auth', function()
 {
 	if (Auth::guest())
 	{
@@ -52,7 +52,7 @@ Route::filter('auth', function()
 Route::filter('auth.basic', function()
 {
 	return Auth::basic();
-});
+});*/
 
 /*
 |--------------------------------------------------------------------------
@@ -87,4 +87,34 @@ Route::filter('csrf', function()
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}
+});
+
+Route::filter('capabilities', function( $route, $request){
+
+	$request = array(
+		'route' => $route->uri(),
+		'controller' => $route->getAction()['controller'],
+		'method' => $route->methods()[0]
+		);
+
+	if( $capability = Capabilities::getCapability( $request )):
+
+		if(!Auth::user()->hasCapability($capability) ):
+			return Redirect::to('/auth/notpermissions');
+		else:
+			//Si Tiene Permisos
+		endif;
+
+	else:
+		//Permiso No Establecido
+	endif;
+
+});
+
+Route::filter('auth', function(){
+	if(!Auth::check()):
+		return Redirect::to('/auth');
+	else:
+		// Está Logueado
+	endif;
 });
