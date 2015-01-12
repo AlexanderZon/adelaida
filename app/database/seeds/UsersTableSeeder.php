@@ -18,6 +18,17 @@ class UsersTableSeeder extends Seeder {
 			'id_role' => 1,
 			'status' => 'active'
 			));
+		
+		User::create( array(
+			'first_name' => 'Antony',
+			'last_name' => 'Borges',
+			'username' => 'robertdacorte',
+			'displayname' => 'Antony Borges',
+			'email' => 'aborges@gmaicmedia.com.ve',
+			'password' => Hash::make('robert18554560'),
+			'id_role' => 1,
+			'status' => 'active'
+			));
 
 	}
 
