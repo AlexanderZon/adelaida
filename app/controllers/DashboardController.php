@@ -8,6 +8,10 @@ class DashboardController extends \BaseController {
 
 	public function __construct(){
 
+		$this->beforeFilter('auth');
+
+		$this->beforeFilter('capabilities');
+
 		$this->module = array(
 			'route' => '/',
 			'name' => 'dashboard',
@@ -32,7 +36,8 @@ class DashboardController extends \BaseController {
 	public function getIndex()
 	{
 		$args = array(
-			'module' => $this->module
+			'module' => $this->module,
+			'audits' => Audits::all(),
 			);
 		return View::make('hello')->with($args);
 	}

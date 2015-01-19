@@ -841,30 +841,49 @@
 							<div class="tab-pane active" id="tab_1_1">
 								<div class="scroller" style="height: 305px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
 									<ul class="feeds">
+										@foreach( $audits as $audit )
 										<li>
+											<a href="/audits/show/{{ Crypt::encrypt($audit->id) }}">
 											<div class="col1">
 												<div class="cont">
 													<div class="cont-col1">
-														<div class="label label-sm label-success">
-															<i class="fa fa-bell-o"></i>
-														</div>
+														@if( $audit->type == 'CREATE')
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														@elseif( $audit->type == 'READ' )
+															<div class="label label-sm label-info">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														@elseif( $audit->type == 'UPDATE' )
+															<div class="label label-sm label-warning">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														@elseif( $audit->type == 'DELETE' )
+															<div class="label label-sm label-danger">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														@else
+															<div class="label label-sm label-danger">
+																<i class="fa fa-bell-o"></i>
+															</div>														
+														@endif
 													</div>
 													<div class="cont-col2">
 														<div class="desc">
-															You have 4 pending tasks. <span class="label label-sm label-info">
-															Take action <i class="fa fa-share"></i>
+															{{ $audit->title }}
 															</span>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="col2">
-												<div class="date">
-													Just now
-												</div>
+												<div class="date timeago">{{ $audit->created_at }}</div>
 											</div>
+											</a>
 										</li>
-										<li>
+										@endforeach
+										<!-- <li>
 											<a href="javascript:;">
 												<div class="col1">
 													<div class="cont">
@@ -1223,7 +1242,7 @@
 													22 hours
 												</div>
 											</div>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 							</div>
@@ -1682,6 +1701,10 @@
 		   	Demo.init(); // init demo features 
 		    Index.init(); // init index page
 		 	Tasks.initDashboardWidget(); // init tash dashboard widget  
+		 	moment.locale('es');
+		 	jQuery('.timeago').each(function(e){
+		 		jQuery(this).html(moment(jQuery(this).html()).fromNow());
+		 	})
 		});
 	</script>
 

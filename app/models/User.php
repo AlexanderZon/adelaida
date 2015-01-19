@@ -69,4 +69,20 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 
+	public function hasCap( $capability ){
+
+		$capabilities = $this->role->capabilities;
+
+		$bool = false;
+
+		foreach( $capabilities as $cap ):
+
+			if($cap->name == $capability ) $bool = true;
+
+		endforeach;
+
+		return $bool;
+
+	}
+
 }

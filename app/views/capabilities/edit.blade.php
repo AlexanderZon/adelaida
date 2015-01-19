@@ -104,7 +104,7 @@
 											<div class="col-md-9">
 												<div class="input-icon right">
 													<i class="fa fa-user"></i>
-													<input name="name" type="text" class="form-control" placeholder="Ingrese el nombre del Capacidad" value="{{ $capability->name }}" readonly required>
+													<input name="name" type="text" class="form-control" placeholder="Ingrese el nombre del Capacidad" value="{{ $capability->name }}" required>
 												</div>
 												<span class="help-block">name_of_capability</span> 
 											</div>

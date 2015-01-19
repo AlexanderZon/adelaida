@@ -12,7 +12,7 @@ class AuthenticationController extends \BaseController {
 	 */
 	public function getIndex()
 	{
-		$this->verifySession();
+		if($this->verifySession()) return Redirect::to('/');
 
 		return Redirect::to( $this->route . '/login' );
 	}
@@ -25,7 +25,8 @@ class AuthenticationController extends \BaseController {
 	 */
 	public function getLogin()
 	{
-		$this->verifySession();
+
+		if($this->verifySession()) return Redirect::to('/');
 
 		$args = array(
 			'route' => $this->route,
@@ -47,11 +48,13 @@ class AuthenticationController extends \BaseController {
 			'username' => Input::get('username'),
 			'password' => Input::get('password')
 			);
-
 		if(Auth::attempt($credentials)):
+		var_dump('yes');
 			if(Input::get('redirect_to') != ''):
+				var_dump('redirect');
 				return Redirect::to( Input::get('redirect_to') );
 			else:
+				var_dump('/');
 				return Redirect::to('/');
 			endif;
 		else:
@@ -78,7 +81,9 @@ class AuthenticationController extends \BaseController {
 
 	private function verifySession(){
 		if( Auth::check() ):
-			return Redirect::to('/');
+			return true;
+		else:
+			return false;
 		endif;
 	}
 

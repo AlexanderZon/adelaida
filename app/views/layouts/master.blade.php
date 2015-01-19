@@ -534,13 +534,16 @@
 					<li class="heading">
 						<h3>GENERAL</h3>
 					</li>
+					@if(Auth::user()->hasCap('dashboard_view_get'))
 					<li class="tooltips {{ $module['name'] == 'dashboard' ? 'active open' : '' }}">
 						<a href="/">
 						<i class="icon-home"></i>
 						<span class="title">Escritorio</span>
 						</a>
 					</li>
+					@endif
 					<!-- BEGIN ANGULARJS LINK -->
+					@if(Auth::user()->hasCap('projects_view_get'))
 					<li class="tooltips {{ $module['name'] == 'projects' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Proyectos">
 						<a href="/projects">
 						<i class="icon-paper-plane"></i>
@@ -548,6 +551,9 @@
 						Proyectos </span>
 						</a>
 					</li>
+					@endif
+
+					@if(Auth::user()->hasCap('stock_view_get'))
 					<li class="tooltips {{ $module['name'] == 'stock' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Stock">
 						<a href="/stock">
 						<i class="icon-puzzle"></i>
@@ -555,6 +561,9 @@
 						Stock </span>
 						</a>
 					</li>
+					@endif
+
+					@if(Auth::user()->hasCap('clients_view_get'))
 					<li class="tooltips {{ $module['name'] == 'clients' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Clientes">
 						<a href="/clients">
 						<i class="icon-user"></i>
@@ -562,6 +571,9 @@
 						Clientes </span>
 						</a>
 					</li>
+					@endif
+
+					@if(Auth::user()->hasCap('providers_view_get'))
 					<li class="tooltips {{ $module['name'] == 'providers' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Proveedores">
 						<a href="/providers">
 						<i class="icon-briefcase"></i>
@@ -569,6 +581,9 @@
 						Proveedores </span>
 						</a>
 					</li>
+					@endif
+
+					@if(Auth::user()->hasCap('sells_view_get'))
 					<li class="tooltips {{ $module['name'] == 'sells' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Ventas">
 						<a href="/sells">
 						<i class="icon-basket-loaded"></i>
@@ -576,6 +591,9 @@
 						Ventas </span>
 						</a>
 					</li>
+					@endif
+
+					@if(Auth::user()->hasCap('reports_view_get'))
 					<li class="tooltips {{ $module['name'] == 'reports' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Reportes">
 						<a href="/reports">
 						<i class="icon-bar-chart"></i>
@@ -583,6 +601,9 @@
 						Reportes </span>
 						</a>
 					</li>
+					@endif
+
+					@if(Auth::user()->hasCap('users_view_get') || Auth::user()->hasCap('roles_view_get') || Auth::user()->hasCap('capabilities_view_get'))
 					<li class="tooltips {{ $module['name'] == 'users' || $module['name'] == 'roles' || $module['name'] == 'capabilities' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Usuario, Roles y Capacidades">
 						<a href="/users">
 						<i class="icon-users"></i>
@@ -591,23 +612,34 @@
 						<span class="arrow"></span>
 						</a>
 						<ul class="sub-menu">
+
+							@if(Auth::user()->hasCap('users_view_get'))
 							<li class="{{ $module['name'] == 'users' ? 'active' : '' }}">
 								<a href="/users">
 								<i class="icon-list"></i>
 								Todos</a>
 							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('roles_view_get'))
 							<li class="{{ $module['name'] == 'roles' ? 'active' : '' }}">
 								<a href="/roles">
 								<i class="icon-lock"></i>
 								Roles</a>
 							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('capabilities_view_get'))
 							<li class="{{ $module['name'] == 'capabilities' ? 'active' : '' }}">
 								<a href="/capabilities">
 								<i class="icon-key"></i>
 								Capacidades</a>
 							</li>
+							@endif
+
 						</ul>
 					</li>
+					@endif
 					<!-- END ANGULARJS LINK -->
 					<!--
 					<li>
@@ -1048,6 +1080,7 @@
 	<script type="text/javascript" src="/assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
 	<script type="text/javascript" src="/assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
 	<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+	<script type="text/javascript" src="/assets/global/plugins/moment/moment.js"></script>
 	<!-- END PAGE DATATABLES SCRIPTS -->
 	<script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<!-- END PAGE LEVEL SCRIPTS -->

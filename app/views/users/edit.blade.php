@@ -168,7 +168,7 @@
 											<div class="col-md-9">
 												<div class="input-icon right">
 													<i class="fa fa-lock"></i>
-													<input name="password_1" type="password" class="form-control" id="inputPassword1" placeholder="Ingrese la Contraseña del usuario" required>
+													<input name="password_1" type="password" class="form-control" id="inputPassword1" placeholder="Ingrese la Contraseña del usuario">
 												</div>
 											</div>
 										</div>
@@ -180,7 +180,7 @@
 											<div class="col-md-9">
 												<div class="input-icon right">
 													<i class="fa fa-lock"></i>
-													<input name="password_2" type="password" class="form-control" id="inputPassword1" placeholder="Ingrese de nuevo la Contraseña para el usuario" required>
+													<input name="password_2" type="password" class="form-control" id="inputPassword1" placeholder="Ingrese de nuevo la Contraseña para el usuario">
 												</div>
 											</div>
 										</div>

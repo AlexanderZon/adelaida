@@ -65,9 +65,17 @@ class Users extends Eloquent implements UserInterface, RemindableInterface {
 		
 	}
 
-	public static function hasUsername( $username ){
+	public static function hasUsername( $username, $id = '' ){
 
-		$user = self::where('username', '=', $username )->take(1)->get();
+		if( $id != '' ):
+
+			$user = self::where('username', '=', $username )->where('id', '!=', $id )->take(1)->get();
+
+		else:
+
+			$user = self::where('username', '=', $username )->take(1)->get();
+
+		endif;
 
 		if(empty($user[0])):
 			return false;
@@ -77,9 +85,17 @@ class Users extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 
-	public static function hasEmail( $email ){
+	public static function hasEmail( $email, $id = '' ){
 
-		$user = self::where('email', '=', $email )->take(1)->get();
+		if( $id != '' ):
+
+			$user = self::where('email', '=', $email )->where('id', '!=', $id )->take(1)->get();
+
+		else:
+
+			$user = self::where('email', '=', $email )->take(1)->get();
+
+		endif;
 
 		if(empty($user[0])):
 			return false;
