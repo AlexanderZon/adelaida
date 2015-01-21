@@ -65,7 +65,7 @@ class Users extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function audits(){
 
-		return $this->hasMany('Audits', 'id_user');
+		return $this->hasMany('Audits', 'id_user')->orderBy('created_at','DESC');
 		
 	}
 

@@ -54,6 +54,30 @@ class UserController extends \BaseController {
 	}
 
 	/**
+	 * Show the form for editing the specified resource.
+	 * GET /users/show/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getShow($id)
+	{
+		$args = array(
+			'user' => Users::find( Crypt::decrypt($id) ),
+			'roles' => Roles::all(),
+			'module' => $this->module,
+			);
+
+		Audits::add(Auth::user(), array(
+			'name' => 'users_get_show',
+			'title' => 'Visualización detallada de Usuario',
+			'description' => 'Vizualización detallada del Usuario ' . $args['user']->username 
+			), 'READ');
+
+		return View::make('users.show')->with($args);
+	}
+
+	/**
 	 * Show the form for creating a new resource.
 	 * GET /users/create
 	 *
@@ -164,7 +188,7 @@ class UserController extends \BaseController {
 			$user->username = Input::get('username');
 			$user->displayname = Input::get('displayname') != '' ? Input::get('displayname') : Input::get('first_name').' '.Input::get('last_name');
 			$user->email = Input::get('email');
-			$user->password = Hash::make(Input::get('password'));
+			$user->password = Hash::make(Input::get('password_1'));
 			$user->id_role = Input::get('id_role');
 			$user->status = 'inactive';
 			
@@ -217,7 +241,7 @@ class UserController extends \BaseController {
 			);
 
 		Audits::add(Auth::user(), array(
-			'name' => 'users_edit_create',
+			'name' => 'users_get_edit',
 			'title' => 'Formulario de Edición de Usuarios',
 			'description' => 'Vizualización del Formulario de Edición de Usuarios'
 			), 'READ');
@@ -314,7 +338,7 @@ class UserController extends \BaseController {
 			$user->username = Input::get('username');
 			$user->displayname = Input::get('displayname') != '' ? Input::get('displayname') : Input::get('first_name').' '.Input::get('last_name');
 			$user->email = Input::get('email');
-			$user->password = Input::get('password') != '' ? Hash::make(Input::get('password')) : $user->password;
+			$user->password = Input::get('password_1') != '' ? Hash::make(Input::get('password_1')) : $user->password;
 			$user->id_role = Input::get('id_role');
 			$user->status = 'inactive';
 
@@ -367,7 +391,7 @@ class UserController extends \BaseController {
 			);
 
 		Audits::add(Auth::user(), array(
-			'name' => 'users_get_create',
+			'name' => 'users_get_delete',
 			'title' => 'Formulario de Eliminación de Usuarios',
 			'description' => 'Vizualización del Formulario de Eliminación de Usuarios'
 			), 'READ');

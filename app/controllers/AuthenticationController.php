@@ -52,14 +52,27 @@ class AuthenticationController extends \BaseController {
 	{
 		$credentials = array(
 			'username' => Input::get('username'),
-			'password' => Input::get('password')
+			'password' => Input::get('password'),
+			'status' => 'active'
 			);
 		if(Auth::attempt($credentials)):
+
+			Audits::add(Auth::user(), array(
+				'name' => 'auth_login',
+				'title' => 'Inicio de Sesión',
+				'description' => 'El usuario ' . Auth::user()->username . ' ha Iniciado Sesión'
+				), 'CREATE');
+
 			if(Input::get('redirect_to') != ''):
+
 				return Redirect::to( Input::get('redirect_to') );
+
 			else:
+
 				return Redirect::to('/');
+
 			endif;
+
 		else:
 			$args = array(
 				'msg_error'=>'Usuario o Contraseña Inválidos',
@@ -77,6 +90,13 @@ class AuthenticationController extends \BaseController {
 	 */
 	public function getLogout()
 	{
+
+		Audits::add(Auth::user(), array(
+			'name' => 'auth_logout',
+			'title' => 'Cierre de Sesión',
+			'description' => 'El usuario ' . Auth::user()->username . ' ha Cerrado Sesión'
+			), 'DELETE');
+
 		Auth::logout();
 
 		return Redirect::to( $this->route . '/login' );

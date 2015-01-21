@@ -135,7 +135,7 @@
 										<a class="font-blue-steel tooltips fancybox fancybox.ajax" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
 									@elseif( $user->status == 'inactive' )
 										&nbsp;&nbsp;
-										<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
+										<a class="font-blue-steel tooltips fancybox fancybox.ajax" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
 										&nbsp;&nbsp;
 										<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
 										&nbsp;&nbsp;

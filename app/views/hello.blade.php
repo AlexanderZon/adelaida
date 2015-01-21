@@ -1704,7 +1704,7 @@
 		 	moment.locale('es');
 		 	jQuery('.timeago').each(function(e){
 		 		jQuery(this).html(moment(jQuery(this).html()).fromNow());
-		 	})
+		 	});
 		});
 	</script>
 

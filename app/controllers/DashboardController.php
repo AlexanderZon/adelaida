@@ -37,7 +37,7 @@ class DashboardController extends \BaseController {
 	{
 		$args = array(
 			'module' => $this->module,
-			'audits' => Audits::all(),
+			'audits' => Audits::orderBy('created_at','DESC')->take(100)->get(),
 			);
 		return View::make('hello')->with($args);
 	}
