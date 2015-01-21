@@ -8,6 +8,10 @@ class Invoices extends \Eloquent {
 	 * @var string
 	 */
 	protected $table = 'invoices';
+
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
 	
 	protected $fillable = [];
 

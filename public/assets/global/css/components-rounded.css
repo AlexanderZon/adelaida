@@ -2008,7 +2008,7 @@ System feeds
 }
 .feeds li .col1 {
   float: left;
-  width: 100%;
+  width: 80%;
   clear: both;
 }
 .feeds li .col1 > .cont {
@@ -2042,7 +2042,7 @@ System feeds
 }
 .feeds li .col2 {
   float: left;
-  width: 75px;
+  width: 220px;
   margin-left: -75px;
 }
 .feeds li .col2 > .date {

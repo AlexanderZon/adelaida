@@ -9,6 +9,10 @@ class InvoiceAccounts extends \Eloquent {
 	 */
 	protected $table = 'invoice_accounts';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	protected $fillable = [];
 
 	public function invoices(){

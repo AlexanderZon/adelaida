@@ -9,6 +9,10 @@ class Clients extends \Eloquent {
 	 */
 	protected $table = 'clients';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	protected $fillable = [];
 
 	public function representant(){

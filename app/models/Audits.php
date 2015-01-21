@@ -9,6 +9,10 @@ class Audits extends \Eloquent {
 	 */
 	protected $table = 'audits';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	public function user(){
 
 		return $this->belongsTo('Users', 'id_user');
@@ -23,7 +27,7 @@ class Audits extends \Eloquent {
 		$audit->title = $data['title'];
 		$audit->description = $data['description'];
 		$audit->id_user = $user->id;
-		$sudit->type = $type;
+		$audit->type = $type;
 
 		$audit->save();
 

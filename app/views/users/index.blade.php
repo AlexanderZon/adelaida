@@ -132,7 +132,7 @@
 								<td>
 									@if( $user->status == 'active' )
 										&nbsp;&nbsp;
-										<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
+										<a class="font-blue-steel tooltips fancybox fancybox.ajax" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
 									@elseif( $user->status == 'inactive' )
 										&nbsp;&nbsp;
 										<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
@@ -267,6 +267,8 @@
 			Demo.init(); // init demo features
    			TableAdvanced.init();
 
+   			jQuery('.fancybox').fancybox();
+   			
         });
 
 	</script>

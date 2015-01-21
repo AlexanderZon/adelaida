@@ -9,6 +9,10 @@ class Roles extends \Eloquent {
 	 */
 	protected $table = 'roles';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	public function capabilities(){
 
 		return $this->belongsToMany('Capabilities', 'role_capabilities', 'id_role', 'id_capability');

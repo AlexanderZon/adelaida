@@ -9,6 +9,10 @@ class Messages extends \Eloquent {
 	 */
 	protected $table = 'messages';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	public function from(){
 
 		return $this->belongsTo('Users', 'id_user_from');

@@ -9,6 +9,10 @@ class Materials extends \Eloquent {
 	 */
 	protected $table = 'materials';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	protected $fillable = [];
 
 	public function project(){

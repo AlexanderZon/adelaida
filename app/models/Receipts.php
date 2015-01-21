@@ -9,6 +9,10 @@ class Receipts extends \Eloquent {
 	 */
 	protected $table = 'receipts';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	protected $fillable = [];
 
 	public function saleOrder(){

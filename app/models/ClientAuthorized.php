@@ -9,6 +9,10 @@ class ClientAuthorized extends \Eloquent {
 	 */
 	protected $table = 'client_authorized';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	protected $fillable = [];
 
 	public function client(){

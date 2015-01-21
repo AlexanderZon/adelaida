@@ -9,6 +9,10 @@ class Providers extends \Eloquent {
 	 */
 	protected $table = 'providers';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	protected $fillable = [];
 
 	public function purchaseOrder(){

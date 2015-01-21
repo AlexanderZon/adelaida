@@ -9,6 +9,10 @@ class Stock extends \Eloquent {
 	 */
 	protected $table = 'stock';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	protected $fillable = [];
 
 	public function measurementUnit(){

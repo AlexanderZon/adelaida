@@ -30,6 +30,8 @@
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/pace/themes/pace-theme-minimal.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/fancybox/source/jquery.fancybox.css"/>
 <!-- END PAGE LEVEL PLUGIN STYLES -->
 <!-- BEGIN PAGE STYLES -->
 <link href="/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
@@ -1081,6 +1083,7 @@
 	<script type="text/javascript" src="/assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
 	<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" src="/assets/global/plugins/moment/moment.js"></script>
+	<script type="text/javascript" src="/assets/global/plugins/fancybox/source/jquery.fancybox.js"></script>
 	<!-- END PAGE DATATABLES SCRIPTS -->
 	<script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<!-- END PAGE LEVEL SCRIPTS -->

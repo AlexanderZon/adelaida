@@ -9,6 +9,10 @@ class Tasks extends \Eloquent {
 	 */
 	protected $table = 'tasks';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	public function users(){
 
 		return $this->belongsToMany('Users', 'user_tasks', 'id_task', 'id_user');

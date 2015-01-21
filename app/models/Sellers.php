@@ -9,6 +9,10 @@ class Sellers extends \Eloquent {
 	 */
 	protected $table = 'sellers';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	protected $fillable = [];
 
 	public function person(){

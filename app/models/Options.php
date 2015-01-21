@@ -9,6 +9,10 @@ class Options extends \Eloquent {
 	 */
 	protected $table = 'options';
 
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
 	public static function get( $key ){
 
 		$option = self::where('key', '=', $key )->take(1)->get();

@@ -43,47 +43,14 @@ class UserController extends \BaseController {
 			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
+
+		Audits::add(Auth::user(), array(
+			'name' => 'users_get_create',
+			'title' => 'Listado de Usuarios',
+			'description' => 'Vizualización del listado de Usuarios'
+			), 'READ');
+
 		return View::make('users.index')->with($args);
-	}
-
-	/**
-	 * Display a listing of the resource.
-	 * POST /users
-	 *
-	 * @return Response
-	 */
-	public function postIndex()
-	{
-		$users = Users::all();
-
-		$args = array(
-			'data' => array()
-			);
-
-		foreach($users as $user):
-			$args['data'][] = array(
-				'bulk' => '<input type="checkbox" name="bulk[]" value="'.Crypt::encrypt($user->id).'"/>',
-				'first_name' => Input::get('bulk'),
-				'last_name' => '',
-				'username' => $user->username,
-				'email' => $user->email,
-				'role' => '',
-				'status' => $user->status,
-				'actions' => ''
-				);
-		endforeach;
-		/*$args = array(
-			'data' => array(
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				)
-			);*/
-		return Response::json($args);
 	}
 
 	/**
@@ -99,6 +66,13 @@ class UserController extends \BaseController {
 			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
+
+		Audits::add(Auth::user(), array(
+			'name' => 'users_get_create',
+			'title' => 'Formulario de Creación de Usuarios',
+			'description' => 'Vizualización del Formulario de Creación de Usuarios'
+			), 'READ');
+
 		return View::make('users.create')->with($args);
 	}
 
@@ -241,6 +215,13 @@ class UserController extends \BaseController {
 			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
+
+		Audits::add(Auth::user(), array(
+			'name' => 'users_edit_create',
+			'title' => 'Formulario de Edición de Usuarios',
+			'description' => 'Vizualización del Formulario de Edición de Usuarios'
+			), 'READ');
+
 		return View::make('users.edit')->with($args);
 	}
 
@@ -266,6 +247,8 @@ class UserController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
+
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($user->id) )->with( $args );
 
 		elseif( Users::hasEmail(Input::get('email'), $user->id) ):
@@ -277,6 +260,8 @@ class UserController extends \BaseController {
 					'description' => 'El correo ' . Input::get('email') . ' ya existe, por favor ingrese uno diferente'
 					)
 				);
+
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($user->id) )->with( $args );
 
@@ -290,6 +275,8 @@ class UserController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
+
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($user->id) )->with( $args );
 
 		elseif( Input::get('password_1') != Input::get('password_2')):
@@ -302,6 +289,8 @@ class UserController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
+
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($user->id) )->with( $args );
 
 		elseif( Input::get('id_role') == 0 ):
@@ -313,6 +302,8 @@ class UserController extends \BaseController {
 					'description' => 'Debe indicar el rol del usuario'
 					)
 				);
+
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($user->id) )->with( $args );
 
@@ -337,6 +328,8 @@ class UserController extends \BaseController {
 						)
 					);
 
+					Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
+
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -348,6 +341,8 @@ class UserController extends \BaseController {
 						'description' => 'Hubo un error al editar el usuario ' . $user->displayname
 						)
 					);
+
+				Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 
 				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($user->id) )->with( $args );
 
@@ -370,6 +365,13 @@ class UserController extends \BaseController {
 			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
+
+		Audits::add(Auth::user(), array(
+			'name' => 'users_get_create',
+			'title' => 'Formulario de Eliminación de Usuarios',
+			'description' => 'Vizualización del Formulario de Eliminación de Usuarios'
+			), 'READ');
+
 		return View::make('users.delete')->with($args);
 	}
 
@@ -394,6 +396,8 @@ class UserController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
+
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -406,7 +410,101 @@ class UserController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
+
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($user->id) )->with( $args );
+
+		endif;
+
+	}
+
+	/**
+	 * Show the form for deleting the specified resource.
+	 * GET /users/delete/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getActivate($id)
+	{
+
+		$user = Users::find( Crypt::decrypt($id) );
+
+		$user->status = 'active';
+
+		if($user->save()):
+
+			$args = array(
+				'msg_success' => array(
+					'name' => 'users_activate',
+					'title' => 'Usuario activado satisfactoriamente',
+					'description' => 'El usuario ' . $user->displayname . ' ha sido activado exitosamente'
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
+
+		else:
+
+			$args = array(
+				'msg_danger' => array(
+					'name' => 'users_activate_err',
+					'title' => 'Error al activar usuario',
+					'description' => 'hubo un error al activar el usuario ' . $user->displayname
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
+
+		endif;
+
+	}
+
+	/**
+	 * Show the form for deleting the specified resource.
+	 * GET /users/delete/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getDeactivate($id)
+	{
+
+		$user = Users::find( Crypt::decrypt($id) );
+
+		$user->status = 'inactive';
+
+		if($user->save()):
+
+			$args = array(
+				'msg_success' => array(
+					'name' => 'users_deactivate',
+					'title' => 'Usuario desactivado satisfactoriamente',
+					'description' => 'El usuario ' . $user->displayname . ' ha sido desactivado exitosamente'
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
+
+		else:
+
+			$args = array(
+				'msg_danger' => array(
+					'name' => 'users_deactivate_err',
+					'title' => 'Error al desactivar usuario',
+					'description' => 'hubo un error al desactivar el usuario ' . $user->displayname
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
 
 		endif;
 

@@ -26,14 +26,20 @@ class AuthenticationController extends \BaseController {
 	public function getLogin()
 	{
 
-		if($this->verifySession()) return Redirect::to('/');
+		if($this->verifySession()):
+			
+			return Redirect::to('/');
 
-		$args = array(
-			'route' => $this->route,
-			'msg_error' => Session::get('msg_error'),
-			'redirect_to' => Session::get('redirect_to'),
-			);
-		return View::make('auth.login')->with($args);
+		else:
+
+			$args = array(
+				'route' => $this->route,
+				'msg_error' => Session::get('msg_error'),
+				'redirect_to' => Session::get('redirect_to'),
+				);
+			return View::make('auth.login')->with($args);
+			
+		endif;
 	}
 
 	/**
@@ -49,12 +55,9 @@ class AuthenticationController extends \BaseController {
 			'password' => Input::get('password')
 			);
 		if(Auth::attempt($credentials)):
-		var_dump('yes');
 			if(Input::get('redirect_to') != ''):
-				var_dump('redirect');
 				return Redirect::to( Input::get('redirect_to') );
 			else:
-				var_dump('/');
 				return Redirect::to('/');
 			endif;
 		else:
