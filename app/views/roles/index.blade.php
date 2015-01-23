@@ -16,7 +16,9 @@
 			<div class="page-toolbar">
 				<!-- BEGIN THEME PANEL -->
 				<div class="btn-group btn-theme-panel">
-					<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir un nuevo Rol"><i class="icon-plus"></i></a>
+					@if(Auth::user()->hasCap('roles_create_get'))
+						<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir un nuevo Rol"><i class="icon-plus"></i></a>
+					@endif
 				</div>
 				<!-- END THEME PANEL -->
 			</div>
@@ -74,7 +76,9 @@
 								<i class="fa fa-lock"></i>Listado de Roles
 							</div>
 							<div class="tools">
-								<a href="{{ $module['route'] }}/create" class="label bg-green-haze"><i class="fa fa-plus-circle"></i> Añadir Nuevo</a>
+								@if(Auth::user()->hasCap('roles_create_get'))
+									<a href="{{ $module['route'] }}/create" class="label bg-green-haze"><i class="fa fa-plus-circle"></i> Añadir Nuevo</a>
+								@endif
 							</div>
 						</div>
 						<div class="portlet-body">
@@ -96,9 +100,11 @@
 								<th>
 									 Estado
 								</th>
-								<th>
-									 Acciones
-								</th>
+								@if(Auth::user()->hasCap('roles_show_get') OR Auth::user()->hasCap('roles_edit_get') OR Auth::user()->hasCap('roles_delete_get') OR Auth::user()->hasCap('roles_assign_get'))
+									<th>
+										 Acciones
+									</th>
+								@endif
 							</tr>
 							</thead>
 							<tbody>
@@ -123,16 +129,26 @@
 										<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($role->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Activar"><span class="label bg-yellow-saffron">{{ 'Inactivo' }}</span>
 									@endif
 								</td>
-								<td>
-									&nbsp;&nbsp;
-									<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($role->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a>
-									&nbsp;&nbsp;
-									<a class="font-green-jungle tooltips" href="{{ $module['route'] . '/assign/' . Crypt::encrypt($role->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Asignar Capacidades"> <i class="fa fa-gavel"></i> </a> 
-									&nbsp;&nbsp;
-									<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($role->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
-									&nbsp;&nbsp;
-									<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($role->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
-								</td>
+								@if(Auth::user()->hasCap('roles_show_get') OR Auth::user()->hasCap('roles_edit_get') OR Auth::user()->hasCap('roles_delete_get') OR Auth::user()->hasCap('roles_assign_get'))
+									<td>
+										@if(Auth::user()->hasCap('roles_show_get'))
+											&nbsp;&nbsp;
+											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($role->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a>
+										@endif
+										@if(Auth::user()->hasCap('roles_assign_get'))
+											&nbsp;&nbsp;
+											<a class="font-green-jungle tooltips" href="{{ $module['route'] . '/assign/' . Crypt::encrypt($role->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Asignar Capacidades"> <i class="fa fa-gavel"></i> </a> 
+										@endif
+										@if(Auth::user()->hasCap('roles_edit_get'))
+											&nbsp;&nbsp;
+											<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($role->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
+										@endif
+										@if(Auth::user()->hasCap('roles_delete_get'))
+											&nbsp;&nbsp;
+											<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($role->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
+										@endif
+									</td>
+								@endif
 							</tr>
 							@endforeach
 							</tbody>

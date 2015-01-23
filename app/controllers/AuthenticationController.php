@@ -27,8 +27,8 @@ class AuthenticationController extends \BaseController {
 	{
 
 		if($this->verifySession()):
-			
 			return Redirect::to('/');
+			// dd("sesion");
 
 		else:
 

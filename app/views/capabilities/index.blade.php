@@ -16,7 +16,9 @@
 			<div class="page-toolbar">
 				<!-- BEGIN THEME PANEL -->
 				<div class="btn-group btn-theme-panel">
-					<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir una nueva Capacidad"><i class="icon-plus"></i></a>
+					@if(Auth::user()->hasCap('capabilities_create_get'))
+						<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir una nueva Capacidad"><i class="icon-plus"></i></a>
+					@endif
 				</div>
 				<!-- END THEME PANEL -->
 			</div>
@@ -74,7 +76,9 @@
 								<i class="fa fa-key"></i>Listado de Capacidades
 							</div>
 							<div class="tools">
-								<a href="{{ $module['route'] }}/create" class="label bg-green-haze"><i class="fa fa-plus-circle"></i> Añadir Nuevo</a>
+								@if(Auth::user()->hasCap('capabilities_create_get'))
+									<a href="{{ $module['route'] }}/create" class="label bg-green-haze"><i class="fa fa-plus-circle"></i> Añadir Nuevo</a>
+								@endif
 							</div>
 						</div>
 						<div class="portlet-body">
@@ -85,7 +89,7 @@
 									 Título
 								</th>
 								<th>
-									 Description
+									 Descripción
 								</th>
 								<th>
 									 Nombre
@@ -99,9 +103,11 @@
 								<th>
 									 Ruta
 								</th> -->
-								<th>
-									 Acciones
-								</th>
+								@if(Auth::user()->hasCap('capabilities_show_get') OR Auth::user()->hasCap('capabilities_edit_get') OR Auth::user()->hasCap('capabilities_delete_get'))
+									<th>
+										 Acciones
+									</th>
+								@endif
 							</tr>
 							</thead>
 							<tbody>
@@ -125,14 +131,23 @@
 								<td>
 									{{ $capability->route }}
 								</td> -->
-								<td>
-									&nbsp;&nbsp;
-									<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
-									&nbsp;&nbsp;
-									<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
-									&nbsp;&nbsp;
-									<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
-								</td>
+								@if(Auth::user()->hasCap('capabilities_show_get') OR Auth::user()->hasCap('capabilities_edit_get') OR Auth::user()->hasCap('capabilities_delete_get'))
+									<td>
+										@if(Auth::user()->hasCap('capabilities_show_get'))
+											&nbsp;&nbsp;
+											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
+										@endif
+										@if(Auth::user()->hasCap('capabilities_edit_get'))
+											&nbsp;&nbsp;
+											<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
+										@endif
+										@if(Auth::user()->hasCap('capabilities_delete_get'))
+											&nbsp;&nbsp;
+											<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
+										@endif
+									</td>
+								@endif
+
 							</tr>
 							@endforeach
 							</tbody>

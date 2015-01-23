@@ -16,7 +16,9 @@
 			<div class="page-toolbar">
 				<!-- BEGIN THEME PANEL -->
 				<div class="btn-group btn-theme-panel">
-					<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir un nuevo usuario"><i class="icon-plus"></i></a>
+					@if(Auth::user()->hasCap('users_create_get'))
+						<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir un nuevo usuario"><i class="icon-plus"></i></a>
+					@endif
 				</div>
 				<!-- END THEME PANEL -->
 			</div>
@@ -74,7 +76,9 @@
 								<i class="fa fa-user"></i>Listado de Usuarios
 							</div>
 							<div class="tools">
-								<a href="{{ $module['route'] }}/create" class="label bg-green-haze"><i class="fa fa-plus-circle"></i> Añadir Nuevo</a>
+								@if(Auth::user()->hasCap('users_create_get'))
+									<a href="{{ $module['route'] }}/create" class="label bg-green-haze"><i class="fa fa-plus-circle"></i> Añadir Nuevo</a>
+								@endif
 							</div>
 						</div>
 						<div class="portlet-body">
@@ -99,9 +103,11 @@
 								<th>
 									 Estado
 								</th>
-								<th>
-									 Acciones
-								</th>
+								@if(Auth::user()->hasCap('users_show_get') OR Auth::user()->hasCap('users_edit_get') OR Auth::user()->hasCap('users_delete_get'))
+									<th>
+										 Acciones
+									</th>
+								@endif
 							</tr>
 							</thead>
 							<tbody>
@@ -123,25 +129,47 @@
 									{{ $user->role->description }}
 								</td>
 								<td>
-									@if( $user->status == 'active' )
+								@if(Auth::user()->id == $user->id)
+									{{ $user->status == 'active' ? 'Activo' : 'Inactivo' }}
+								@elseif( $user->status == 'active' )
+									@if(Auth::user()->hasCap('users_deactivate_get'))
 										<a href="{{ $module['route'] . '/deactivate/' . Crypt::encrypt($user->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Desactivar"><span class="label bg-blue">{{ 'Activo' }}</span></a>
-									@elseif( $user->status == 'inactive' )
+									@else
+										{{ $user->status == 'active' ? 'Activo' : 'Inactivo' }}
+									@endif
+								@elseif( $user->status == 'inactive' )
+									@if(Auth::user()->hasCap('users_activate_get'))
 										<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($user->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Activar"><span class="label bg-yellow-saffron">{{ 'Inactivo' }}</span>
+									@else
+										{{ $user->status == 'active' ? 'Activo' : 'Inactivo' }}
 									@endif
+								@else
+									{{ $user->status == 'active' ? 'Activo' : 'Inactivo' }}
+								@endif
 								</td>
-								<td>
-									@if( $user->status == 'active' )
-										&nbsp;&nbsp;
-										<a class="font-blue-steel tooltips fancybox fancybox.ajax" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
-									@elseif( $user->status == 'inactive' )
-										&nbsp;&nbsp;
-										<a class="font-blue-steel tooltips fancybox fancybox.ajax" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
-										&nbsp;&nbsp;
-										<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
-										&nbsp;&nbsp;
-										<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
-									@endif
-								</td>
+								@if(Auth::user()->hasCap('users_show_get') OR Auth::user()->hasCap('users_edit_get') OR Auth::user()->hasCap('users_delete_get'))
+									<td>
+										@if( $user->status == 'active' )
+											@if(Auth::user()->hasCap('users_show_get'))
+												&nbsp;&nbsp;
+												<a class="font-blue-steel tooltips fancybox fancybox.ajax" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
+											@endif
+										@elseif( $user->status == 'inactive' )
+											@if(Auth::user()->hasCap('users_show_get'))
+												&nbsp;&nbsp;
+												<a class="font-blue-steel tooltips fancybox fancybox.ajax" href="{{ $module['route'] . '/show/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
+											@endif
+											@if(Auth::user()->hasCap('users_edit_get'))
+												&nbsp;&nbsp;
+												<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
+											@endif
+											@if(Auth::user()->hasCap('users_delete_get'))
+												&nbsp;&nbsp;
+												<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($user->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
+											@endif
+										@endif
+									</td>
+								@endif
 							</tr>
 							@endforeach
 							</tbody>
