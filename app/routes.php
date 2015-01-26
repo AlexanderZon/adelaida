@@ -32,7 +32,11 @@ else:
 
 	Route::controller('/auth', 'AuthenticationController');
 	Route::any('/{one?}/{two?}/{three?}/{four?}/{five?}/', function($one = '' ,$two = '' ,$three = '' ,$four = '' ,$five = '' ){
-		return Redirect::to('/auth/login')->with('redirect_to', '/'.Request::path());
+		if(Request::path() == '/'):
+			return Redirect::to('/auth/login')->with('redirect_to', '/');
+		else:
+			return Redirect::to('/auth/login')->with('redirect_to', '/'.Request::path());
+		endif;
 	});
 
 endif;
