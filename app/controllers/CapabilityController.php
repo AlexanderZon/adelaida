@@ -46,46 +46,6 @@ class CapabilityController extends \BaseController {
 	}
 
 	/**
-	 * Display a listing of the resource.
-	 * POST /capabilities
-	 *
-	 * @return Response
-	 */
-	public function postIndex()
-	{
-		$capabilities = Capabilities::all();
-
-		$args = array(
-			'data' => array()
-			);
-
-		foreach($capabilities as $capability):
-			$args['data'][] = array(
-				'bulk' => '<input type="checkbox" name="bulk[]" value="'.Crypt::encrypt($capability->id).'"/>',
-				'first_name' => Input::get('bulk'),
-				'last_name' => '',
-				'capabilityname' => $capability->capabilityname,
-				'email' => $capability->email,
-				'role' => '',
-				'status' => $capability->status,
-				'actions' => ''
-				);
-		endforeach;
-		/*$args = array(
-			'data' => array(
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				array( "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ),
-				)
-			);*/
-		return Response::json($args);
-	}
-
-	/**
 	 * Show the form for creating a new resource.
 	 * GET /capabilities/create
 	 *

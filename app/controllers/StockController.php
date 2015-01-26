@@ -71,7 +71,7 @@ class StockController extends \BaseController {
 	public function postCreate()
 	{
 
-		if( Input::get('category') == 0 || Input::get('category') == null ):
+		if( Input::get('id_category') == 0 || Input::get('id_category') == null ):
 
 			$args = array(
 				'msg_warning' => array(
@@ -85,7 +85,7 @@ class StockController extends \BaseController {
 
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
-		elseif( Input::get('measurement_unit') == 0 || Input::get('measurement_unit') == null ):
+		elseif( Input::get('id_measurement_unit') == 0 || Input::get('id_measurement_unit') == null ):
 
 			$args = array(
 				'msg_warning' => array(
