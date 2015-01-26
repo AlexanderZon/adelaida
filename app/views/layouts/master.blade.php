@@ -26,7 +26,11 @@
 <link href="/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL STYLES -->
-
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-multi-select/css/multi-select.css"/>
+<!-- BEGIN THEME STYLES -->
 <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
 <link href="/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
@@ -34,7 +38,6 @@
 <link href="/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
 
 <!-- BEGIN PLUGINS USED BY X-EDITABLE -->
-<link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
