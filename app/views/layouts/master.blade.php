@@ -563,12 +563,40 @@
 					@endif
 
 					@if(Auth::user()->hasCap('stock_view_get'))
-					<li class="tooltips {{ $module['name'] == 'stock' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Stock">
+					<li class="tooltips {{ $module['name'] == 'stock' || $module['name'] == 'categories' || $module['name'] == 'measurement_units' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Stock">
 						<a href="/stock">
 						<i class="icon-puzzle"></i>
 						<span class="title">
 						Stock </span>
+						<span class="arrow"></span>
 						</a>
+						<ul class="sub-menu">
+
+							@if(Auth::user()->hasCap('stock_view_get'))
+							<li class="{{ $module['name'] == 'stock' ? 'active' : '' }}">
+								<a href="/stock">
+								<i class="icon-list"></i>
+								Todos</a>
+							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('categories_view_get'))
+							<li class="{{ $module['name'] == 'categories' ? 'active' : '' }}">
+								<a href="/categories">
+								<i class="icon-lock"></i>
+								Categorías</a>
+							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('measurement_units_view_get'))
+							<li class="{{ $module['name'] == 'measurement_units' ? 'active' : '' }}">
+								<a href="/measurement_units">
+								<i class="icon-key"></i>
+								Unidades de Medida</a>
+							</li>
+							@endif
+
+						</ul>
 					</li>
 					@endif
 

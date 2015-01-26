@@ -117,7 +117,7 @@
 											<div class="col-md-9">
 												<div class="input-icon right">
 													<i class="fa fa-crosshairs"></i>
-													<input name="controller" type="text" class="form-control" placeholder="Ingrese el nombre para mostrar">
+													<input name="controller" type="text" class="form-control" placeholder="Ingrese el nombre para mostrar" required>
 												</div>
 												<span class="help-block"><em>e.j.: ControllerName@actionName</em></span>
 											</div>

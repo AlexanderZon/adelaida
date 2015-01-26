@@ -9,7 +9,7 @@ class MeasurementUnits extends \Eloquent {
 	 */
 	protected $table = 'measurement_units';
 
-    use SoftDeletingTrait;
+    // use SoftDeletingTrait;
 
     protected $dates = ['deleted_at'];
 

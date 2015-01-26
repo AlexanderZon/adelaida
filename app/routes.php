@@ -18,6 +18,8 @@ if(Auth::check()):
 	Route::controller('/capabilities', 'CapabilityController');
 	Route::controller('/projects', 'ProjectController');
 	Route::controller('/stock', 'StockController');
+	Route::controller('/measurement_units', 'MeasurementUnitController');
+	Route::controller('/categories', 'CategoryController');
 	Route::controller('/clients', 'ClientController');
 	Route::controller('/providers', 'ProviderController');
 	Route::controller('/sells', 'SellController');
@@ -29,7 +31,7 @@ if(Auth::check()):
 else:
 
 	Route::controller('/auth', 'AuthenticationController');
-	Route::any('/{arg1?}/{arg2?}/{arg3?}/{arg4?}/{arg5?}/', function($arg1 = '' ,$arg2 = '' ,$arg3 = '' ,$arg4 = '' ,$arg5 = '' ){
+	Route::any('/{one?}/{two?}/{three?}/{four?}/{five?}/', function($one = '' ,$two = '' ,$three = '' ,$four = '' ,$five = '' ){
 		return Redirect::to('/auth/login')->with('redirect_to', '/'.Request::path());
 	});
 

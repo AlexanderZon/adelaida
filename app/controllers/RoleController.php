@@ -205,7 +205,7 @@ class RoleController extends \BaseController {
 		
 		$args = array(
 			'role' => Roles::find( Crypt::decrypt($id) ),
-			'capabilities' => Capabilities::all(),
+			'capabilities' => Capabilities::orderBy('title','ASC')->get(),
 			'module' => $this->module,
 			);
 
