@@ -66,14 +66,13 @@
 				<p>{{ $module['msg_active']['description'] }}</p>
 			</div>
 		@endif
-
 		<div class="row">
 				<div class="col-md-12">
 					<!-- BEGIN EXAMPLE TABLE PORTLET-->
 					<div class="portlet box green-haze">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-key"></i>Listado de Items en Stock
+								<i class="fa fa-cubes"></i>Listado de Items en Stock
 							</div>
 							<div class="tools">
 								@if(Auth::user()->hasCap('stock_create_get'))
@@ -86,16 +85,19 @@
 							<thead>
 							<tr>
 								<th>
-									 Título
+									 Nombre
 								</th>
 								<th>
 									 Descripción
 								</th>
 								<th>
-									 Nombre
+									 Cantidad en Stock
 								</th>
 								<th>
-									 Controlador
+									 Cantidad Asignada
+								</th>
+								<th>
+									 Total Disponible
 								</th>
 								<!-- <th>
 									 Método
@@ -111,39 +113,38 @@
 							</tr>
 							</thead>
 							<tbody>
-							@foreach( $stock as $capability )
+							@foreach( $stock as $item )
 							<tr>
 								<td>
-									{{ $capability->title }}
+									{{ $item->name }}
 								</td>
 								<td>
-									{{ $capability->description }}
+									{{ $item->description }}
 								</td>
 								<td>
-									{{ $capability->name }}
+									{{ $item->units }} {{ $item->measurement_unit->symbol }}
 								</td>
-								<td>
-									{{ $capability->controller }}
-								</td>
+								<td><em>En Desarrollo</em></td>
+								<td><em>En Desarrollo</em></td>
 								<!-- <td>
-									{{ $capability->method }}
+									{{ $item->method }}
 								</td>
 								<td>
-									{{ $capability->route }}
+									{{ $item->route }}
 								</td> -->
 								@if(Auth::user()->hasCap('stock_show_get') OR Auth::user()->hasCap('stock_edit_get') OR Auth::user()->hasCap('stock_delete_get'))
 									<td>
 										@if(Auth::user()->hasCap('stock_show_get'))
 											&nbsp;&nbsp;
-											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
+											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($item->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
 										@endif
 										@if(Auth::user()->hasCap('stock_edit_get'))
 											&nbsp;&nbsp;
-											<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
+											<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($item->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
 										@endif
 										@if(Auth::user()->hasCap('stock_delete_get'))
 											&nbsp;&nbsp;
-											<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($capability->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
+											<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($item->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
 										@endif
 									</td>
 								@endif
@@ -272,7 +273,7 @@
 			Layout.init(); // init current layout
 			Demo.init(); // init demo features
    			TableAdvanced.init();
-
+			FormEditable.init();
         });
 
 	</script>

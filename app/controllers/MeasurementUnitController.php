@@ -6,7 +6,7 @@ class MeasurementUnitController extends \BaseController {
 		'index' => 'Todas',
 		'create' => 'Nuevo',
 		'edit' => 'Editar',
-		'delete' => 'Delete'
+		'delete' => 'Eliminar'
 		);
 
 	public function __construct(){
@@ -69,45 +69,29 @@ class MeasurementUnitController extends \BaseController {
 	public function postCreate()
 	{
 
-		if(!MeasurementUnits::hasName(Input::get('name'))):
+		$measurement_unit = new MeasurementUnits();
+		$measurement_unit->symbol = Input::get('symbol');
+		$measurement_unit->name = Input::get('name');
+		
+		if( $measurement_unit->save() ):
 
-			$item = new MeasurementUnits();
-			$item->description = Input::get('description');
-			$item->name = Input::get('name');
-			
-			if( $item->save() ):
+			$args = array(
+				'msg_success' => array(
+					'name' => 'measurement_units_create',
+					'title' => 'Unidad de Medida Agregada',
+					'description' => 'El rol ' . $measurement_unit->title . ' fue agregado exitosamente'
+					)
+				);
 
-				$args = array(
-					'msg_success' => array(
-						'name' => 'measurement_units_create',
-						'title' => 'Rol Agregado',
-						'description' => 'El rol ' . $item->title . ' fue agregado exitosamente'
-						)
-					);
-
-				return Redirect::to( $this->module['route'] )->with( $args );
-
-			else:
-
-				$args = array(
-					'msg_danger' => array(
-						'name' => 'measurement_units_create_err',
-						'title' => 'Error al agregar el rol',
-						'description' => 'Hubo un error al agregar el rol ' . $item->title
-						)
-					);
-
-				return Redirect::to( $this->module['route'].'/create' )->with( $args );
-
-			endif;
+			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
 
 			$args = array(
-				'msg_warning' => array(
-					'name' => 'measurement_units_name_err',
+				'msg_danger' => array(
+					'name' => 'measurement_units_create_err',
 					'title' => 'Error al agregar el rol',
-					'description' => 'Error: el nombre ' . Input::get('name') . ' ya existe, intente con uno diferente.'
+					'description' => 'Hubo un error al agregar el rol ' . $measurement_unit->title
 					)
 				);
 
@@ -127,8 +111,7 @@ class MeasurementUnitController extends \BaseController {
 	public function getEdit($id)
 	{
 		$args = array(
-			'item' => MeasurementUnits::find( Crypt::decrypt($id) ),
-			'measurement_units' => MeasurementUnits::all(),
+			'measurement_unit' => MeasurementUnits::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
 		return View::make('measurement_units.edit')->with($args);
@@ -144,20 +127,20 @@ class MeasurementUnitController extends \BaseController {
 	public function postEdit($id)
 	{
 			
-		$item = MeasurementUnits::find( Crypt::decrypt($id) );
+		$measurement_unit = MeasurementUnits::find( Crypt::decrypt($id) );
 
-		if(!MeasurementUnits::hasName(Input::get('name'), $item->id) ):
+		if(!MeasurementUnits::hasName(Input::get('name'), $measurement_unit->id) ):
 		
-			$item->description = Input::get('description');
-			$item->name = Input::get('name');
+			$measurement_unit->description = Input::get('description');
+			$measurement_unit->name = Input::get('name');
 			
-			if( $item->save() ):
+			if( $measurement_unit->save() ):
 
 				$args = array(
 					'msg_success' => array(
 						'name' => 'measurement_units_edit',
-						'title' => 'Rol Editado',
-						'description' => 'El rol ' . $item->title . ' fue editado exitosamente'
+						'title' => 'Unidad de Medida Editada',
+						'description' => 'El rol ' . $measurement_unit->title . ' fue editado exitosamente'
 						)
 					);
 
@@ -169,7 +152,7 @@ class MeasurementUnitController extends \BaseController {
 					'msg_danger' => array(
 						'name' => 'measurement_units_edit_err',
 						'title' => 'Error al editar el rol',
-						'description' => 'Hubo un error al editar el rol ' . $item->title
+						'description' => 'Hubo un error al editar el rol ' . $measurement_unit->title
 						)
 					);
 
@@ -203,51 +186,12 @@ class MeasurementUnitController extends \BaseController {
 	{
 		
 		$args = array(
-			'item' => MeasurementUnits::find( Crypt::decrypt($id) ),
+			'measurement_unit' => MeasurementUnits::find( Crypt::decrypt($id) ),
 			'capabilities' => Capabilities::orderBy('title','ASC')->get(),
 			'module' => $this->module,
 			);
 
 		return View::make('measurement_units.assign')->with( $args );
-
-	}
-
-	/**
-	 * Show the form for deleting the specified resource.
-	 * POST /measurement_units/assign/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-
-	public function postAssign($id)
-	{
-		
-		$item = MeasurementUnits::find( Crypt::decrypt($id) );
-
-		$capabilities = Input::get('capabilities');
-		
-		if($item->capabilities()->sync($capabilities)):
-			$args = array(
-				'msg_success' => array(
-					'name' => 'measurement_units_assign',
-					'title' => 'Capacidades Asignadas',
-					'description' => 'Las capacidades fueron exitosamente asignadas'
-					)
-				);
-
-			return Redirect::to( $this->module['route'] )->with( $args );
-		else:
-			$args = array(
-				'msg_danger' => array(
-					'name' => 'measurement_units_assign_err',
-					'title' => 'Error al Asignar las Capacidades',
-					'description' => 'Hubo un error al asignar las capacidades '
-					)
-				);
-
-			return Redirect::to( $this->module['route'].'/edit' )->with( $args );
-		endif;
 
 	}
 
@@ -261,7 +205,7 @@ class MeasurementUnitController extends \BaseController {
 	public function getDelete($id)
 	{
 		$args = array(
-			'item' => MeasurementUnits::find( Crypt::decrypt($id) ),
+			'measurement_unit' => MeasurementUnits::find( Crypt::decrypt($id) ),
 			'measurement_units' => MeasurementUnits::all(),
 			'module' => $this->module,
 			);
@@ -277,15 +221,15 @@ class MeasurementUnitController extends \BaseController {
 	 */
 	public function postDelete($id)
 	{
-		$item =  MeasurementUnits::find( Crypt::decrypt($id) );
+		$measurement_unit =  MeasurementUnits::find( Crypt::decrypt($id) );
 
-		if($item->delete()):
+		if($measurement_unit->delete()):
 
 			$args = array(
 				'msg_success' => array(
 					'name' => 'measurement_units_delete',
-					'title' => 'Rol Eliminada',
-					'description' => 'La capacidad ' . $item->title . ' fue eliminada exitosamente'
+					'title' => 'Unidad de Medida Eliminada',
+					'description' => 'La capacidad ' . $measurement_unit->title . ' fue eliminada exitosamente'
 					)
 				);
 
@@ -297,7 +241,7 @@ class MeasurementUnitController extends \BaseController {
 				'msg_danger' => array(
 					'name' => 'measurement_units_delete_err',
 					'title' => 'Error al eliminar la capacidad',
-					'description' => 'Hubo un error al eliminar la capacidad ' . $item->title
+					'description' => 'Hubo un error al eliminar la capacidad ' . $measurement_unit->title
 					)
 				);
 

@@ -6,7 +6,7 @@ class UserController extends \BaseController {
 		'index' => 'Todos',
 		'create' => 'Nuevo',
 		'edit' => 'Editar',
-		'delete' => 'Delete'
+		'delete' => 'Eliminar'
 		);
 
 	public function __construct(){
@@ -87,7 +87,7 @@ class UserController extends \BaseController {
 	{
 		$args = array(
 			'users' => Users::all(),
-			'roles' => Roles::all(),
+			'roles' => Roles::getActive(),
 			'module' => $this->module,
 			);
 

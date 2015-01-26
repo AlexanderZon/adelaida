@@ -7,7 +7,7 @@ class RoleController extends \BaseController {
 		'create' => 'Nuevo',
 		'edit' => 'Editar',
 		'assign' => 'Asignar',
-		'delete' => 'Delete'
+		'delete' => 'Eliminar'
 		);
 
 	public function __construct(){
@@ -285,8 +285,8 @@ class RoleController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'role_delete',
-					'title' => 'Rol Eliminada',
-					'description' => 'La capacidad ' . $role->title . ' fue eliminada exitosamente'
+					'title' => 'Rol Eliminado',
+					'description' => 'El rol ' . $role->title . ' fue eliminado exitosamente'
 					)
 				);
 
@@ -297,8 +297,8 @@ class RoleController extends \BaseController {
 			$args = array(
 				'msg_danger' => array(
 					'name' => 'role_delete_err',
-					'title' => 'Error al eliminar la capacidad',
-					'description' => 'Hubo un error al eliminar la capacidad ' . $role->title
+					'title' => 'Error al eliminar el rol',
+					'description' => 'Hubo un error al eliminar el rol ' . $role->title
 					)
 				);
 

@@ -86,16 +86,10 @@
 							<thead>
 							<tr>
 								<th>
-									 Título
-								</th>
-								<th>
-									 Descripción
-								</th>
-								<th>
 									 Nombre
 								</th>
 								<th>
-									 Controlador
+									 Símbolo
 								</th>
 								<!-- <th>
 									 Método
@@ -114,16 +108,10 @@
 							@foreach( $measurement_units as $measurement_unit )
 							<tr>
 								<td>
-									{{ $measurement_unit->title }}
-								</td>
-								<td>
-									{{ $measurement_unit->description }}
-								</td>
-								<td>
 									{{ $measurement_unit->name }}
 								</td>
 								<td>
-									{{ $measurement_unit->controller }}
+									{{ $measurement_unit->symbol }}
 								</td>
 								<!-- <td>
 									{{ $measurement_unit->method }}

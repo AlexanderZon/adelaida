@@ -123,10 +123,14 @@
 									{{ $role->route }}
 								</td> -->
 								<td>
-									@if( $role->status == 'active' )
-										<a href="{{ $module['route'] . '/deactivate/' . Crypt::encrypt($role->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Desactivar"><span class="label bg-blue">{{ 'Activo' }}</span></a>
-									@elseif( $role->status == 'inactive' )
-										<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($role->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Activar"><span class="label bg-yellow-saffron">{{ 'Inactivo' }}</span>
+									@if( Auth::user()->role->id == $role->id)
+										{{ $role->status == 'active' ? 'Activo' : 'Inactivo' }}
+									@else
+										@if( $role->status == 'active' )
+											<a href="{{ $module['route'] . '/deactivate/' . Crypt::encrypt($role->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Desactivar"><span class="label bg-blue">{{ 'Activo' }}</span></a>
+										@elseif( $role->status == 'inactive' )
+											<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($role->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Activar"><span class="label bg-yellow-saffron">{{ 'Inactivo' }}</span>
+										@endif
 									@endif
 								</td>
 								@if(Auth::user()->hasCap('roles_show_get') OR Auth::user()->hasCap('roles_edit_get') OR Auth::user()->hasCap('roles_delete_get') OR Auth::user()->hasCap('roles_assign_get'))

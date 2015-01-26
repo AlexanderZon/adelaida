@@ -19,6 +19,12 @@ class Roles extends \Eloquent {
 
 	}
 
+	public function users(){
+
+		return $this->hasMany('Users', 'id_role', 'id');
+		
+	}
+
 	/*public function hasPermission( $permission ){
 
 		$caps = $this->belongsToMany('Capabilities', 'role_capabilities', 'id_role', 'id_capability');
@@ -51,10 +57,11 @@ class Roles extends \Eloquent {
 		return $bool;
 	}
 
-	public function users(){
+	public static function getActive(){
 
-		return $this->hasMany('Users', 'id_role', 'id');
+		return self::where('status','=','active')->get();
 		
 	}
+
 
 }

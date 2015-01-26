@@ -32,8 +32,17 @@
 <link href="/assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
+
+<!-- BEGIN PLUGINS USED BY X-EDITABLE -->
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
-<link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-multi-select/css/multi-select.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-editable/bootstrap-editable/css/bootstrap-editable.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-editable/inputs-ext/address/address.css"/>
+<!-- END PLUGINS USED BY X-EDITABLE -->
+
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
@@ -565,7 +574,7 @@
 					@if(Auth::user()->hasCap('stock_view_get'))
 					<li class="tooltips {{ $module['name'] == 'stock' || $module['name'] == 'categories' || $module['name'] == 'measurement_units' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Stock">
 						<a href="/stock">
-						<i class="icon-puzzle"></i>
+						<i class="icon-social-dropbox"></i>
 						<span class="title">
 						Stock </span>
 						<span class="arrow"></span>
@@ -583,7 +592,7 @@
 							@if(Auth::user()->hasCap('categories_view_get'))
 							<li class="{{ $module['name'] == 'categories' ? 'active' : '' }}">
 								<a href="/categories">
-								<i class="icon-lock"></i>
+								<i class="icon-layers"></i>
 								Categorías</a>
 							</li>
 							@endif
@@ -591,7 +600,7 @@
 							@if(Auth::user()->hasCap('measurement_units_view_get'))
 							<li class="{{ $module['name'] == 'measurement_units' ? 'active' : '' }}">
 								<a href="/measurement_units">
-								<i class="icon-key"></i>
+								<i class="icon-equalizer"></i>
 								Unidades de Medida</a>
 							</li>
 							@endif
@@ -1103,14 +1112,13 @@
 	<script src="/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
 	<script src="/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
 	<script src="/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+	<script src="/assets/global/plugins/jquery.mockjax.js" type="text/javascript" ></script>
+	<script src="../../assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.js" type="text/javascript"></script>
+	<script src="../../assets/global/plugins/bootstrap-editable/inputs-ext/address/address.js" type="text/javascript"></script>
+	<script src="../../assets/global/plugins/bootstrap-editable/inputs-ext/wysihtml5/wysihtml5.js" type="text/javascript"></script>
+
+
 	<!-- END PAGE LEVEL PLUGINS -->
-	<!-- BEGIN PAGE LEVEL SCRIPTS -->
-	<script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
-	<script src="/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
-	<script src="/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
-	<script src="/assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
-	<script src="/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
-	<!-- END PAGE LEVEL SCRIPTS -->
 	<!-- BEGIN PAGE DATATABLES SCRIPTS -->
 	<script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
@@ -1120,6 +1128,14 @@
 	<script type="text/javascript" src="/assets/global/plugins/moment/moment.js"></script>
 	<script type="text/javascript" src="/assets/global/plugins/fancybox/source/jquery.fancybox.js"></script>
 	<!-- END PAGE DATATABLES SCRIPTS -->
+	<!-- BEGIN PAGE LEVEL SCRIPTS -->
+	<script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
+	<script src="/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+	<script src="/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+	<script src="/assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
+	<script src="/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+	<script src="/assets/admin/pages/scripts/form-editable.js" type="text/javascript"></script>
+	<!-- END PAGE LEVEL SCRIPTS -->
 	<script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<!-- END PAGE LEVEL SCRIPTS -->
 	<!-- END JAVASCRIPTS -->

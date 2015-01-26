@@ -6,7 +6,7 @@ class CapabilityController extends \BaseController {
 		'index' => 'Todos',
 		'create' => 'Nuevo',
 		'edit' => 'Editar',
-		'delete' => 'Delete'
+		'delete' => 'Eliminar'
 		);
 
 	public function __construct(){
@@ -122,7 +122,7 @@ class CapabilityController extends \BaseController {
 				$args = array(
 					'msg_success' => array(
 						'name' => 'capability_create',
-						'title' => 'Capacidad Agregado',
+						'title' => 'Capacidad Agregada',
 						'description' => 'La capacidad ' . $capability->title . ' fue agregada exitosamente'
 						)
 					);

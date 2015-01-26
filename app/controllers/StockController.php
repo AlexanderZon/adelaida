@@ -4,9 +4,9 @@ class StockController extends \BaseController {
 
 	protected $sections = array(
 		'index' => 'Todos',
-		'create' => 'Nuevo',
-		'edit' => 'Editar',
-		'delete' => 'Delete'
+		'create' => 'Nuevo Item',
+		'edit' => 'Editar Item',
+		'delete' => 'Eliminar'
 		);
 
 	public function __construct(){
@@ -55,6 +55,8 @@ class StockController extends \BaseController {
 	{
 		$args = array(
 			'stock' => Stock::all(),
+			'categories' => Categories::all(),
+			'measurement_units' => MeasurementUnits::all(),
 			'module' => $this->module,
 			);
 		return View::make('stock.create')->with($args);
@@ -69,19 +71,50 @@ class StockController extends \BaseController {
 	public function postCreate()
 	{
 
-		if(!Stock::hasName(Input::get('name'))):
+		if( Input::get('category') == 0 || Input::get('category') == null ):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'stock_category_err',
+					'title' => 'Error al agregar Item',
+					'description' => 'Debe seleccionar una categoría'
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
+
+			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+		elseif( Input::get('measurement_unit') == 0 || Input::get('measurement_unit') == null ):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'stock_measurement_unit_err',
+					'title' => 'Error al agregar Item',
+					'description' => 'Debe seleccionar una Unidad de Medida'
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
+
+			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+		else:
 
 			$item = new Stock();
 			$item->description = Input::get('description');
 			$item->name = Input::get('name');
+			$item->id_category = Input::get('id_category');
+			$item->id_measurement_unit = Input::get('id_measurement_unit');
+			$item->units = Input::get('units');
 			
 			if( $item->save() ):
 
 				$args = array(
 					'msg_success' => array(
 						'name' => 'stock_create',
-						'title' => 'Rol Agregado',
-						'description' => 'El rol ' . $item->title . ' fue agregado exitosamente'
+						'title' => 'Stock Agregado',
+						'description' => 'El stock ' . $item->title . ' fue agregado exitosamente'
 						)
 					);
 
@@ -92,26 +125,14 @@ class StockController extends \BaseController {
 				$args = array(
 					'msg_danger' => array(
 						'name' => 'stock_create_err',
-						'title' => 'Error al agregar el rol',
-						'description' => 'Hubo un error al agregar el rol ' . $item->title
+						'title' => 'Error al agregar el stock',
+						'description' => 'Hubo un error al agregar el stock ' . $item->title
 						)
 					);
 
 				return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 			endif;
-
-		else:
-
-			$args = array(
-				'msg_warning' => array(
-					'name' => 'stock_name_err',
-					'title' => 'Error al agregar el rol',
-					'description' => 'Error: el nombre ' . Input::get('name') . ' ya existe, intente con uno diferente.'
-					)
-				);
-
-			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		endif;
 
@@ -129,6 +150,8 @@ class StockController extends \BaseController {
 		$args = array(
 			'item' => Stock::find( Crypt::decrypt($id) ),
 			'stock' => Stock::all(),
+			'categories' => Categories::all(),
+			'measurement_units' => MeasurementUnits::all(),
 			'module' => $this->module,
 			);
 		return View::make('stock.edit')->with($args);
@@ -143,21 +166,52 @@ class StockController extends \BaseController {
 	 */
 	public function postEdit($id)
 	{
-			
-		$item = Stock::find( Crypt::decrypt($id) );
 
-		if(!Stock::hasName(Input::get('name'), $item->id) ):
-		
+		if( Input::get('category') == 0 || Input::get('category') == null ):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'stock_category_err',
+					'title' => 'Error al agregar Item',
+					'description' => 'Debe seleccionar una categoría'
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+
+		elseif( Input::get('measurement_unit') == 0 || Input::get('measurement_unit') == null ):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'stock_measurement_unit_err',
+					'title' => 'Error al agregar Item',
+					'description' => 'Debe seleccionar una Unidad de Medida'
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+
+		else:
+			
+			$item = Stock::find( Crypt::decrypt($id) );
+
 			$item->description = Input::get('description');
 			$item->name = Input::get('name');
-			
+			$item->id_category = Input::get('id_category');
+			$item->id_measurement_unit = Input::get('id_measurement_unit');
+			$item->units = Input::get('units');
+				
 			if( $item->save() ):
 
 				$args = array(
 					'msg_success' => array(
 						'name' => 'stock_edit',
-						'title' => 'Rol Editado',
-						'description' => 'El rol ' . $item->title . ' fue editado exitosamente'
+						'title' => 'Stock Editado',
+						'description' => 'El stock ' . $item->title . ' fue editado exitosamente'
 						)
 					);
 
@@ -168,27 +222,17 @@ class StockController extends \BaseController {
 				$args = array(
 					'msg_danger' => array(
 						'name' => 'stock_edit_err',
-						'title' => 'Error al editar el rol',
-						'description' => 'Hubo un error al editar el rol ' . $item->title
+						'title' => 'Error al editar el stock',
+						'description' => 'Hubo un error al editar el stock ' . $item->title
 						)
 					);
 
 				return Redirect::to( $this->module['route'].'/edit' )->with( $args );
 
 			endif;
-		else:
-
-			$args = array(
-				'msg_warning' => array(
-					'name' => 'stock_name_err',
-					'title' => 'Error al editar el rol',
-					'description' => 'Error: el nombre ' . Input::get('name') . ' ya existe, intente con uno diferente.'
-					)
-				);
-
-			return Redirect::to( $this->module['route'].'/edit/'.$id )->with( $args );
 
 		endif;
+
 	}
 
 	/**
@@ -284,7 +328,7 @@ class StockController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'stock_delete',
-					'title' => 'Rol Eliminada',
+					'title' => 'Stock Eliminada',
 					'description' => 'La capacidad ' . $item->title . ' fue eliminada exitosamente'
 					)
 				);
