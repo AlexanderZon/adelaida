@@ -73,7 +73,7 @@
 					<div class="portlet box green-haze">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-key"></i>Listado de Items en Stock
+								<i class="fa fa-key"></i>Listado de Unidades de Medida
 							</div>
 							<div class="tools">
 								@if(Auth::user()->hasCap('measurement_units_create_get'))

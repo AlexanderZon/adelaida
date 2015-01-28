@@ -173,10 +173,12 @@ class ClientController extends \BaseController {
 	 */
 	public function getDelete($id)
 	{
+
 		$args = array(
 			'client' => Clients::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
+
 		return View::make('clients.delete')->with($args);
 	}
 
@@ -217,6 +219,117 @@ class ClientController extends \BaseController {
 
 		endif;
 	}
+
+   	public function postFindrepresentant(){
+   	
+   		$person = Persons::where('identification_number','=',Input::get('identification_number'))->get();
+   	
+   		if(count($person) > 0):
+   	
+   			return $person[0];
+   	
+   		else:
+   	
+   			return 0;
+   	
+   		endif;
+   	
+   	}
+
+   	public function getRepresentant(){
+   	
+   		return View::make('clients.representant')->with( array( 'route' => $this->module['route'] ) );
+   	
+   	}
+   	
+   	public function postRepresentant(){
+   	
+   		$person = new Persons();
+   		$person->first_name = Input::get('first_name');
+   		$person->last_name = Input::get('last_name');
+   		$person->identification_number = Input::get('identification_number');
+   		$person->phone = Input::get('phone');
+   		$person->email = Input::get('email');
+   		$person->type = 'client_representant';
+   		$person->status = 'active';
+   	
+   		if($person->save()):
+   	
+   			$array = array(
+   				'id' => $person->id,
+   				'first_name' => $person->first_name,
+   				'last_name' => $person->last_name,
+   				'identification_number' => $person->identification_number,
+   				'phone' => $person->phone,
+   				'email' => $person->email,
+   				);
+   	
+   			return Response::json($array);
+   	
+   		else:
+   	
+   			return 0;
+   	
+   		endif;
+   	
+   	}
+   
+   	public function postFindauthorized(){
+   	
+   		$person = Persons::where('identification_number','=',Input::get('identification_number'))->get();
+   	
+   		if(count($person) > 0):
+   	
+   			return $person[0];
+   	
+   		else:
+   	
+   			return 0;
+   	
+   		endif;
+   	
+   	}
+   
+   	public function postFindauthorizedbyid(){
+   	
+   		$person = Persons::find(Input::get('id'));
+   	
+   		return $person;
+   	   	
+   	}
+   
+   	public function getAuthorized(){
+   	
+   		return View::make('clients.authorized')->with( array( 'route' => $this->route ) );
+   	
+   	}
+   	
+   	public function postAuthorized(){
+   	
+   		$person = new Persons();
+   		$person->first_name = Input::get('first_name');
+   		$person->last_name = Input::get('last_name');
+   		$person->identification_number = Input::get('identification_number');
+   		$person->rif = Input::get('rif');
+   	
+   		if($person->save()):
+   	
+   			$array = array(
+   				'id' => $person->id,
+   				'first_name' => $person->first_name,
+   				'last_name' => $person->last_name,
+   				'identification_number' => $person->identification_number,
+   				);
+   	
+   			return Response::json($array);
+   	
+   		else:
+   	
+   			return 0;
+   	
+   		endif;
+   	
+   	}
 
 	private function getBreadcumbs(){
 
