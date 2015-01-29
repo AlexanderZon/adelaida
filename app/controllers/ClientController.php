@@ -55,6 +55,7 @@ class ClientController extends \BaseController {
 	{
 		$args = array(
 			'clients' => Clients::all(),
+			'locations' => Locations::all(),
 			'module' => $this->module,
 			);
 		return View::make('clients.create')->with($args);
@@ -69,35 +70,65 @@ class ClientController extends \BaseController {
 	public function postCreate()
 	{
 
-		$client = new Clients();
-		$client->title = Input::get('title');
-		$client->description = Input::get('description');
-		$client->name = Input::get('name');
-		$client->controller = Input::get('controller');
-		
-		if( $client->save() ):
+		if( Input::get('id_person') == '' ):
 
 			$args = array(
-				'msg_success' => array(
-					'name' => 'client_create',
-					'title' => 'Cliente Agregado',
-					'description' => 'El cliente ' . $client->title . ' fue agregado exitosamente'
-					)
-				);
-
-			return Redirect::to( $this->module['route'] )->with( $args );
-
-		else:
-
-			$args = array(
-				'msg_danger' => array(
-					'name' => 'client_create_err',
-					'title' => 'Error al agregar el cliente',
-					'description' => 'Hubo un error al agregar el cliente ' . $client->title
+				'msg_warning' => array(
+					'name' => 'client_person_err',
+					'title' => 'Error al Crear el Cliente',
+					'description' => 'Seleccione un Representante para el Cliente'
 					)
 				);
 
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+		elseif( Input::get('id_location') == 0 || Input::get('id_location') == '' ):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'client_location_err',
+					'title' => 'Error al Crear el Cliente',
+					'description' => 'Seleccione unla Localidad para el Cliente'
+					)
+				);
+
+			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+		else:
+
+			$client = new Clients();
+			$client->identification_number = Input::get('identification_number');
+			$client->email = Input::get('email');
+			$client->name = Input::get('name');
+			$client->phone = Input::get('phone');
+			$client->id_person = Input::get('id_person');
+			$client->id_location = Input::get('id_location');
+			
+			if( $client->save() ):
+
+				$args = array(
+					'msg_success' => array(
+						'name' => 'client_create',
+						'title' => 'Cliente Agregado',
+						'description' => 'El cliente ' . $client->name . ' fue agregado exitosamente'
+						)
+					);
+
+				return Redirect::to( $this->module['route'] )->with( $args );
+
+			else:
+
+				$args = array(
+					'msg_danger' => array(
+						'name' => 'client_create_err',
+						'title' => 'Error al agregar el cliente',
+						'description' => 'Hubo un error al agregar el cliente ' . $client->name
+						)
+					);
+
+				return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+			endif;
 
 		endif;
 
@@ -112,11 +143,14 @@ class ClientController extends \BaseController {
 	 */
 	public function getEdit($id)
 	{
+
 		$args = array(
 			'client' => Clients::find( Crypt::decrypt($id) ),
+			'locations' => Locations::all(),
 			'module' => $this->module,
 			);
 		return View::make('clients.edit')->with($args);
+		
 	}
 
 	/**
@@ -131,34 +165,64 @@ class ClientController extends \BaseController {
 		
 		$client = Clients::find( Crypt::decrypt($id) );
 
-		$client->title = Input::get('title');
-		$client->description = Input::get('description');
-		$client->name = Input::get('name');
-		$client->controller = Input::get('controller');
-		
-		if( $client->save() ):
+		if( Input::get('id_person') == '' ):
 
 			$args = array(
-				'msg_success' => array(
-					'name' => 'client_edit',
-					'title' => 'Cliente Editado',
-					'description' => 'El cliente ' . $client->title . ' fue editado exitosamente'
+				'msg_warning' => array(
+					'name' => 'client_person_err',
+					'title' => 'Error al Editar el Cliente',
+					'description' => 'Seleccione un Representante para el Cliente'
 					)
 				);
 
-			return Redirect::to( $this->module['route'] )->with( $args );
+			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($client->id) )->with( $args );
+
+		elseif( Input::get('id_location') == 0 || Input::get('id_location') == '' ):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'client_location_err',
+					'title' => 'Error al Editar el Cliente',
+					'description' => 'Seleccione unla Localidad para el Cliente'
+					)
+				);
+
+			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($client->id) )->with( $args );
 
 		else:
 
-			$args = array(
-				'msg_danger' => array(
-					'name' => 'client_edit_err',
-					'title' => 'Error al editar el cliente',
-					'description' => 'Hubo un error al editar el cliente ' . $client->title
-					)
-				);
+			$client->identification_number = Input::get('identification_number');
+			$client->email = Input::get('email');
+			$client->name = Input::get('name');
+			$client->phone = Input::get('phone');
+			$client->id_person = Input::get('id_person');
+			$client->id_location = Input::get('id_location');
+			
+			if( $client->save() ):
 
-			return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+				$args = array(
+					'msg_success' => array(
+						'name' => 'client_edit',
+						'title' => 'Cliente Editado',
+						'description' => 'El cliente ' . $client->title . ' fue editado exitosamente'
+						)
+					);
+
+				return Redirect::to( $this->module['route'] )->with( $args );
+
+			else:
+
+				$args = array(
+					'msg_danger' => array(
+						'name' => 'client_edit_err',
+						'title' => 'Error al editar el cliente',
+						'description' => 'Hubo un error al editar el cliente ' . $client->title
+						)
+					);
+
+				return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+
+			endif;
 
 		endif;
 
@@ -243,18 +307,9 @@ class ClientController extends \BaseController {
    	}
    	
    	public function postRepresentant(){
-   	
-   		$person = new Persons();
-   		$person->first_name = Input::get('first_name');
-   		$person->last_name = Input::get('last_name');
-   		$person->identification_number = Input::get('identification_number');
-   		$person->phone = Input::get('phone');
-   		$person->email = Input::get('email');
-   		$person->type = 'client_representant';
-   		$person->status = 'active';
-   	
-   		if($person->save()):
-   	
+
+   		if($person = Persons::exists(Input::get('identification_number'))):
+
    			$array = array(
    				'id' => $person->id,
    				'first_name' => $person->first_name,
@@ -265,12 +320,38 @@ class ClientController extends \BaseController {
    				);
    	
    			return Response::json($array);
-   	
+
    		else:
    	
-   			return 0;
-   	
-   		endif;
+	   		$person = new Persons();
+	   		$person->first_name = Input::get('first_name');
+	   		$person->last_name = Input::get('last_name');
+	   		$person->identification_number = Input::get('identification_number');
+	   		$person->phone = Input::get('phone');
+	   		$person->email = Input::get('email');
+	   		$person->type = 'client_representant';
+	   		$person->status = 'active';
+	   	
+	   		if($person->save()):
+	   	
+	   			$array = array(
+	   				'id' => $person->id,
+	   				'first_name' => $person->first_name,
+	   				'last_name' => $person->last_name,
+	   				'identification_number' => $person->identification_number,
+	   				'phone' => $person->phone,
+	   				'email' => $person->email,
+	   				);
+	   	
+	   			return Response::json($array);
+	   	
+	   		else:
+	   	
+	   			return 0;
+	   	
+	   		endif;
+
+	   	endif;
    	
    	}
    

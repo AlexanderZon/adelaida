@@ -123,19 +123,19 @@
 									{{ $client->name }}
 								</td>
 								<td>
-									{{ $client->description }}
+									{{ $client->identification_number }}
 								</td>
 								<td>
-									{{ $client->description }}
+									{{ $client->representant->identification_number }} - {{ $client->representant->first_name }} {{ $client->representant->last_name }}
 								</td>
 								<td>
-									{{ $client->description }}
+									{{ $client->email }}
 								</td>
 								<td>
-									{{ $client->description }}
+									{{ $client->phone }}
 								</td>
 								<td>
-									{{ $client->description }}
+									{{ $client->location->name }}
 								</td>
 								<!-- <td>
 									{{ $client->method }}

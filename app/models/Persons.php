@@ -15,6 +15,18 @@ class Persons extends \Eloquent {
 
 	protected $fillable = [];
 
+	public static function exists( $identification_numer ){
+
+   		$person = Persons::where('identification_number','=',Input::get('identification_number'))->get();
+   		
+   		if(count($person) > 0):
+   			return $person[0];
+   		else:
+   			return 0;
+   		endif;
+
+	}
+
 	public function isRepresentantOf(){
 
 		return $this->hasMany('Clients', 'id_person', 'id');

@@ -70,7 +70,7 @@
 					</div>
 					<div class="portlet-body form">
 						<!-- BEGIN FORM-->
-						<form action="" method="post" class="form-horizontal">
+						<form id="form-validate" action="" method="post" class="form-horizontal">
 							<div class="form-body">
 								<h3 class="form-section">Información de Cliente</h3>
 								<div class="row">
@@ -78,7 +78,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-3">Nombre</label>
 											<div class="col-md-9">
-												<input name="name" type="text" class="form-control" placeholder="Ingrese el título de la Cliente">
+												<input name="name" type="text" class="form-control" placeholder="Ingrese el título de la Cliente" required>
 												<!-- <span class="help-block">This is inline help</span> -->
 											</div>
 										</div>
@@ -88,7 +88,7 @@
 										<div class="form-group {{ false ? 'has-error' : '' }}">
 											<label class="control-label col-md-3">RIF</label>
 											<div class="col-md-9">
-												<input name="identification_num" type="text" class="form-control" placeholder="Ingrese la RIF de la Cliente">
+												<input name="identification_number" type="text" class="form-control" placeholder="Ingrese la RIF de la Cliente" required>
 												<!-- <span class="help-block">This is inline help</span> -->
 											</div>
 										</div>
@@ -100,7 +100,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-3">Email</label>
 											<div class="col-md-9">
-												<input name="email" type="email" class="form-control" placeholder="Ingrese el Email de la Cliente">
+												<input name="email" type="email" class="form-control" placeholder="Ingrese el Email de la Cliente" required>
 												<!-- <span class="help-block">This is inline help</span> -->
 											</div>
 										</div>
@@ -110,7 +110,7 @@
 										<div class="form-group {{ false ? 'has-error' : '' }}">
 											<label class="control-label col-md-3">Teléfono</label>
 											<div class="col-md-9">
-												<input name="phone" type="text" class="form-control" placeholder="Ingrese el Teléfono de la Cliente">
+												<input name="phone" type="text" class="form-control" placeholder="Ingrese el Teléfono de la Cliente" required>
 												<!-- <span class="help-block">This is inline help</span> -->
 											</div>
 										</div>
@@ -119,29 +119,34 @@
 								</div>
 								<div class="row">
 									<div class="col-md-6">
-										<div class="form-group">
+										<div class="form-group" id="form-group-representant">
 											<label class="control-label col-md-3">Representante</label>
 											<div class="col-md-9">
 												<a href="{{ $module['route'] }}/representant" class="btn default fancybox fancybox.ajax" id="add-representant">Ingresar un representante</a>
-								            	<input class="form-control" value="" type="hidden" name="id_person" readonly>
-								            	<div id="form-display-representant" style="display:none">
+								            	<input class="form-control" value="" type="hidden" name="id_person" readonly required>
+								            	<div id="form-display-representant" style="display:none; font-size:12pt;padding-top:3px;">
 								            		<span id="form-display-representant-span"></span>
-								            		<a href="#" id="delete-representant" class="btn danger">x</a>
+								            		<a href="#" id="delete-representant" class="btn danger bg-red" style="margin-left: 10px;margin-top: -5px;">x</a>
 								            	</div>
 											</div>
 										</div>
 									</div>
 									<!--/span-->
 									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label col-md-3">Localización</label>
+										<div class="form-group {{ $module['msg_warning']['name'] == 'clients_location_err' ? 'has-error' : '' }}" id="form-group-location">
+											<label class="control-label col-md-3">Localidad</label>
 											<div class="col-md-9">
-												<a href="{{ $module['route'] }}/location" class="btn default fancybox fancybox.ajax" id="add-location">Ingresar una Localización</a>
-								            	<input class="form-control" value="" type="hidden" name="id_location" readonly>
-								            	<div id="form-display-location" style="display:none">
-								            		<span id="form-display-location-span"></span>
-								            		<a href="#" id="delete-location" class="btn danger">x</a>
-								            	</div>
+												<div class="input-group ">
+													<span class="input-group-addon">
+													<i class="fa fa-user"></i>
+													</span>
+													<select name="id_location" class="form-control select2me" data-placeholder="Seleccione una localidad..." required>
+														<option value="0">--- SELECCIONE UNA LOCALIDAD ---</option>
+														@foreach( $locations as $location )
+															<option value="{{ $location->id }}">{{ $location->name }}</option>
+														@endforeach
+													</select>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -186,7 +191,7 @@
     <script type="text/javascript">
     $(document).on('ready', function(){
     	$("#delete-representant").click(function(e){
-			$('input[name=id_persona]').val('');
+			$('input[name=id_person]').val('');
 			$('#form-display-representant').css({
 				'display':'none'
 			});
@@ -195,7 +200,7 @@
 			});
     	});
     	$("#delete-location").click(function(e){
-			$('input[name=id_persona]').val('');
+			$('input[name=id_person]').val('');
 			$('#form-display-location').css({
 				'display':'none'
 			});

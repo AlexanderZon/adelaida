@@ -103,7 +103,7 @@
     			e.preventDefault();
     			if($('#representant-finded').val() != 'false'){
     				$('input[name=id_person]').val($('#representant-finded').val());
-    				$('#form-display-representant-span').html($('#representant-identification_number').val() + ' - ' + $('#representant-first_name').val());
+    				$('#form-display-representant-span').html($('#representant-identification_number').val() + ' - ' + $('#representant-first_name').val() + ' ' + $('#representant-last_name').val());
     				$('#form-display-representant').css({
     					'display':'block'
     				});
@@ -121,7 +121,8 @@
 	    				data: elem.serialize(),
 	    				success: function(data){
 		    				$('input[name=id_person]').val(data.id);
-		    				$('#form-display-representant-span').html(data.identification_number + ' - ' + data.first_name);
+		    				console.log(data.identification_number + ' - ' + data.first_name + ' ' + data.last_name);
+		    				$('#form-display-representant-span').html(data.identification_number + ' - ' + data.first_name + ' ' + data.last_name);
 		    				$('#form-display-representant').css({
 		    					'display':'block'
 		    				});
