@@ -88,7 +88,19 @@ class ClientController extends \BaseController {
 				'msg_warning' => array(
 					'name' => 'client_location_err',
 					'title' => 'Error al Crear el Cliente',
-					'description' => 'Seleccione unla Localidad para el Cliente'
+					'description' => 'Seleccione una Localidad para el Cliente'
+					)
+				);
+
+			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+		elseif( Clients::exists(Input::get('identification_number')) != 0 ):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'client_identification_err',
+					'title' => 'Error al Crear el Cliente',
+					'description' => 'Ya existe un cliente con el RIF ' . Input::get('identification_number') . ' introduzca uno diferente'
 					)
 				);
 
@@ -189,6 +201,18 @@ class ClientController extends \BaseController {
 
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($client->id) )->with( $args );
 
+		elseif( Clients::exists(Input::get('identification_number'), $client ) != 0 ):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'client_identification_err',
+					'title' => 'Error al Crear el Cliente',
+					'description' => 'Ya existe un cliente con el RIF ' . Input::get('identification_number') . ' introduzca uno diferente'
+					)
+				);
+
+			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($client->id) )->with( $args );
+
 		else:
 
 			$client->identification_number = Input::get('identification_number');
@@ -220,7 +244,7 @@ class ClientController extends \BaseController {
 						)
 					);
 
-				return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($client->id) )->with( $args );
 
 			endif;
 
@@ -279,7 +303,7 @@ class ClientController extends \BaseController {
 					)
 				);
 
-			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($client->id) )->with( $args );
 
 		endif;
 	}

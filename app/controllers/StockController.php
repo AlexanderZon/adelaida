@@ -166,6 +166,8 @@ class StockController extends \BaseController {
 	 */
 	public function postEdit($id)
 	{
+			
+		$item = Stock::find( Crypt::decrypt($id) );
 
 		if( Input::get('category') == 0 || Input::get('category') == null ):
 
@@ -179,7 +181,7 @@ class StockController extends \BaseController {
 
 			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 
-			return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($item->id) )->with( $args );
 
 		elseif( Input::get('measurement_unit') == 0 || Input::get('measurement_unit') == null ):
 
@@ -193,11 +195,9 @@ class StockController extends \BaseController {
 
 			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 
-			return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($item->id) )->with( $args );
 
 		else:
-			
-			$item = Stock::find( Crypt::decrypt($id) );
 
 			$item->description = Input::get('description');
 			$item->name = Input::get('name');
@@ -227,70 +227,10 @@ class StockController extends \BaseController {
 						)
 					);
 
-				return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($item->id) )->with( $args );
 
 			endif;
 
-		endif;
-
-	}
-
-	/**
-	 * Show the form for deleting the specified resource.
-	 * GET /stock/assign/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-
-	public function getAssign($id)
-	{
-		
-		$args = array(
-			'item' => Stock::find( Crypt::decrypt($id) ),
-			'capabilities' => Capabilities::orderBy('title','ASC')->get(),
-			'module' => $this->module,
-			);
-
-		return View::make('stock.assign')->with( $args );
-
-	}
-
-	/**
-	 * Show the form for deleting the specified resource.
-	 * POST /stock/assign/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-
-	public function postAssign($id)
-	{
-		
-		$item = Stock::find( Crypt::decrypt($id) );
-
-		$capabilities = Input::get('capabilities');
-		
-		if($item->capabilities()->sync($capabilities)):
-			$args = array(
-				'msg_success' => array(
-					'name' => 'stock_assign',
-					'title' => 'Capacidades Asignadas',
-					'description' => 'Las capacidades fueron exitosamente asignadas'
-					)
-				);
-
-			return Redirect::to( $this->module['route'] )->with( $args );
-		else:
-			$args = array(
-				'msg_danger' => array(
-					'name' => 'stock_assign_err',
-					'title' => 'Error al Asignar las Capacidades',
-					'description' => 'Hubo un error al asignar las capacidades '
-					)
-				);
-
-			return Redirect::to( $this->module['route'].'/edit' )->with( $args );
 		endif;
 
 	}
@@ -345,7 +285,7 @@ class StockController extends \BaseController {
 					)
 				);
 
-			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($item->id) )->with( $args );
 
 		endif;
 	}

@@ -174,7 +174,7 @@ class RoleController extends \BaseController {
 						)
 					);
 
-				return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($role->id) )->with( $args );
 
 			endif;
 		else:
@@ -187,7 +187,7 @@ class RoleController extends \BaseController {
 					)
 				);
 
-			return Redirect::to( $this->module['route'].'/edit/'.$id )->with( $args );
+			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($role->id) )->with( $args );
 
 		endif;
 	}
@@ -247,7 +247,7 @@ class RoleController extends \BaseController {
 					)
 				);
 
-			return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+			return Redirect::to( $this->module['route'].'/assign/'.Crypt::encrypt($role->id) )->with( $args );
 		endif;
 
 	}
@@ -302,7 +302,7 @@ class RoleController extends \BaseController {
 					)
 				);
 
-			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($role->id) )->with( $args );
 
 		endif;
 	}

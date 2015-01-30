@@ -21,6 +21,8 @@ if(Auth::check()):
 	Route::controller('/measurement_units', 'MeasurementUnitController');
 	Route::controller('/categories', 'CategoryController');
 	Route::controller('/clients', 'ClientController');
+	Route::controller('/locations', 'LocationController');
+	Route::controller('/persons', 'PersonController');
 	Route::controller('/providers', 'ProviderController');
 	Route::controller('/sells', 'SellController');
 	Route::controller('/reports', 'ReportController');

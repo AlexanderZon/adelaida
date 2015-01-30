@@ -187,7 +187,7 @@ class CategoryController extends \BaseController {
 					)
 				);
 
-			return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($category->id) )->with( $args );
 
 		endif;
 
@@ -245,7 +245,7 @@ class CategoryController extends \BaseController {
 					)
 				);
 
-			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($category->id) )->with( $args );
 
 		endif;
 	}

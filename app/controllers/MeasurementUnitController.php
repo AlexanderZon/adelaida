@@ -156,7 +156,7 @@ class MeasurementUnitController extends \BaseController {
 						)
 					);
 
-				return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($measurement_unit->id) )->with( $args );
 
 			endif;
 		else:
@@ -169,30 +169,9 @@ class MeasurementUnitController extends \BaseController {
 					)
 				);
 
-			return Redirect::to( $this->module['route'].'/edit/'.$id )->with( $args );
+			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($measurement_unit->id) )->with( $args );
 
 		endif;
-	}
-
-	/**
-	 * Show the form for deleting the specified resource.
-	 * GET /measurement_units/assign/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-
-	public function getAssign($id)
-	{
-		
-		$args = array(
-			'measurement_unit' => MeasurementUnits::find( Crypt::decrypt($id) ),
-			'capabilities' => Capabilities::orderBy('title','ASC')->get(),
-			'module' => $this->module,
-			);
-
-		return View::make('measurement_units.assign')->with( $args );
-
 	}
 
 	/**
@@ -245,7 +224,7 @@ class MeasurementUnitController extends \BaseController {
 					)
 				);
 
-			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($measurement_unit->id) )->with( $args );
 
 		endif;
 	}

@@ -85,7 +85,7 @@
 									</div>
 									<!--/span-->
 									<div class="col-md-6">
-										<div class="form-group {{ false ? 'has-error' : '' }}">
+										<div class="form-group {{ $module['msg_warning']['name'] == 'clients_identification_err' ? 'has-error' : '' }}">
 											<label class="control-label col-md-3">RIF</label>
 											<div class="col-md-9">
 												<input name="identification_number" type="text" class="form-control" placeholder="Ingrese la RIF de la Cliente" required>

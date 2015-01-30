@@ -612,23 +612,49 @@
 					</li>
 					@endif
 
-					@if(Auth::user()->hasCap('clients_view_get'))
-					<li class="tooltips {{ $module['name'] == 'clients' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Clientes">
+					@if(Auth::user()->hasCap('persons_view_get') || Auth::user()->hasCap('clients_view_get') || Auth::user()->hasCap('providers_view_get') || Auth::user()->hasCap('locations_view_get'))
+					<li class="tooltips {{ $module['name'] == 'persons' || $module['name'] == 'clients' || $module['name'] == 'providers' || $module['name'] == 'locations' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Personas">
 						<a href="/clients">
 						<i class="icon-user"></i>
 						<span class="title">
-						Clientes </span>
+						Personas </span>
+						<span class="arrow"></span>
 						</a>
-					</li>
-					@endif
+						<ul class="sub-menu">
 
-					@if(Auth::user()->hasCap('providers_view_get'))
-					<li class="tooltips {{ $module['name'] == 'providers' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Proveedores">
-						<a href="/providers">
-						<i class="icon-briefcase"></i>
-						<span class="title">
-						Proveedores </span>
-						</a>
+							@if(Auth::user()->hasCap('persons_view_get'))
+							<li class="{{ $module['name'] == 'persons' ? 'active' : '' }}">
+								<a href="/persons">
+								<i class="icon-list"></i>
+								Todos</a>
+							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('clients_view_get'))
+							<li class="{{ $module['name'] == 'clients' ? 'active' : '' }}">
+								<a href="/clients">
+								<i class="icon-emoticon-smile"></i>
+								Clientes</a>
+							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('providers_view_get'))
+							<li class="{{ $module['name'] == 'providers' ? 'active' : '' }}">
+								<a href="/providers">
+								<i class="icon-briefcase"></i>
+								Proveedores</a>
+							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('locations_view_get'))
+							<li class="{{ $module['name'] == 'locations' ? 'active' : '' }}">
+								<a href="/locations">
+								<i class="icon-pointer"></i>
+								Localidades</a>
+							</li>
+							@endif
+
+						</ul>
 					</li>
 					@endif
 

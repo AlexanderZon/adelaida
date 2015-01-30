@@ -15,10 +15,18 @@ class Persons extends \Eloquent {
 
 	protected $fillable = [];
 
-	public static function exists( $identification_numer ){
+	public static function exists( $identification_numer, $person = '' ){
 
-   		$person = Persons::where('identification_number','=',Input::get('identification_number'))->get();
+		if($person != ''):
+
+   			$person = self::where('identification_number','=',Input::get('identification_number'))->where('id','!=',$person->id)->get();
+
+		else:
+
+   			$person = self::where('identification_number','=',Input::get('identification_number'))->get();
    		
+   		endif;
+
    		if(count($person) > 0):
    			return $person[0];
    		else:

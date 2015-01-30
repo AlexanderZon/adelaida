@@ -15,6 +15,26 @@ class Clients extends \Eloquent {
 
 	protected $fillable = [];
 
+	public static function exists( $identification_numer, $client = '' ){
+
+		if($client != ''):
+
+   			$client = self::where('identification_number','=',Input::get('identification_number'))->where('id','!=',$client->id)->get();
+
+		else:
+
+   			$client = self::where('identification_number','=',Input::get('identification_number'))->get();
+   		
+   		endif;
+
+   		if(count($client) > 0):
+   			return $client[0];
+   		else:
+   			return 0;
+   		endif;
+
+	}
+
 	public function representant(){
 
 		return $this->belongsTo('Persons', 'id_person');

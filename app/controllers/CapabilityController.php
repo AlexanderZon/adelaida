@@ -192,7 +192,7 @@ class CapabilityController extends \BaseController {
 						)
 					);
 
-				return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($capability->id) )->with( $args );
 
 			endif;
 
@@ -208,7 +208,7 @@ class CapabilityController extends \BaseController {
 						)
 					);
 
-				return Redirect::to( $this->module['route'].'/edit/'.$id )->with( $args );
+				return Redirect::to( $this->module['route'].'/edit//'.Crypt::encrypt($capability->id) )->with( $args );
 
 			else:
 
@@ -220,7 +220,7 @@ class CapabilityController extends \BaseController {
 						)
 					);
 
-				return Redirect::to( $this->module['route'].'/edit/'.$id )->with( $args );
+				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($capability->id) )->with( $args );
 
 			endif;
 
@@ -277,7 +277,7 @@ class CapabilityController extends \BaseController {
 					)
 				);
 
-			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($capability->id) )->with( $args );
 
 		endif;
 	}
