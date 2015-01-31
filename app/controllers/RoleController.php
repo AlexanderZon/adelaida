@@ -175,7 +175,7 @@ class RoleController extends \BaseController {
 				$args = array(
 					'msg_success' => array(
 						'name' => 'role_edit',
-						'title' => 'Rol Editado',
+						'title' => 'Rol editado',
 						'description' => 'El rol ' . $role->title . ' fue editado exitosamente'
 						)
 					);

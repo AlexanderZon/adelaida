@@ -42,6 +42,11 @@ class ProviderController extends \BaseController {
 			'providers' => Providers::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'provider_get_index',
+			'title' => 'Proveedores',
+			'description' => 'Vizualización de proveedores de materiales'
+			), 'READ');
 		return View::make('providers.index')->with($args);
 	}
 
@@ -58,6 +63,11 @@ class ProviderController extends \BaseController {
 			'locations' => Locations::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'provider_get_create',
+			'title' => 'Añadir Proveedores',
+			'description' => 'Agregar proveedores de materiales'
+			), 'READ');
 		return View::make('providers.create')->with($args);
 	}
 
@@ -75,11 +85,11 @@ class ProviderController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'provider_person_err',
-					'title' => 'Error al Crear el Proveedor',
-					'description' => 'Seleccione un Representante para el Proveedor'
+					'title' => 'Error al crear el proveedor',
+					'description' => 'Seleccione un representante para el proveedor'
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		elseif( Input::get('id_location') == 0 || Input::get('id_location') == '' ):
@@ -87,11 +97,12 @@ class ProviderController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'provider_location_err',
-					'title' => 'Error al Crear el Proveedor',
-					'description' => 'Seleccione una Localidad para el Proveedor'
+					'title' => 'Error al crear el proveedor',
+					'description' => 'Seleccione una localidad para el proveedor'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		elseif( Providers::exists(Input::get('identification_number')) != 0 ):
@@ -99,11 +110,12 @@ class ProviderController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'provider_identification_err',
-					'title' => 'Error al Crear el Proveedor',
+					'title' => 'Error al crear el proveedor',
 					'description' => 'Ya existe un proveedor con el RIF ' . Input::get('identification_number') . ' introduzca uno diferente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		else:
@@ -121,11 +133,12 @@ class ProviderController extends \BaseController {
 				$args = array(
 					'msg_success' => array(
 						'name' => 'provider_create',
-						'title' => 'Proveedor Agregado',
+						'title' => 'Proveedor agregado',
 						'description' => 'El proveedor ' . $provider->name . ' fue agregado exitosamente'
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -138,6 +151,7 @@ class ProviderController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 				return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 			endif;
@@ -161,6 +175,11 @@ class ProviderController extends \BaseController {
 			'locations' => Locations::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'provider_get_edit',
+			'title' => 'Edición proveedores',
+			'description' => 'Edición de proveedores de materiales'
+			), 'READ');
 		return View::make('providers.edit')->with($args);
 		
 	}
@@ -182,11 +201,12 @@ class ProviderController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'provider_person_err',
-					'title' => 'Error al Editar el Proveedor',
-					'description' => 'Seleccione un Representante para el Proveedor'
+					'title' => 'Error al editar el proveedor',
+					'description' => 'Seleccione un representante para el proveedor'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($provider->id) )->with( $args );
 
 		elseif( Input::get('id_location') == 0 || Input::get('id_location') == '' ):
@@ -194,11 +214,12 @@ class ProviderController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'provider_location_err',
-					'title' => 'Error al Editar el Proveedor',
-					'description' => 'Seleccione unla Localidad para el Proveedor'
+					'title' => 'Error al editar el proveedor',
+					'description' => 'Seleccione una localidad para el proveedor'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($provider->id) )->with( $args );
 
 		elseif( Providers::exists(Input::get('identification_number'), $provider ) != 0 ):
@@ -206,11 +227,12 @@ class ProviderController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'provider_identification_err',
-					'title' => 'Error al Crear el Proveedor',
+					'title' => 'Error al crear el proveedor',
 					'description' => 'Ya existe un proveedor con el RIF ' . Input::get('identification_number') . ' introduzca uno diferente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($provider->id) )->with( $args );
 
 		else:
@@ -227,11 +249,12 @@ class ProviderController extends \BaseController {
 				$args = array(
 					'msg_success' => array(
 						'name' => 'provider_edit',
-						'title' => 'Proveedor Editado',
+						'title' => 'Proveedor editado',
 						'description' => 'El proveedor ' . $provider->title . ' fue editado exitosamente'
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -244,6 +267,7 @@ class ProviderController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($provider->id) )->with( $args );
 
 			endif;
@@ -266,7 +290,11 @@ class ProviderController extends \BaseController {
 			'provider' => Providers::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
-
+		Audits::add(Auth::user(), array(
+			'name' => 'provider_get_delete',
+			'title' => 'Eliminar proveedores',
+			'description' => 'Vizualización de proveedores para eliminar del sistema'
+			), 'READ');
 		return View::make('providers.delete')->with($args);
 	}
 
@@ -286,11 +314,12 @@ class ProviderController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'provider_delete',
-					'title' => 'Proveedor Eliminada',
+					'title' => 'Proveedor eliminado',
 					'description' => 'El proveedor ' . $provider->title . ' fue eliminado exitosamente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -303,6 +332,7 @@ class ProviderController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($provider->id) )->with( $args );
 
 		endif;

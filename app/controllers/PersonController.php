@@ -42,6 +42,11 @@ class PersonController extends \BaseController {
 			'persons' => Persons::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'person_get_index',
+			'title' => 'Listado de Personas',
+			'description' => 'Vizualización del listado de personas naturales, juridicas y representantes de empresas proveedoras'
+			), 'READ');
 		return View::make('persons.index')->with($args);
 	}
 
@@ -57,6 +62,11 @@ class PersonController extends \BaseController {
 			'persons' => Persons::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'person_get_create',
+			'title' => 'Añadir Personas',
+			'description' => 'Adición de personas naturales y personas juridicas'
+			), 'READ');
 		return View::make('persons.create')->with($args);
 	}
 
@@ -77,7 +87,7 @@ class PersonController extends \BaseController {
 					'description' => 'La Cédula ' . Input::get('identification_number') . ' ya existe.'
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
    		else:
@@ -101,6 +111,7 @@ class PersonController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -113,6 +124,7 @@ class PersonController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 				return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 			endif;
@@ -134,7 +146,11 @@ class PersonController extends \BaseController {
 			'person' => Persons::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
-
+		Audits::add(Auth::user(), array(
+			'name' => 'person_get_edit',
+			'title' => 'Editar Personas',
+			'description' => 'Edicion de personas naturales y juridicas'
+			), 'READ');
 		return View::make('persons.edit')->with($args);
 
 	}
@@ -161,6 +177,7 @@ class PersonController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($person->id) )->with( $args );
 
 		else:
@@ -183,6 +200,7 @@ class PersonController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -195,6 +213,7 @@ class PersonController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($person->id) )->with( $args );
 
 			endif;
@@ -217,7 +236,11 @@ class PersonController extends \BaseController {
 			'person' => Persons::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
-
+		Audits::add(Auth::user(), array(
+			'name' => 'person_get_delete',
+			'title' => 'Eliminar Personas',
+			'description' => 'Eliminar registro de personas naturales y juridicas'
+			), 'READ');
 		return View::make('persons.delete')->with($args);
 
 	}
@@ -243,6 +266,7 @@ class PersonController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -255,6 +279,7 @@ class PersonController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($person->id) )->with( $args );
 
 		endif;

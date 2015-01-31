@@ -42,6 +42,11 @@ class MeasurementUnitController extends \BaseController {
 			'measurement_units' => MeasurementUnits::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'measurement_get_index',
+			'title' => 'Unidades de medida',
+			'description' => 'Vizualización del listado de unidades de medida'
+			), 'READ');
 		return View::make('measurement_units.index')->with($args);
 	}
 
@@ -57,6 +62,11 @@ class MeasurementUnitController extends \BaseController {
 			'measurement_units' => MeasurementUnits::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'measurement_get_create',
+			'title' => 'Añadir unidades de medida',
+			'description' => 'Adición de unidades de medida'
+			), 'READ');
 		return View::make('measurement_units.create')->with($args);
 	}
 
@@ -78,11 +88,11 @@ class MeasurementUnitController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'measurement_units_create',
-					'title' => 'Unidad de Medida Agregada',
-					'description' => 'El rol ' . $measurement_unit->title . ' fue agregado exitosamente'
+					'title' => 'Unidad de medida agregada',
+					'description' => 'La unidad de medida ' . $measurement_unit->title . ' fue agregada exitosamente'
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -90,11 +100,12 @@ class MeasurementUnitController extends \BaseController {
 			$args = array(
 				'msg_danger' => array(
 					'name' => 'measurement_units_create_err',
-					'title' => 'Error al agregar el rol',
-					'description' => 'Hubo un error al agregar el rol ' . $measurement_unit->title
+					'title' => 'Error al agregar la unidad de medida',
+					'description' => 'Hubo un error al agregar la unidad de medida ' . $measurement_unit->title
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		endif;
@@ -114,6 +125,11 @@ class MeasurementUnitController extends \BaseController {
 			'measurement_unit' => MeasurementUnits::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'measurement_get_edit',
+			'title' => 'Editar unidades de medida',
+			'description' => 'Edición de unidades de medida'
+			), 'READ');
 		return View::make('measurement_units.edit')->with($args);
 	}
 
@@ -140,10 +156,10 @@ class MeasurementUnitController extends \BaseController {
 					'msg_success' => array(
 						'name' => 'measurement_units_edit',
 						'title' => 'Unidad de Medida Editada',
-						'description' => 'El rol ' . $measurement_unit->title . ' fue editado exitosamente'
+						'description' => 'La unidad de medida' . $measurement_unit->title . ' fue editada exitosamente'
 						)
 					);
-
+				Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -151,11 +167,12 @@ class MeasurementUnitController extends \BaseController {
 				$args = array(
 					'msg_danger' => array(
 						'name' => 'measurement_units_edit_err',
-						'title' => 'Error al editar el rol',
-						'description' => 'Hubo un error al editar el rol ' . $measurement_unit->title
+						'title' => 'Error al editar la unidad de medida',
+						'description' => 'Hubo un error al editar la unidad de medida ' . $measurement_unit->title
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($measurement_unit->id) )->with( $args );
 
 			endif;
@@ -164,11 +181,12 @@ class MeasurementUnitController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'measurement_units_name_err',
-					'title' => 'Error al editar el rol',
+					'title' => 'Error al editar la unidad de medida',
 					'description' => 'Error: el nombre ' . Input::get('name') . ' ya existe, intente con uno diferente.'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($measurement_unit->id) )->with( $args );
 
 		endif;
@@ -188,6 +206,11 @@ class MeasurementUnitController extends \BaseController {
 			'measurement_units' => MeasurementUnits::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'measurement_get_delete',
+			'title' => 'Eliminar unidades de medida',
+			'description' => 'Listado de unidades de medida para eliminar'
+			), 'READ');
 		return View::make('measurement_units.delete')->with($args);
 	}
 
@@ -207,11 +230,12 @@ class MeasurementUnitController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'measurement_units_delete',
-					'title' => 'Unidad de Medida Eliminada',
-					'description' => 'La capacidad ' . $measurement_unit->title . ' fue eliminada exitosamente'
+					'title' => 'Unidad de medida Eliminada',
+					'description' => 'La unidad de medida ' . $measurement_unit->title . ' fue eliminada exitosamente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -219,11 +243,12 @@ class MeasurementUnitController extends \BaseController {
 			$args = array(
 				'msg_danger' => array(
 					'name' => 'measurement_units_delete_err',
-					'title' => 'Error al eliminar la capacidad',
-					'description' => 'Hubo un error al eliminar la capacidad ' . $measurement_unit->title
+					'title' => 'Error al eliminar la unidad de medida',
+					'description' => 'Hubo un error al eliminar la unidad de medida ' . $measurement_unit->title
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($measurement_unit->id) )->with( $args );
 
 		endif;

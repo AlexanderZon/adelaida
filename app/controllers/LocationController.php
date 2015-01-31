@@ -42,6 +42,11 @@ class LocationController extends \BaseController {
 			'locations' => Locations::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'location_get_index',
+			'title' => 'Listado de localidades',
+			'description' => 'Vizualización del listado de localidades para personas'
+			), 'READ');
 		return View::make('locations.index')->with($args);
 	}
 
@@ -57,6 +62,11 @@ class LocationController extends \BaseController {
 			'locations' => Locations::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'location_get_index',
+			'title' => 'Añadir localidad',
+			'description' => 'Adición de localidades para personas'
+			), 'READ');
 		return View::make('locations.create')->with($args);
 	}
 
@@ -80,11 +90,11 @@ class LocationController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'location_create',
-					'title' => 'Persona Agregada',
+					'title' => 'Localidad agregada',
 					'description' => 'La localidad ' . $location->name . ' ' . $location->description . ' fue agregada exitosamente'
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -97,6 +107,7 @@ class LocationController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		endif;
@@ -116,7 +127,11 @@ class LocationController extends \BaseController {
 			'location' => Locations::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
-
+		Audits::add(Auth::user(), array(
+			'name' => 'location_get_edit',
+			'title' => 'Editar localidades',
+			'description' => 'Edición de localidades para personas'
+			), 'READ');
 		return View::make('locations.edit')->with($args);
 
 	}
@@ -143,11 +158,12 @@ class LocationController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'location_edit',
-					'title' => 'Persona Editada',
+					'title' => 'Localidad editada',
 					'description' => 'La localidad ' . $location->name . ' ' . $location->description . ' fue editada exitosamente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -160,6 +176,7 @@ class LocationController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($location->id) )->with( $args );
 
 		endif;
@@ -180,7 +197,11 @@ class LocationController extends \BaseController {
 			'location' => Locations::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
-
+		Audits::add(Auth::user(), array(
+			'name' => 'location_get_edit',
+			'title' => 'Eliminar localidades',
+			'description' => 'Listado de localidades para personas a eliminar'
+			), 'READ');
 		return View::make('locations.delete')->with($args);
 
 	}
@@ -206,6 +227,7 @@ class LocationController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -218,6 +240,7 @@ class LocationController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($location->id) )->with( $args );
 
 		endif;
