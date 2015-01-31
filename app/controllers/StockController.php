@@ -42,6 +42,13 @@ class StockController extends \BaseController {
 			'stock' => Stock::all(),
 			'module' => $this->module,
 			);
+
+		Audits::add(Auth::user(), array(
+			'name' => 'users_get_create',
+			'title' => 'stock',
+			'description' => 'Vizualización del listado de items disponibles en stock'
+			), 'READ');
+
 		return View::make('stock.index')->with($args);
 	}
 
@@ -59,6 +66,12 @@ class StockController extends \BaseController {
 			'measurement_units' => MeasurementUnits::all(),
 			'module' => $this->module,
 			);
+
+		Audits::add(Auth::user(), array(
+			'name' => 'stock_get_create',
+			'title' => 'Añadir items al stock',
+			'description' => 'Vizualización del formulario para añadir items al stock'
+			), 'READ');
 		return View::make('stock.create')->with($args);
 	}
 
@@ -91,7 +104,7 @@ class StockController extends \BaseController {
 				'msg_warning' => array(
 					'name' => 'stock_measurement_unit_err',
 					'title' => 'Error al agregar Item',
-					'description' => 'Debe seleccionar una Unidad de Medida'
+					'description' => 'Debe seleccionar una unidad de medida'
 					)
 				);
 
@@ -113,11 +126,11 @@ class StockController extends \BaseController {
 				$args = array(
 					'msg_success' => array(
 						'name' => 'stock_create',
-						'title' => 'Stock Agregado',
-						'description' => 'El stock ' . $item->title . ' fue agregado exitosamente'
+						'title' => 'Item agregado',
+						'description' => 'El item ' . $item->title . ' fue agregado exitosamente'
 						)
 					);
-
+				Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -125,11 +138,12 @@ class StockController extends \BaseController {
 				$args = array(
 					'msg_danger' => array(
 						'name' => 'stock_create_err',
-						'title' => 'Error al agregar el stock',
-						'description' => 'Hubo un error al agregar el stock ' . $item->title
+						'title' => 'Error al agregar el item',
+						'description' => 'Hubo un error al agregar el item ' . $item->title
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 				return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 			endif;
@@ -154,6 +168,13 @@ class StockController extends \BaseController {
 			'measurement_units' => MeasurementUnits::all(),
 			'module' => $this->module,
 			);
+
+		Audits::add(Auth::user(), array(
+			'name' => 'stock_get_edit',
+			'title' => 'Edición de items en stock',
+			'description' => 'Vizualización de formulario para edición de items stock'
+			), 'READ');
+		
 		return View::make('stock.edit')->with($args);
 	}
 
@@ -189,7 +210,7 @@ class StockController extends \BaseController {
 				'msg_warning' => array(
 					'name' => 'stock_measurement_unit_err',
 					'title' => 'Error al agregar Item',
-					'description' => 'Debe seleccionar una Unidad de Medida'
+					'description' => 'Debe seleccionar una unidad de medida'
 					)
 				);
 
@@ -210,11 +231,11 @@ class StockController extends \BaseController {
 				$args = array(
 					'msg_success' => array(
 						'name' => 'stock_edit',
-						'title' => 'Stock Editado',
-						'description' => 'El stock ' . $item->title . ' fue editado exitosamente'
+						'title' => 'Item editado del stock',
+						'description' => 'El item' . $item->title . ' fue editado del stock exitosamente'
 						)
 					);
-
+				Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -222,11 +243,12 @@ class StockController extends \BaseController {
 				$args = array(
 					'msg_danger' => array(
 						'name' => 'stock_edit_err',
-						'title' => 'Error al editar el stock',
-						'description' => 'Hubo un error al editar el stock ' . $item->title
+						'title' => 'Error al editar el item del stock',
+						'description' => 'Hubo un error al editar el'.$item->title.' del stock '
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($item->id) )->with( $args );
 
 			endif;
@@ -249,6 +271,13 @@ class StockController extends \BaseController {
 			'stock' => Stock::all(),
 			'module' => $this->module,
 			);
+
+		Audits::add(Auth::user(), array(
+			'name' => 'stock_get_delete',
+			'title' => 'Eliminar de items en stock',
+			'description' => 'Vizualización del listado de items para eliminar del stock'
+			), 'READ');
+
 		return View::make('stock.delete')->with($args);
 	}
 
@@ -268,11 +297,11 @@ class StockController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'stock_delete',
-					'title' => 'Stock Eliminada',
-					'description' => 'La capacidad ' . $item->title . ' fue eliminada exitosamente'
+					'title' => 'Item de eliminado del stock',
+					'description' => 'El item ' . $item->title . ' fue eliminado exitosamente'
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -280,11 +309,12 @@ class StockController extends \BaseController {
 			$args = array(
 				'msg_danger' => array(
 					'name' => 'stock_delete_err',
-					'title' => 'Error al eliminar la capacidad',
-					'description' => 'Hubo un error al eliminar la capacidad ' . $item->title
+					'title' => 'Error al eliminar el item',
+					'description' => 'Hubo un error al eliminar el item ' . $item->title
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($item->id) )->with( $args );
 
 		endif;
