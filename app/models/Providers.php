@@ -15,6 +15,26 @@ class Providers extends \Eloquent {
 
 	protected $fillable = [];
 
+	public static function exists( $identification_numer, $provider = '' ){
+
+		if($provider != ''):
+
+   			$provider = self::where('identification_number','=',Input::get('identification_number'))->where('id','!=',$provider->id)->get();
+
+		else:
+
+   			$provider = self::where('identification_number','=',Input::get('identification_number'))->get();
+   		
+   		endif;
+
+   		if(count($provider) > 0):
+   			return $provider[0];
+   		else:
+   			return 0;
+   		endif;
+
+	}
+
 	public function purchaseOrder(){
 
 		return $this->hasMany('PurchaseOrders', 'id_provider', 'id');

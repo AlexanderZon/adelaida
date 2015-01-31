@@ -72,7 +72,7 @@
 						<!-- BEGIN FORM-->
 						<form action="" method="post" class="form-horizontal">
 							<div class="form-body">
-								<h3 >¿Desea eliminar la cliente <em>{{ $client->name }}</em>?</h3>
+								<h3 >¿Desea eliminar el cliente <em>{{ $client->name }}</em>?</h3>
 								<input type="hidden" name="id" value="{{ $client->id }}"/>
 								<!--/row-->
 							</div>

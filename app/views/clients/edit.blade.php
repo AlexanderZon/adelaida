@@ -123,7 +123,7 @@
 											<label class="control-label col-md-3">Representante</label>
 											<div class="col-md-9">
 												<a href="{{ $module['route'] }}/representant" class="btn default fancybox fancybox.ajax" id="add-representant" style="display:none; ">Ingresar un representante</a>
-								            	<input class="form-control" value="" type="hidden" name="id_person" readonly required>
+								            	<input class="form-control" type="hidden" name="id_person" readonly requiredvalue="{{ $client->representant->id }}">
 								            	<div id="form-display-representant" style="font-size:12pt;padding-top:3px;">
 								            		<span id="form-display-representant-span">{{ $client->representant->identification_number }} - {{ $client->representant->first_name }} {{ $client->representant->last_name }}</span>
 								            		<a href="#" id="delete-representant" class="btn danger bg-red" style="margin-left: 10px;margin-top: -5px;">x</a>
