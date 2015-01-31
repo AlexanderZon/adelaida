@@ -195,7 +195,7 @@ class PersonController extends \BaseController {
 				$args = array(
 					'msg_success' => array(
 						'name' => 'person_edit',
-						'title' => 'Persona Editada',
+						'title' => 'Persona editada',
 						'description' => 'La persona ' . $person->first_name . ' ' . $person->last_name . ' fue editada exitosamente'
 						)
 					);
@@ -261,7 +261,7 @@ class PersonController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'person_delete',
-					'title' => 'Persona Eliminada',
+					'title' => 'Persona eliminada',
 					'description' => 'La persona ' . $person->first_name . ' ' . $person->last_name . ' fue eliminada exitosamente'
 					)
 				);

@@ -42,6 +42,11 @@ class ClientController extends \BaseController {
 			'clients' => Clients::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'client_get_index',
+			'title' => 'Listado de clientes',
+			'description' => 'Vizualización del listado de clientes'
+			), 'READ');
 		return View::make('clients.index')->with($args);
 	}
 
@@ -75,11 +80,12 @@ class ClientController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'client_person_err',
-					'title' => 'Error al Crear el Cliente',
-					'description' => 'Seleccione un Representante para el Cliente'
+					'title' => 'Error al crear el cliente',
+					'description' => 'Seleccione un representante para el cliente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		elseif( Input::get('id_location') == 0 || Input::get('id_location') == '' ):
@@ -87,11 +93,12 @@ class ClientController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'client_location_err',
-					'title' => 'Error al Crear el Cliente',
-					'description' => 'Seleccione una Localidad para el Cliente'
+					'title' => 'Error al crear el cliente',
+					'description' => 'Seleccione una Localidad para el cliente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		elseif( Clients::exists(Input::get('identification_number')) != 0 ):
@@ -99,11 +106,12 @@ class ClientController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'client_identification_err',
-					'title' => 'Error al Crear el Cliente',
+					'title' => 'Error al crear el cliente',
 					'description' => 'Ya existe un cliente con el RIF ' . Input::get('identification_number') . ' introduzca uno diferente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		else:
@@ -121,11 +129,12 @@ class ClientController extends \BaseController {
 				$args = array(
 					'msg_success' => array(
 						'name' => 'client_create',
-						'title' => 'Cliente Agregado',
+						'title' => 'Cliente agregado',
 						'description' => 'El cliente ' . $client->name . ' fue agregado exitosamente'
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -138,6 +147,7 @@ class ClientController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 				return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 			endif;
@@ -161,6 +171,12 @@ class ClientController extends \BaseController {
 			'locations' => Locations::all(),
 			'module' => $this->module,
 			);
+
+		Audits::add(Auth::user(), array(
+			'name' => 'client_get_edit',
+			'title' => 'Editar clientes',
+			'description' => 'Edición de clientes al sistema'
+			), 'READ');
 		return View::make('clients.edit')->with($args);
 		
 	}
@@ -182,11 +198,11 @@ class ClientController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'client_person_err',
-					'title' => 'Error al Editar el Cliente',
-					'description' => 'Seleccione un Representante para el Cliente'
+					'title' => 'Error al editar el cliente',
+					'description' => 'Seleccione un representante para el cliente'
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($client->id) )->with( $args );
 
 		elseif( Input::get('id_location') == 0 || Input::get('id_location') == '' ):
@@ -194,11 +210,12 @@ class ClientController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'client_location_err',
-					'title' => 'Error al Editar el Cliente',
-					'description' => 'Seleccione unla Localidad para el Cliente'
+					'title' => 'Error al editar el cliente',
+					'description' => 'Seleccione una Localidad para el Cliente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($client->id) )->with( $args );
 
 		elseif( Clients::exists(Input::get('identification_number'), $client ) != 0 ):
@@ -206,11 +223,12 @@ class ClientController extends \BaseController {
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'client_identification_err',
-					'title' => 'Error al Crear el Cliente',
+					'title' => 'Error al crear el cliente',
 					'description' => 'Ya existe un cliente con el RIF ' . Input::get('identification_number') . ' introduzca uno diferente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($client->id) )->with( $args );
 
 		else:
@@ -227,11 +245,12 @@ class ClientController extends \BaseController {
 				$args = array(
 					'msg_success' => array(
 						'name' => 'client_edit',
-						'title' => 'Cliente Editado',
+						'title' => 'Cliente editado',
 						'description' => 'El cliente ' . $client->title . ' fue editado exitosamente'
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -244,6 +263,7 @@ class ClientController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($client->id) )->with( $args );
 
 			endif;
@@ -267,6 +287,11 @@ class ClientController extends \BaseController {
 			'module' => $this->module,
 			);
 
+		Audits::add(Auth::user(), array(
+			'name' => 'client_get_delete',
+			'title' => 'Eliminar clientes',
+			'description' => 'Listado de clientes a eliminar del sistema'
+			), 'READ');
 		return View::make('clients.delete')->with($args);
 	}
 
@@ -286,11 +311,11 @@ class ClientController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'client_delete',
-					'title' => 'Cliente Eliminada',
+					'title' => 'Cliente eliminado',
 					'description' => 'El cliente ' . $client->title . ' fue eliminado exitosamente'
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -303,6 +328,7 @@ class ClientController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($client->id) )->with( $args );
 
 		endif;

@@ -42,6 +42,11 @@ class CategoryController extends \BaseController {
 			'categories' => Categories::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'category_get_index',
+			'title' => 'Categorias',
+			'description' => 'Vizualización de Categorias'
+			), 'READ');
 		return View::make('categories.index')->with($args);
 	}
 
@@ -87,6 +92,11 @@ class CategoryController extends \BaseController {
 			'categories' => Categories::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'category_get_create',
+			'title' => 'Añadir categorias',
+			'description' => 'Adición de categorias'
+			), 'READ');
 		return View::make('categories.create')->with($args);
 	}
 
@@ -109,11 +119,11 @@ class CategoryController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'category_create',
-					'title' => 'Categoria Agregado',
+					'title' => 'Categoria agregada',
 					'description' => 'La categoria ' . $category->title . ' fue agregada exitosamente'
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -126,6 +136,7 @@ class CategoryController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		endif;
@@ -145,6 +156,11 @@ class CategoryController extends \BaseController {
 			'category' => Categories::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'category_get_edit',
+			'title' => 'Editar categorias',
+			'description' => 'Edición de categorias'
+			), 'READ');
 
 		return View::make('categories.edit')->with($args);
 
@@ -170,11 +186,12 @@ class CategoryController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'category_edit',
-					'title' => 'Categoria Editada',
+					'title' => 'Categoria editada',
 					'description' => 'La categoria ' . $category->title . ' fue editada exitosamente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -187,6 +204,7 @@ class CategoryController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($category->id) )->with( $args );
 
 		endif;
@@ -207,6 +225,11 @@ class CategoryController extends \BaseController {
 			'category' => Categories::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'category_get_delete',
+			'title' => 'Eliminar categorias',
+			'description' => 'Vizualización del categorias a eliminar'
+			), 'READ');
 
 		return View::make('categories.delete')->with($args);
 
@@ -228,11 +251,12 @@ class CategoryController extends \BaseController {
 			$args = array(
 				'msg_success' => array(
 					'name' => 'category_delete',
-					'title' => 'Categoria Eliminada',
+					'title' => 'Categoria eliminada',
 					'description' => 'La categoria ' . $category->title . ' fue eliminada exitosamente'
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -245,6 +269,7 @@ class CategoryController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($category->id) )->with( $args );
 
 		endif;
