@@ -708,7 +708,7 @@
 					@if(Auth::user()->hasCap('invoice_accounts_view_get') || Auth::user()->hasCap('payment_methods_view_get'))
 					<li class="tooltips {{ $module['name'] == 'invoice_accounts' || $module['name'] == 'payment_methods' || $module['name'] == 'capabilities' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Usuario, Roles y Capacidades">
 						<a href="/invoice_accounts">
-						<i class="icon-invoice_accounts"></i>
+						<i class="icon-wallet"></i>
 						<span class="title">
 						Cuentas </span>
 						<span class="arrow"></span>
@@ -726,7 +726,7 @@
 							@if(Auth::user()->hasCap('payment_methods_view_get'))
 							<li class="{{ $module['name'] == 'payment_methods' ? 'active' : '' }}">
 								<a href="/payment_methods">
-								<i class="icon-lock"></i>
+								<i class="fa fa-credit-card"></i>
 								Métodos de Pago</a>
 							</li>
 							@endif
