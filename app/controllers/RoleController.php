@@ -43,6 +43,11 @@ class RoleController extends \BaseController {
 			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'role_get_index',
+			'title' => 'Roles',
+			'description' => 'Vizualización del listado de roles en el sistema'
+			), 'READ');
 		return View::make('roles.index')->with($args);
 	}
 
@@ -58,6 +63,11 @@ class RoleController extends \BaseController {
 			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'role_get_create',
+			'title' => 'Roles',
+			'description' => 'Añadir roles al sistema'
+			), 'READ');
 		return View::make('roles.create')->with($args);
 	}
 
@@ -86,6 +96,7 @@ class RoleController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -98,6 +109,7 @@ class RoleController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 				return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 			endif;
@@ -112,6 +124,7 @@ class RoleController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		endif;
@@ -132,6 +145,11 @@ class RoleController extends \BaseController {
 			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'role_get_edit',
+			'title' => 'Edicion de roles',
+			'description' => 'Vizualización de formulario para la edición de roles en el sistema'
+			), 'READ');
 		return View::make('roles.edit')->with($args);
 	}
 
@@ -161,7 +179,8 @@ class RoleController extends \BaseController {
 						'description' => 'El rol ' . $role->title . ' fue editado exitosamente'
 						)
 					);
-
+				
+				Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -173,7 +192,8 @@ class RoleController extends \BaseController {
 						'description' => 'Hubo un error al editar el rol ' . $role->title
 						)
 					);
-
+				
+				Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($role->id) )->with( $args );
 
 			endif;
@@ -186,7 +206,7 @@ class RoleController extends \BaseController {
 					'description' => 'Error: el nombre ' . Input::get('name') . ' ya existe, intente con uno diferente.'
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($role->id) )->with( $args );
 
 		endif;
@@ -208,7 +228,11 @@ class RoleController extends \BaseController {
 			'capabilities' => Capabilities::orderBy('title','ASC')->get(),
 			'module' => $this->module,
 			);
-
+		Audits::add(Auth::user(), array(
+			'name' => 'role_get_assign',
+			'title' => 'Asignación de roles',
+			'description' => 'Asignación de roles a un usuario del sistema'
+			), 'READ');
 		return View::make('roles.assign')->with( $args );
 
 	}
@@ -237,6 +261,7 @@ class RoleController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 		else:
 			$args = array(
@@ -246,7 +271,7 @@ class RoleController extends \BaseController {
 					'description' => 'Hubo un error al asignar las capacidades '
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/assign/'.Crypt::encrypt($role->id) )->with( $args );
 		endif;
 
@@ -266,6 +291,11 @@ class RoleController extends \BaseController {
 			'roles' => Roles::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'role_get_delete',
+			'title' => 'Eliminar roles del sistema',
+			'description' => 'Vizualización del listado de roles para eliminar del sistema'
+			), 'READ');
 		return View::make('roles.delete')->with($args);
 	}
 
@@ -289,7 +319,7 @@ class RoleController extends \BaseController {
 					'description' => 'El rol ' . $role->title . ' fue eliminado exitosamente'
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -301,7 +331,7 @@ class RoleController extends \BaseController {
 					'description' => 'Hubo un error al eliminar el rol ' . $role->title
 					)
 				);
-
+			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($role->id) )->with( $args );
 
 		endif;

@@ -44,8 +44,8 @@ class StockController extends \BaseController {
 			);
 
 		Audits::add(Auth::user(), array(
-			'name' => 'users_get_create',
-			'title' => 'stock',
+			'name' => 'stock_get_index',
+			'title' => 'Stock',
 			'description' => 'Vizualización del listado de items disponibles en stock'
 			), 'READ');
 
