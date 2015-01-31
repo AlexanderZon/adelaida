@@ -69,7 +69,7 @@
 				<!-- BEGIN FORM-->
 				<form action="#" id="form-representant" class="form-horizontal" method="post">
 					<div class="form-body">
-						<h3 class="form-section">Información de Unidad de Medida</h3>
+						<h3 class="form-section">Información de Persona</h3>
 						<div class="form-group">
 				            <label class="control-label col-md-2">Cédula</label>
 				            <div class="col-md-4">

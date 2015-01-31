@@ -569,8 +569,35 @@
 						<a href="/projects">
 						<i class="icon-paper-plane"></i>
 						<span class="title">
-						Proyectos </span>
+						Proyectos </span><span class="arrow"></span>
 						</a>
+						<ul class="sub-menu">
+
+							@if(Auth::user()->hasCap('projects_view_get'))
+							<li class="{{ $module['name'] == 'projects' ? 'active' : '' }}">
+								<a href="/projects">
+								<i class="icon-list"></i>
+								Todos</a>
+							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('tasks_view_get'))
+							<li class="{{ $module['name'] == 'tasks' ? 'active' : '' }}">
+								<a href="/tasks">
+								<i class="icon-pin"></i>
+								Tareas</a>
+							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('materials_view_get'))
+							<li class="{{ $module['name'] == 'materials' ? 'active' : '' }}">
+								<a href="/materials">
+								<i class="icon-puzzle"></i>
+								Materiales</a>
+							</li>
+							@endif
+
+						</ul>
 					</li>
 					@endif
 
@@ -622,14 +649,6 @@
 						</a>
 						<ul class="sub-menu">
 
-							@if(Auth::user()->hasCap('persons_view_get'))
-							<li class="{{ $module['name'] == 'persons' ? 'active' : '' }}">
-								<a href="/persons">
-								<i class="icon-list"></i>
-								Todos</a>
-							</li>
-							@endif
-
 							@if(Auth::user()->hasCap('clients_view_get'))
 							<li class="{{ $module['name'] == 'clients' ? 'active' : '' }}">
 								<a href="/clients">
@@ -654,6 +673,14 @@
 							</li>
 							@endif
 
+							@if(Auth::user()->hasCap('persons_view_get'))
+							<li class="{{ $module['name'] == 'persons' ? 'active' : '' }}">
+								<a href="/persons">
+								<i class="icon-list"></i>
+								Representantes</a>
+							</li>
+							@endif
+
 						</ul>
 					</li>
 					@endif
@@ -675,6 +702,36 @@
 						<span class="title">
 						Reportes </span>
 						</a>
+					</li>
+					@endif
+
+					@if(Auth::user()->hasCap('invoice_accounts_view_get') || Auth::user()->hasCap('payment_methods_view_get'))
+					<li class="tooltips {{ $module['name'] == 'invoice_accounts' || $module['name'] == 'payment_methods' || $module['name'] == 'capabilities' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Usuario, Roles y Capacidades">
+						<a href="/invoice_accounts">
+						<i class="icon-invoice_accounts"></i>
+						<span class="title">
+						Cuentas </span>
+						<span class="arrow"></span>
+						</a>
+						<ul class="sub-menu">
+
+							@if(Auth::user()->hasCap('invoice_accounts_view_get'))
+							<li class="{{ $module['name'] == 'invoice_accounts' ? 'active' : '' }}">
+								<a href="/invoice_accounts">
+								<i class="icon-list"></i>
+								Todas</a>
+							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('payment_methods_view_get'))
+							<li class="{{ $module['name'] == 'payment_methods' ? 'active' : '' }}">
+								<a href="/payment_methods">
+								<i class="icon-lock"></i>
+								Métodos de Pago</a>
+							</li>
+							@endif
+
+						</ul>
 					</li>
 					@endif
 

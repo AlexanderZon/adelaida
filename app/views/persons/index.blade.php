@@ -17,7 +17,7 @@
 				<!-- BEGIN THEME PANEL -->
 				<div class="btn-group btn-theme-panel">
 					@if(Auth::user()->hasCap('persons_create_get'))
-						<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir una nueva Categoria"><i class="icon-plus"></i></a>
+						<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir una nueva Persona"><i class="icon-plus"></i></a>
 					@endif
 				</div>
 				<!-- END THEME PANEL -->

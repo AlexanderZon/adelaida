@@ -13,6 +13,19 @@ class RolesTableSeeder extends Seeder {
 			'description' => 'Super Administrador',
 			'status' => 'active'
 			));
+		
+		Roles::create( array(
+			'name' => 'administrator',
+			'description' => 'Administrador',
+			'status' => 'active'
+			));
+		
+		Roles::create( array(
+			'name' => 'seller',
+			'description' => 'Vendedor',
+			'status' => 'active'
+			));
+		
 	}
 
 }

@@ -75,6 +75,7 @@ class RoleController extends \BaseController {
 			$role = new Roles();
 			$role->description = Input::get('description');
 			$role->name = Input::get('name');
+			$role->status = 'active';
 			
 			if( $role->save() ):
 

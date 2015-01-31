@@ -19,6 +19,8 @@ if(Auth::check()):
 	Route::controller('/projects', 'ProjectController');
 	Route::controller('/stock', 'StockController');
 	Route::controller('/measurement_units', 'MeasurementUnitController');
+	Route::controller('/invoice_accounts', 'InvoiceAccountController');
+	Route::controller('/payment_methods', 'PaymentMenthodController');
 	Route::controller('/categories', 'CategoryController');
 	Route::controller('/clients', 'ClientController');
 	Route::controller('/locations', 'LocationController');

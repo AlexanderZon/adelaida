@@ -45,4 +45,16 @@ class SaleOrders extends \Eloquent {
 		
 	}
 
+	public static function existsCorrelative( $correlative ){
+
+		$sale = self::where('correlative', '=', $correlative)->take(1)->get();
+
+		if(isset($sale[0])):
+			return true;
+		else:
+			return false;
+		endif;
+
+	}
+
 }

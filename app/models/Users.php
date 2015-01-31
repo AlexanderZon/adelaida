@@ -102,9 +102,27 @@ class Users extends Eloquent implements UserInterface, RemindableInterface {
 		endif;
 
 		if(empty($user[0])):
+
 			return false;
+
 		else:
+
 			return true;
+
+		endif;
+
+	}
+
+	public static function getSellers(){
+
+		if($role = Roles::getSeller()):
+
+			return $role->users;
+
+		else:
+
+			return array();
+
 		endif;
 
 	}

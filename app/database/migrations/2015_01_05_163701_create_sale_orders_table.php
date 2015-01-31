@@ -15,8 +15,9 @@ class CreateSaleOrdersTable extends Migration {
 		Schema::create('sale_orders', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('correlative');
 			$table->date('date');
-			$table->float('budget');
+			$table->float('budget', 16);
 			$table->integer('period_days');
 			$table->integer('id_client');
 			$table->integer('id_seller');

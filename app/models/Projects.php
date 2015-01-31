@@ -23,13 +23,19 @@ class Projects extends \Eloquent {
 
 	public function saleOrder(){
 
-		return $this->hasOne('SaleOrders', 'id_project', 'id'):
+		return $this->hasOne('SaleOrders', 'id_project', 'id');
 
 	}
 
 	public function materials(){
 
 		return $this->hasMany('Materials', 'id_project', 'id');
+
+	}
+
+	public function tasks(){
+
+		return $this->hasMany('Tasks', 'id_project', 'id');
 
 	}
 

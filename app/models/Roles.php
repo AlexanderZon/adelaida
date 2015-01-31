@@ -40,27 +40,56 @@ class Roles extends \Eloquent {
 	}*/
 
 	public static function hasName( $name, $id = '' ){
+
 		$role = self::where('name','=',$name)->where('id','!=',$id)->take(1)->get();
+
 		if(isset($role[0])):
+
 			return true;
+
 		else:
+
 			return false;
+
 		endif;
+
 	}
 
 	public static function hasCapability( $role, $cap ){
+
 		$capabilities = $role->capabilities;
 		$bool = false;
+
 		foreach($capabilities as $capability):
+
 			if($capability->id == $cap->id) $bool = true;
+
 		endforeach;
+
 		return $bool;
+
 	}
 
 	public static function getActive(){
 
 		return self::where('status','=','active')->get();
 		
+	}
+
+	public static function getSeller(){
+
+		$role = self::where('name','=','seller')->take(1)->get();
+
+		if(isset($role[0])):
+
+			return $role[0];
+
+		else:
+
+			return 0;
+
+		endif;
+
 	}
 
 

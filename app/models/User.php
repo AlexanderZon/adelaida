@@ -89,4 +89,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 
+	public function isSeller(){
+
+		$role = $this->role;
+
+		if($role->name == 'seller') return true;
+		else return false;
+		
+	}
+
 }

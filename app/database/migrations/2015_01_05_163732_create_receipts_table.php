@@ -19,6 +19,8 @@ class CreateReceiptsTable extends Migration {
 			$table->longText('description');
 			$table->integer('id_sale_order');
 			$table->integer('id_payment_method');
+			$table->integer('id_account');
+			$table->float('amount', 16);
 			$table->string('type');
 			$table->string('status');
 			$table->timestamps();
