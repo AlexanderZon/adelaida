@@ -42,6 +42,11 @@ class CapabilityController extends \BaseController {
 			'capabilities' => Capabilities::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'capability_get_index',
+			'title' => 'Capacidades',
+			'description' => 'Vizualización de capacidades'
+			), 'READ');
 		return View::make('capabilities.index')->with($args);
 	}
 
@@ -57,6 +62,11 @@ class CapabilityController extends \BaseController {
 			'capabilities' => Capabilities::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'capability_get_create',
+			'title' => 'Añadir capacidades',
+			'description' => 'Adición de capacidades'
+			), 'READ');
 		return View::make('capabilities.create')->with($args);
 	}
 
@@ -87,6 +97,7 @@ class CapabilityController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -99,6 +110,7 @@ class CapabilityController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 				return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 			endif;
@@ -115,6 +127,7 @@ class CapabilityController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
 				return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 			else:
@@ -127,6 +140,7 @@ class CapabilityController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
 				return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 			endif;
@@ -148,6 +162,11 @@ class CapabilityController extends \BaseController {
 			'capability' => Capabilities::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'capability_get_edit',
+			'title' => 'Editar capacidades',
+			'description' => 'Edición de capacidades'
+			), 'READ');
 		return View::make('capabilities.edit')->with($args);
 	}
 
@@ -180,6 +199,7 @@ class CapabilityController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 				return Redirect::to( $this->module['route'] )->with( $args );
 
 			else:
@@ -192,6 +212,7 @@ class CapabilityController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($capability->id) )->with( $args );
 
 			endif;
@@ -208,6 +229,7 @@ class CapabilityController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 				return Redirect::to( $this->module['route'].'/edit//'.Crypt::encrypt($capability->id) )->with( $args );
 
 			else:
@@ -220,6 +242,7 @@ class CapabilityController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($capability->id) )->with( $args );
 
 			endif;
@@ -241,6 +264,11 @@ class CapabilityController extends \BaseController {
 			'capability' => Capabilities::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'capability_get_delete',
+			'title' => 'Eliminar capacidades',
+			'description' => 'Visualizacion de capacidades a eliminar'
+			), 'READ');
 		return View::make('capabilities.delete')->with($args);
 	}
 
@@ -265,6 +293,7 @@ class CapabilityController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -277,6 +306,7 @@ class CapabilityController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($capability->id) )->with( $args );
 
 		endif;
