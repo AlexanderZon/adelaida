@@ -1,0 +1,1 @@
+C:\wamp\www\adelaida\app/views/tasks/edit.blade.php

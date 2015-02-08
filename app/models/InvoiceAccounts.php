@@ -20,5 +20,10 @@ class InvoiceAccounts extends \Eloquent {
 		return $this->hasMany('Invoices', 'id_invoice_account', 'id');
 		
 	}
+
+	public static function getActive(){
+
+		return self::where('status', '=', 'active')->get();
+	}
 	
 }

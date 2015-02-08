@@ -58,6 +58,8 @@ class ProjectController extends \BaseController {
 			'module' => $this->module,
 			'clients' => Clients::all(),
 			'sellers' => Users::getSellers(),
+			'invoice_accounts' => InvoiceAccounts::getActive(),
+			'payment_methods' => PaymentMethods::getActive(),
 			);
 		return View::make('projects.create')->with($args);
 	}
@@ -77,7 +79,19 @@ class ProjectController extends \BaseController {
 				'msg_danger' => array(
 					'name' => 'project_correlative_err',
 					'title' => 'Error al agregar el proyecto',
-					'description' => 'El Correlativo de Orden de Compra ' . Input::get('identification_number') . ' ya existe.'
+					'description' => 'El Correlativo de Orden de Compra ' . Input::get('correlative') . ' ya existe.'
+					)
+				);
+
+			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+		elseif($project = Projects::existsCode(Input::get('code'))):
+
+			$args = array(
+				'msg_danger' => array(
+					'name' => 'project_code_err',
+					'title' => 'Error al agregar el proyecto',
+					'description' => 'El Código del Proyecto ' . Input::get('code') . ' ya existe.'
 					)
 				);
 
@@ -99,6 +113,7 @@ class ProjectController extends \BaseController {
 
 			$project = new Projects();
 			$project->name = Input::get('name');
+			$project->code = Input::get('code');
 			$project->description = Input::get('description');
 			$project->status = 'active';
 			
@@ -122,7 +137,8 @@ class ProjectController extends \BaseController {
 	   					$receipt->name = 'Adelanto de Proyecto';
 	   					$receipt->description = 'Adelanto para Proyecto: '.$project->name;
 	   					$receipt->id_payment_method = Input::get('id_payment_method');
-	   					$receipt->id_invoice_account = Input::get('id_invoice_account');
+	   					/*$receipt->id_invoice_account = Input::get('id_invoice_account');*/
+	   					$receipt->id_sale_order = $sale_order->id;
 	   					$receipt->amount = Input::get('advancement');
 	   					$receipt->type = 'advancement';
 	   					$receipt->status = 'active';

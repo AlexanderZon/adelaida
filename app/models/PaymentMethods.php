@@ -17,4 +17,9 @@ class PaymentMethods extends \Eloquent {
 		
 	}
 
+	public static function getActive(){
+
+		return self::where('status', '=', 'active')->get();
+	}
+
 }
