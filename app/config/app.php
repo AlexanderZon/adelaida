@@ -78,6 +78,7 @@ return array(
 	|
 	*/
 
+
 	'key' => 'F0OXCq0F0oR0ecRQtPsc2rjCEpDepwAC',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
@@ -124,6 +125,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Thujohn\Pdf\PdfServiceProvider',
+		/*'Intervention\Image\ImageServiceProvider',*/
 	),
 
 	/*
@@ -192,6 +194,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'PDF'			  => 'Thujohn\Pdf\PdfFacade',
 		'Excel' 		  => 'Maatwebsite\Excel\Facades\Excel',
+		/*'Image'           => 'Intervention\Image\Facades\Image',*/
 	),
 
 );

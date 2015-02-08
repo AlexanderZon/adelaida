@@ -89,7 +89,7 @@
 									 Nombre
 								</th>
 								<th>
-									 Descripción
+									 Tipo
 								</th>
 								<th>
 									 Estado
@@ -114,10 +114,24 @@
 									{{ $invoice_account->name }}
 								</td>
 								<td>
-									{{ $invoice_account->description }}
+									{{ $invoice_account->type }}
 								</td>
 								<td>
-									{{ $invoice_account->status }}
+									@if( $invoice_account->status == 'active' )
+										@if(Auth::user()->hasCap('invoice_accounts_deactivate_get'))
+											<a href="{{ $module['route'] . '/deactivate/' . Crypt::encrypt($invoice_account->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Desactivar"><span class="label bg-blue">{{ 'Activo' }}</span></a>
+										@else
+											{{ $invoice_account->status == 'active' ? 'Activo' : 'Inactivo' }}
+										@endif
+									@elseif( $invoice_account->status == 'inactive' )
+										@if(Auth::user()->hasCap('invoice_accounts_activate_get'))
+											<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($invoice_account->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Activar"><span class="label bg-yellow-saffron">{{ 'Inactivo' }}</span>
+										@else
+											{{ $invoice_account->status == 'active' ? 'Activo' : 'Inactivo' }}
+										@endif
+									@else
+										{{ $invoice_account->status == 'active' ? 'Activo' : 'Inactivo' }}
+									@endif
 								</td>
 								<!-- <td>
 									{{ $invoice_account->method }}

@@ -245,6 +245,99 @@ class PaymentMethodController extends \BaseController {
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($payment_method->id) )->with( $args );
 
 		endif;
+
+	}
+
+	/**
+	 * Show the form for deleting the specified resource.
+	 * GET /payment_method/delete/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getActivate($id)
+	{
+
+		$invoice_account = Users::find( Crypt::decrypt($id) );
+
+		$invoice_account->status = 'active';
+
+		if($invoice_account->save()):
+
+			$args = array(
+				'msg_success' => array(
+					'name' => 'payment_method_activate',
+					'title' => 'Método de Pago activado satisfactoriamente',
+					'description' => 'El Método de Pago ' . $invoice_account->name . ' ha sido activado exitosamente'
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
+
+		else:
+
+			$args = array(
+				'msg_danger' => array(
+					'name' => 'payment_method_activate_err',
+					'title' => 'Error al activar método de pago',
+					'description' => 'hubo un error al activar el método de pago ' . $invoice_account->name
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
+
+		endif;
+
+	}
+
+	/**
+	 * Show the form for deleting the specified resource.
+	 * GET /payment_method/delete/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getDeactivate($id)
+	{
+
+		$invoice_account = Users::find( Crypt::decrypt($id) );
+
+		$invoice_account->status = 'inactive';
+
+		if($invoice_account->save()):
+
+			$args = array(
+				'msg_success' => array(
+					'name' => 'payment_method_deactivate',
+					'title' => 'Método de Pago desactivado satisfactoriamente',
+					'description' => 'El Método de Pago ' . $invoice_account->name . ' ha sido desactivado exitosamente'
+					)
+				);
+
+			Audits::add(Auth::invoice_account(), $args['msg_success'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
+
+		else:
+
+			$args = array(
+				'msg_danger' => array(
+					'name' => 'payment_method_deactivate_err',
+					'title' => 'Error al desactivar método de pago',
+					'description' => 'hubo un error al desactivar el método de pago ' . $invoice_account->name
+					)
+				);
+
+			Audits::add(Auth::invoice_account(), $args['msg_danger'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
+
+		endif;
+
 	}
 
 	private function getBreadcumbs(){
