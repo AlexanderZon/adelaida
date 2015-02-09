@@ -62,7 +62,7 @@
 				<div class="portlet box green-haze">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-key"></i>Edición de Mètodos de Pago
+							<i class="fa fa-credit-card"></i>Edición de Mètodos de Pago
 						</div>
 						<div class="tools">
 							<a href="{{ $module['route'] }}" class="label bg-green-haze"><i class="fa fa-arrow-circle-left"></i> Volver</a>

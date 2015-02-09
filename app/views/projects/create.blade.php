@@ -125,6 +125,16 @@
 													</div>
 												</div>
 												<div class="form-group">
+													<label class="control-label col-md-3">Código <span class="required">
+													* </span>
+													</label>
+													<div class="col-md-4">
+														<input type="text" class="form-control" name="code"/>
+														<span class="help-block">
+														Introduzca el Código del Proyecto </span>
+													</div>
+												</div>
+												<div class="form-group">
 													<label class="control-label col-md-3">Descripción</label>
 													<div class="col-md-4">
 														<textarea class="form-control" rows="3" name="description"></textarea>
@@ -133,7 +143,23 @@
 											</div>
 											<div class="tab-pane" id="tab2">
 												<h3 class="block">Indique Los Datos de Facturación</h3>
-												<div class="form-group">
+												<div class="form-group {{ $module['msg_warning']['name'] == 'projects_client_err' ? 'has-error' : '' }}">
+														<label class="control-label col-md-3">Cliente</label>
+														<div class="col-md-6">
+															<!-- <div class="input-group "> -->
+																<!-- <span class="input-group-addon">
+																<i class="fa fa-user"></i>
+																</span> -->
+																<select id="id_client" name="id_client" class="form-control select2me" required>
+																	<option value="">--- SELECCIONE UN CLIENTE ---</option>
+																	@foreach( $clients as $client )
+																		<option value="{{ $client->id }}">{{ $client->name }} ({{ $client->identification_number }})</option>
+																	@endforeach
+																</select>
+															<!-- </div> -->
+														</div>
+													</div>
+												<!-- <div class="form-group">
 													<label class="control-label col-md-3">Cliente <span class="required">
 													* </span></label>
 													<div class="col-md-4">
@@ -144,9 +170,25 @@
 															@endforeach
 														</select>
 													</div>
-												</div>
+												</div> -->
 												@if( !Auth::user()->isSeller())
-													<div class="form-group">
+													<div class="form-group {{ $module['msg_warning']['name'] == 'projects_seller_err' ? 'has-error' : '' }}">
+														<label class="control-label col-md-3">Vendedor</label>
+														<div class="col-md-6">
+															<!-- <div class="input-group "> -->
+																<!-- <span class="input-group-addon">
+																<i class="fa fa-user"></i>
+																</span> -->
+																<select id="id_seller" name="id_seller" class="form-control select2me" required>
+																	<option value="">--- SELECCIONE UN VENDEDOR ---</option>
+																	@foreach( $sellers as $seller )
+																		<option value="{{ $seller->id }}">{{ $seller->first_name }} {{ $seller->last_name }} ({{ $seller->displayname }})</option>
+																	@endforeach
+																</select>
+															<!-- </div> -->
+														</div>
+													</div>
+													<!-- <div class="form-group">
 														<label class="control-label col-md-3">Vendedor <span class="required">
 														* </span></label>
 														<div class="col-md-4">
@@ -157,7 +199,7 @@
 																@endforeach
 															</select>
 														</div>
-													</div>
+													</div> -->
 												@endif
 												<div class="form-group">
 													<label class="control-label col-md-3">Correlativo de Orden de Compra<span class="required">
@@ -213,6 +255,40 @@
 														</div>
 														<span class="help-block">
 														</span>
+													</div>
+												</div>
+												<div class="form-group {{ $module['msg_warning']['name'] == 'projects_invoice_account_err' ? 'has-error' : '' }}">
+													<label class="control-label col-md-3">Cuenta<span class="required">
+													* </span></label>
+													<div class="col-md-6">
+														<div class="input-group ">
+															<span class="input-group-addon">
+															<i class="fa fa-university"></i>
+															</span>
+															<select name="id_invoice_account" class="form-control select2me" required>
+																<option value="0">--- SELECCIONE UNA CUENTA DE FACTURACIÓN ---</option>
+																@foreach( $invoice_accounts as $invoice_account )
+																	<option value="{{ $invoice_account->id }}">{{ $invoice_account->name }} ({{ $invoice_account->type }})</option>
+																@endforeach
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="form-group {{ $module['msg_warning']['name'] == 'projects_payment_method_err' ? 'has-error' : '' }}">
+													<label class="control-label col-md-3">Método de Pago<span class="required">
+													* </span></label>
+													<div class="col-md-6">
+														<div class="input-group ">
+															<span class="input-group-addon">
+															<i class="fa fa-credit-card"></i>
+															</span>
+															<select name="id_payment_method" class="form-control select2me" required>
+																<option value="0">--- SELECCIONE UN MÉTODO DE PAGO ---</option>
+																@foreach( $payment_methods as $payment_method )
+																	<option value="{{ $payment_method->id }}">{{ $payment_method->description }}</option>
+																@endforeach
+															</select>
+														</div>
 													</div>
 												</div>
 												<!-- <div class="form-group">
@@ -337,6 +413,9 @@
 	            name: {
 	                required: true
 	            },
+	            code: {
+	                required: true
+	            },
 	            period_days: {
 	                required: true,
 	                min: 0,
@@ -360,7 +439,14 @@
 	            },
 	            id_client: {
 	                required: true
-	            }});
+	            },
+	            id_payment_method: {
+	                required: true
+	            },
+	            id_invoice_account: {
+	                required: true
+	            }
+	        });
    			$('.button-submit').on('click',function(){
    				$('#submit_form').submit();
    			});

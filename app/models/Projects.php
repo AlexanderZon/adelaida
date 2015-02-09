@@ -39,4 +39,24 @@ class Projects extends \Eloquent {
 
 	}
 
+	public static function existsCode( $code, $id ){
+
+		if( $id != '' ):
+
+			$user = self::where('code', '=', $code )->where('id', '!=', $id )->take(1)->get();
+
+		else:
+
+			$project = self::where('code', '=', $code)->take(1)->get();
+
+		endif;
+
+		if(isset($project[0])):
+			return true;
+		else:
+			return false;
+		endif;
+
+	}
+
 }

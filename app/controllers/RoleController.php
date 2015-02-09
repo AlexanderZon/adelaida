@@ -254,6 +254,7 @@ class RoleController extends \BaseController {
 		$capabilities = Input::get('capabilities');
 		
 		if($role->capabilities()->sync($capabilities)):
+			
 			$args = array(
 				'msg_success' => array(
 					'name' => 'role_assign',
@@ -264,7 +265,9 @@ class RoleController extends \BaseController {
 
 			Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
 			return Redirect::to( $this->module['route'] )->with( $args );
+
 		else:
+
 			$args = array(
 				'msg_danger' => array(
 					'name' => 'role_assign_err',
@@ -274,6 +277,7 @@ class RoleController extends \BaseController {
 				);
 			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/assign/'.Crypt::encrypt($role->id) )->with( $args );
+
 		endif;
 
 	}

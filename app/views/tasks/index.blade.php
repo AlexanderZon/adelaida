@@ -16,8 +16,8 @@
 			<div class="page-toolbar">
 				<!-- BEGIN THEME PANEL -->
 				<div class="btn-group btn-theme-panel">
-					@if(Auth::user()->hasCap('projects_create_get'))
-						<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir una nueva Proyecto"><i class="icon-plus"></i></a>
+					@if(Auth::user()->hasCap('tasks_create_get'))
+						<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir una nueva Tarea"><i class="icon-plus"></i></a>
 					@endif
 				</div>
 				<!-- END THEME PANEL -->
@@ -27,9 +27,9 @@
 		<!-- END PAGE HEAD -->
 		<!-- BEGIN PAGE BREADCRUMB -->
 		<ul class="page-breadcrumb breadcrumb">
-			@foreach( $module['breadcrumbs'] as $breadcrumb )
+			@foreach( $module['breadcumbs'] as $breadcumb )
 			<li>
-				<a href="{{ $breadcrumb['route'] }}">{{ $breadcrumb['name'] }}</a><i class="fa fa-circle"></i>
+				<a href="{{ $breadcumb['route'] }}">{{ $breadcumb['name'] }}</a><i class="fa fa-circle"></i>
 			</li>
 			@endforeach
 			<li class="active">
@@ -73,10 +73,10 @@
 					<div class="portlet box green-haze">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-send-o"></i>Listado de Proyectos
+								<i class="fa fa-thumb-tack"></i>Listado de Tareas del proyecto <em>{{ $project->name }}</em>
 							</div>
 							<div class="tools">
-								@if(Auth::user()->hasCap('projects_create_get'))
+								@if(Auth::user()->hasCap('tasks_create_get'))
 									<a href="{{ $module['route'] }}/create" class="label bg-green-haze"><i class="fa fa-plus-circle"></i> Añadir Nuevo</a>
 								@endif
 							</div>
@@ -86,24 +86,26 @@
 							<thead>
 							<tr>
 								<th>
-									 Nombre
+									 Título
 								</th>
 								<th>
 									 Descripción
 								</th>
 								<th>
-									 Cliente
+									 Horas
 								</th>
 								<th>
-									 Presupuesto
-								</th>
-								<!-- <th>
-									 Método
+									 Tarea Padre
 								</th>
 								<th>
-									 Ruta
-								</th> -->
-								@if(Auth::user()->hasCap('projects_show_get') OR Auth::user()->hasCap('projects_edit_get') OR Auth::user()->hasCap('projects_delete_get'))
+									 Responsables
+								</th>
+								<th>
+									 Estado
+								</th>
+								<!-- 
+								 -->
+								@if(Auth::user()->hasCap('tasks_show_get') OR Auth::user()->hasCap('tasks_edit_get') OR Auth::user()->hasCap('tasks_delete_get'))
 									<th>
 										 Acciones
 									</th>
@@ -111,47 +113,69 @@
 							</tr>
 							</thead>
 							<tbody>
-							@foreach( $projects as $project )
+							@foreach( $tasks as $task )
 							<tr>
 								<td>
-									{{ $project->name }}
+									{{ $task->name }}
 								</td>
 								<td>
-									{{ $project->description }}
+									{{ $task->description }}
 								</td>
 								<td>
-									{{ $project->saleOrder->client->name }}
-								</td>
-								<td class="right">
-									{{ BaseController::numberFormat($project->saleOrder->budget) }} Bs.
-								</td>
-								<!-- <td>
-									{{ $project->method }}
+									{{ $task->hours }}
 								</td>
 								<td>
-									{{ $project->route }}
-								</td> -->
-								@if(Auth::user()->hasCap('projects_show_get') OR Auth::user()->hasCap('projects_edit_get') OR Auth::user()->hasCap('projects_delete_get'))
+									<em>{{ $task->id_parent != 0 ? $task->parent->name : 'Ninguna' }}</em>
+								</td>
+								<td>
+									{{ count($task->users) }}
+								</td>
+								<td>
+									@if($task->id_parent == 0 )
+										@if( $task->status == 'inactive' )
+											<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Iniciar"><span class="label bg-red">{{ 'Sin Iniciar' }}</span></a>
+										@elseif( $task->status == 'active' )
+											<a href="{{ $module['route'] . '/done/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Finalizar"><span class="label bg-yellow">{{ 'En Curso' }}</span></a>
+										@else
+											<a href="{{ $module['route'] . '/undone/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Finalizar"><span class="label bg-blue">{{ 'Finalizado' }}</span></a>
+										@endif
+									@else
+										@if( $task->parent->status == 'done')
+											@if( $task->status == 'inactive' )
+												<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Iniciar"><span class="label bg-red">{{ 'Sin Iniciar' }}</span></a>
+											@elseif( $task->status == 'active' )
+												<a href="{{ $module['route'] . '/done/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Finalizar"><span class="label bg-yellow">{{ 'En Curso' }}</span></a>
+											@else
+												<a href="{{ $module['route'] . '/undone/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Regresar"><span class="label bg-blue">{{ 'Finalizado' }}</span></a>
+											@endif
+										@else
+											@if( $task->status == 'inactive' )
+												{{ 'Sin iniciar' }}
+											@elseif( $task->status == 'active' )
+												{{ 'En curso' }}
+											@elseif( $task->status == 'done' )
+												{{ 'Terminada' }}
+											@else
+												{{ 'No especificado' }}
+											@endif
+										@endif
+									@endif
+								</td>
+								<!-- 
+								 -->
+								@if(Auth::user()->hasCap('tasks_show_get') OR Auth::user()->hasCap('tasks_edit_get') OR Auth::user()->hasCap('tasks_delete_get'))
 									<td>
-										@if(Auth::user()->hasCap('projects_show_get'))
+										@if(Auth::user()->hasCap('tasks_show_get'))
 											&nbsp;&nbsp;
-											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($project->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
+											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($task->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
 										@endif
-										@if(Auth::user()->hasCap('tasks_view_get'))
+										@if(Auth::user()->hasCap('tasks_edit_get'))
 											&nbsp;&nbsp;
-											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/' . Crypt::encrypt($project->id)  . '/tasks/' }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Tareas"> <i class="fa fa-thumb-tack"></i> </a> 
+											<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($task->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
 										@endif
-										@if(Auth::user()->hasCap('materials_view_get'))
+										@if(Auth::user()->hasCap('tasks_delete_get'))
 											&nbsp;&nbsp;
-											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/' . Crypt::encrypt($project->id) . '/materials/' }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Materiales"> <i class="fa fa-cubes"></i> </a> 
-										@endif
-										@if(Auth::user()->hasCap('projects_edit_get'))
-											&nbsp;&nbsp;
-											<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($project->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
-										@endif
-										@if(Auth::user()->hasCap('projects_delete_get'))
-											&nbsp;&nbsp;
-											<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($project->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
+											<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($task->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
 										@endif
 									</td>
 								@endif

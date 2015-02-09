@@ -25,4 +25,22 @@ class Tasks extends \Eloquent {
 		
 	}
 
+	public function parent(){
+
+		return $this->belongsTo('Tasks', 'id_parent');
+
+	}
+
+	public function hasResponsable( $user ){
+
+		foreach( $this->users as $usr ):
+
+			if( $usr->id == $user->id ) return true;
+
+		endforeach;
+
+		return false;
+
+	}
+
 }

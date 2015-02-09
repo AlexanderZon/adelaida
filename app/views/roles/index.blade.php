@@ -127,9 +127,17 @@
 										{{ $role->status == 'active' ? 'Activo' : 'Inactivo' }}
 									@else
 										@if( $role->status == 'active' )
-											<a href="{{ $module['route'] . '/deactivate/' . Crypt::encrypt($role->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Desactivar"><span class="label bg-blue">{{ 'Activo' }}</span></a>
+											@if(Auth::user()->hasCap('roles_deactivate_get'))
+												<a href="{{ $module['route'] . '/deactivate/' . Crypt::encrypt($role->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Desactivar"><span class="label bg-blue">{{ 'Activo' }}</span></a>
+											@else
+												{{ $role->status == 'active' ? 'Activo' : 'Inactivo' }}
+											@endif
 										@elseif( $role->status == 'inactive' )
-											<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($role->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Activar"><span class="label bg-yellow-saffron">{{ 'Inactivo' }}</span>
+											@if(Auth::user()->hasCap('roles_deactivate_get'))
+												<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($role->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Activar"><span class="label bg-yellow-saffron">{{ 'Inactivo' }}</span>
+											@else
+												{{ $role->status == 'active' ? 'Activo' : 'Inactivo' }}
+											@endif
 										@endif
 									@endif
 								</td>

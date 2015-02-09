@@ -2,6 +2,8 @@
 
 class InvoiceAccountController extends \BaseController {
 
+	protected $uploadFolder = 'uploads/invoice_accounts/';
+
 	protected $sections = array(
 		'index' => 'Todos',
 		'create' => 'Nuevo',
@@ -78,8 +80,77 @@ class InvoiceAccountController extends \BaseController {
 	 */
 	public function postCreate()
 	{
+		$image = Input::file('image_url');
 
-		$invoice_account = new InvoiceAccounts();
+		$validator = Validator::make(
+			array(
+				'image' => $image
+				), 
+			array(
+				'image' => 'mimes:png,jpeg,gif'
+				),
+			array(
+				'mimes' => 'Tipo de imagen inválido, solo se admite los formatos PNG, JPEG, y GIF'
+				)
+			);
+
+		if($validator->fails()):
+
+			$args = array(
+				'msg_warning' => array(
+					'name' => 'invoice_account_create_image_err',
+					'title' => 'Error al agregar la cuenta',
+					'description' => 'El Archivo subido no cumple con los requisitos del sistema.'
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_warning'], 'CREATE');
+
+			return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+		else:
+
+			/*$image_url = $this->uploadImage($image);*/
+
+			$invoice_account = new InvoiceAccounts();
+			$invoice_account->name = Input::get('name');
+			$invoice_account->type = Input::get('type');
+			$invoice_account->header = Input::get('header');
+			$invoice_account->footer = Input::get('footer');
+			/*$invoice_account->image_url = $image_url;*/
+			$invoice_account->status = 'active';
+
+			if($invoice_account->save()):
+
+				$args = array(
+					'msg_success' => array(
+						'name' => 'invoice_account_create',
+						'title' => 'Cuenta Agregada',
+						'description' => 'La cuenta ' . $invoice_account->name . ' fue agregada exitosamente'
+						)
+					);
+
+				Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
+				return Redirect::to( $this->module['route'] )->with( $args );
+
+			else:
+
+				$args = array(
+					'msg_danger' => array(
+						'name' => 'invoice_account_create_err',
+						'title' => 'Error al agregar la cuenta',
+						'description' => 'Hubo un error al agregar la cuenta ' . $invoice_account->name
+						)
+					);
+
+				Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
+				return Redirect::to( $this->module['route'].'/create' )->with( $args );
+
+			endif;
+
+		endif;
+
+		/*$invoice_account = new InvoiceAccounts();
 		$invoice_account->name = Input::get('name');
 		$invoice_account->description = Input::get('description');
 		$invoice_account->type = 'invoice_account';
@@ -103,15 +174,15 @@ class InvoiceAccountController extends \BaseController {
 			$args = array(
 				'msg_danger' => array(
 					'name' => 'invoice_account_create_err',
-					'title' => 'Error al agregar el cuenta',
-					'description' => 'Hubo un error al agregar el cuenta ' . $invoice_account->name
+					'title' => 'Error al agregar la cuenta',
+					'description' => 'Hubo un error al agregar la cuenta ' . $invoice_account->name
 					)
 				);
 
 			Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
-		endif;
+		endif;*/
 
 	}
 
@@ -148,37 +219,71 @@ class InvoiceAccountController extends \BaseController {
 	{
 
 		$invoice_account = InvoiceAccounts::find(Crypt::decrypt($id));
+		$image = Input::file('image_url');
 
-		$invoice_account->name = Input::get('name');
-		$invoice_account->description = Input::get('description');
-		$invoice_account->type = 'invoice_account';
-		$invoice_account->status = 'active';
-		
-		if( $invoice_account->save() ):
+		$validator = Validator::make(
+			array(
+				'image' => $image
+				), 
+			array(
+				'image' => 'mimes:png,jpeg,gif'
+				),
+			array(
+				'mimes' => 'Tipo de imagen inválido, solo se admite los formatos PNG, JPEG, y GIF'
+				)
+			);
+
+		if($validator->fails()):
 
 			$args = array(
-				'msg_success' => array(
-					'name' => 'invoice_account_edit',
-					'title' => 'Cuenta editado',
-					'description' => 'El cuenta ' . $invoice_account->name . ' fue editado exitosamente'
+				'msg_warning' => array(
+					'name' => 'invoice_account_edit_image_err',
+					'title' => 'Error al editar la cuenta',
+					'description' => 'El Archivo subido no cumple con los requisitos del sistema.'
 					)
 				);
 
-			Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
-			return Redirect::to( $this->module['route'] )->with( $args );
+			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'].'/edit' )->with( $args );
 
 		else:
 
-			$args = array(
-				'msg_danger' => array(
-					'name' => 'invoice_account_edit_err',
-					'title' => 'Error al editar el cuenta',
-					'description' => 'Hubo un error al editar el cuenta ' . $invoice_account->name 
-					)
-				);
+			/*$image_url = $this->uploadImage($image);*/
 
-			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
-			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($invoice_account->id) )->with( $args );
+			$invoice_account->name = Input::get('name');
+			$invoice_account->type = Input::get('type');
+			$invoice_account->header = Input::get('header');
+			$invoice_account->footer = Input::get('footer');
+			/*$invoice_account->image_url = $image_url;*/
+
+			if($invoice_account->save()):
+
+				$args = array(
+					'msg_success' => array(
+						'name' => 'invoice_account_edit',
+						'title' => 'Cuenta Editar',
+						'description' => 'La cuenta ' . $invoice_account->name . ' fue editada exitosamente'
+						)
+					);
+
+				Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
+				return Redirect::to( $this->module['route'] )->with( $args );
+
+			else:
+
+				$args = array(
+					'msg_danger' => array(
+						'name' => 'invoice_account_edit_err',
+						'title' => 'Error al editar la cuenta',
+						'description' => 'Hubo un error al editar la cuenta ' . $invoice_account->name
+						)
+					);
+
+				Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
+				return Redirect::to( $this->module['route'].'/edit' )->with( $args );
+
+			endif;
 
 		endif;
 
@@ -224,7 +329,7 @@ class InvoiceAccountController extends \BaseController {
 				'msg_success' => array(
 					'name' => 'invoice_account_delete',
 					'title' => 'Cuenta eliminada',
-					'description' => 'El cuenta ' . $invoice_account->name . ' fue eliminado exitosamente'
+					'description' => 'El cuenta ' . $invoice_account->name . ' fue eliminada exitosamente'
 					)
 				);
 
@@ -236,8 +341,8 @@ class InvoiceAccountController extends \BaseController {
 			$args = array(
 				'msg_danger' => array(
 					'name' => 'invoice_account_delete_err',
-					'title' => 'Error al eliminar el cuenta',
-					'description' => 'Hubo un error al eliminar el cuenta ' . $invoice_account->name 
+					'title' => 'Error al eliminar la cuenta',
+					'description' => 'Hubo un error al eliminar la cuenta ' . $invoice_account->name 
 					)
 				);
 
@@ -246,6 +351,99 @@ class InvoiceAccountController extends \BaseController {
 
 		endif;
 	}
+
+	/**
+	 * Show the form for deleting the specified resource.
+	 * GET /invoice_accounts/delete/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getActivate($id)
+	{
+
+		$invoice_account = Users::find( Crypt::decrypt($id) );
+
+		$invoice_account->status = 'active';
+
+		if($invoice_account->save()):
+
+			$args = array(
+				'msg_success' => array(
+					'name' => 'invoice_accounts_activate',
+					'title' => 'Cuenta activada satisfactoriamente',
+					'description' => 'La Cuenta ' . $invoice_account->name . ' ha sido activada exitosamente'
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
+
+		else:
+
+			$args = array(
+				'msg_danger' => array(
+					'name' => 'invoice_accounts_activate_err',
+					'title' => 'Error al activar cuenta',
+					'description' => 'hubo un error al activar la cuenta ' . $invoice_account->name
+					)
+				);
+
+			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
+
+		endif;
+
+	}
+
+	/**
+	 * Show the form for deleting the specified resource.
+	 * GET /invoice_accounts/delete/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getDeactivate($id)
+	{
+
+		$invoice_account = Users::find( Crypt::decrypt($id) );
+
+		$invoice_account->status = 'inactive';
+
+		if($invoice_account->save()):
+
+			$args = array(
+				'msg_success' => array(
+					'name' => 'invoice_accounts_deactivate',
+					'title' => 'Cuenta desactivada satisfactoriamente',
+					'description' => 'La Cuenta ' . $invoice_account->name . ' ha sido desactivada exitosamente'
+					)
+				);
+
+			Audits::add(Auth::invoice_account(), $args['msg_success'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
+
+		else:
+
+			$args = array(
+				'msg_danger' => array(
+					'name' => 'invoice_accounts_deactivate_err',
+					'title' => 'Error al desactivar cuenta',
+					'description' => 'hubo un error al desactivar la cuenta ' . $invoice_account->name
+					)
+				);
+
+			Audits::add(Auth::invoice_account(), $args['msg_danger'], 'UPDATE');
+
+			return Redirect::to( $this->module['route'] )->with( $args );
+
+		endif;
+
+	}
+
 
 	private function getBreadcumbs(){
 

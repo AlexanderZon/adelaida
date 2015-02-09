@@ -1,11 +1,7 @@
 @extends ('layouts.master')
 
-@section('css')
-	<!-- BEGIN PAGE LEVEL STYLES -->
-	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
-	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
-	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-summernote/summernote.css">
-	<!-- END PAGE LEVEL STYLES -->
+@section("css")
+	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-multi-select/css/multi-select.css"/>
 @stop
 
 @section ("content")
@@ -24,7 +20,7 @@
 				<!-- BEGIN THEME PANEL -->
 				
 				<div class="btn-group btn-theme-panel">
-					<a href="{{ $module['route'] }}" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Volver al Listado de Cuentas de Facturación"><i class="icon-arrow-left"></i></a>
+					<a href="{{ $module['route'] }}" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Volver al Listado de Categorías"><i class="icon-arrow-left"></i></a>
 				</div>
 				<!-- END THEME PANEL -->
 			</div>
@@ -39,7 +35,7 @@
 			</li>
 			@endforeach
 			<li class="active">
-				{{ $module['sections']['create'] }}
+				{{ $module['sections']['edit'] }}
 			</li>
 		</ul>
 		<!-- END PAGE BREADCRUMB -->
@@ -70,7 +66,7 @@
 				<div class="portlet box green-haze">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-university"></i>Creación de Cuentas de Facturación
+							<i class="fa fa-key"></i>Edición de Categorías
 						</div>
 						<div class="tools">
 							<a href="{{ $module['route'] }}" class="label bg-green-haze"><i class="fa fa-arrow-circle-left"></i> Volver</a>
@@ -78,15 +74,15 @@
 					</div>
 					<div class="portlet-body form">
 						<!-- BEGIN FORM-->
-						<form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+						<form action="" method="post" class="form-horizontal">
 							<div class="form-body">
-								<h3 class="form-section">Información de Cuenta de Facturación</h3>
+								<h3 class="form-section">Información de Categoría</h3>
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label class="control-label col-md-3">Nombre</label>
+											<label class="control-label col-md-3">Título</label>
 											<div class="col-md-9">
-												<input name="name" type="text" class="form-control" placeholder="Ingrese el nombre de la Cuenta">
+												<input name="name" type="text" class="form-control" placeholder="Ingrese el título de la Tarea" value="{{ $task->name }}" required>
 												<!-- <span class="help-block">This is inline help</span> -->
 											</div>
 										</div>
@@ -94,9 +90,9 @@
 									<!--/span-->
 									<div class="col-md-6">
 										<div class="form-group {{ false ? 'has-error' : '' }}">
-											<label class="control-label col-md-3">Tipo</label>
+											<label class="control-label col-md-3">Descripción</label>
 											<div class="col-md-9">
-												<input name="type" type="text" class="form-control" placeholder="Ingrese el Tipo de Cuenta">
+												<input name="description" type="text" class="form-control" placeholder="Ingrese la Descripción de la Tarea" value="{{ $task->description }}">
 												<!-- <span class="help-block">This is inline help</span> -->
 											</div>
 										</div>
@@ -104,36 +100,46 @@
 									<!--/span-->
 								</div>
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-md-6">
 										<div class="form-group">
-											<label class="control-label col-md-2">Cabecera de Factura</label>
-											<div class="col-md-10">
-												<textarea name="header" class="summernote">
-												</textarea>
-											</div>
-										</div>
-									</div>
-									<!--/span-->
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<label class="control-label col-md-2">Pie de Página de Factura</label>
-											<div class="col-md-10">
-												<textarea name="footer" class="summernote">
-												</textarea>
-											</div>
-										</div>
-									</div>
-									<!--/span-->
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<label class="control-label col-md-3">Imágen Descriptiva</label>
+											<label class="control-label col-md-3">Horas de Trabajo</label>
 											<div class="col-md-9">
-												<input type="file" name="image_url" class="form-control" placeholder="Ingrese el Tipo de Cuenta">
+												<input name="hours" type="number" class="form-control" placeholder="Ingrese el número de horas de trabajo" value="{{ $task->hours }}" required>
 												<!-- <span class="help-block">This is inline help</span> -->
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">Tarea Padre</label>
+											<div class="col-md-9">
+												<div class="input-group ">
+													<span class="input-group-addon">
+													<i class="fa fa-user"></i>
+													</span>
+													<select name="id_parent" class="form-control select2me" equired>
+														<option value="0">NINGUNA</option>
+														@foreach( $tasks as $tsk )
+															<option value="{{ $tsk->id }}" {{ $task->id_parent == $tsk->id ? 'selected' : '' }}>{{ $tsk->name }}</option>
+														@endforeach
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="control-label col-md-3">Responsables de Tarea</label>
+											<div class="col-md-9">
+												<select id="select2_sample2" name="users[]" class="form-control select2" placeholder="Seleccione los Responsables de esta Tarea" multiple>
+													@foreach( $users as $user )
+														<option value="{{ $user->id }}" {{ $task->hasResponsable($user) ? 'selected' : '' }}>{{ $user->first_name }} {{ $user->last_name }}</option>
+													@endforeach
+												</select>
 											</div>
 										</div>
 									</div>
@@ -145,7 +151,7 @@
 									<div class="col-md-6">
 										<div class="row">
 											<div class="col-md-offset-3 col-md-9">
-												<button type="submit" class="btn green">Crear</button>
+												<button type="submit" class="btn green">Actualizar</button>
 												<a href="{{ $module['route'] }}" class="btn default">Volver</a>
 											</div>
 										</div>
@@ -167,36 +173,16 @@
 @stop
 
 @section('javascripts')
-	<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-	<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-	<script src="/assets/global/plugins/bootstrap-markdown/lib/markdown.js" type="text/javascript"></script>
-	<script src="/assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js" type="text/javascript"></script>
-	<script src="/assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
 
+	<script type="text/javascript" src="/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+	<script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 
 	<script type="text/javascript">
-		var ComponentsEditors = function () {
-
-		    var handleSummernote = function () {
-		        $('.summernote').summernote({height: 300});
-		        //API:
-		        //var sHTML = $('#summernote_1').code(); // get code
-		        //$('#summernote_1').destroy(); // destroy
-		    }
-
-		    return {
-		        //main function to initiate the module
-		        init: function () {
-		            handleSummernote();
-		        }
-		    };
-
-		}();
         jQuery(document).ready(function() {  
            	Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
 			Demo.init(); // init demo features
-			ComponentsEditors.init();
+        	ComponentsDropdowns.init();
         });
 	</script>
 @stop

@@ -117,7 +117,21 @@
 									{{ $payment_method->description }}
 								</td>
 								<td>
-									{{ $payment_method->status }}
+									@if( $payment_method->status == 'active' )
+										@if(Auth::user()->hasCap('payment_methods_deactivate_get'))
+											<a href="{{ $module['route'] . '/deactivate/' . Crypt::encrypt($payment_method->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Desactivar"><span class="label bg-blue">{{ 'Activo' }}</span></a>
+										@else
+											{{ $payment_method->status == 'active' ? 'Activo' : 'Inactivo' }}
+										@endif
+									@elseif( $payment_method->status == 'inactive' )
+										@if(Auth::user()->hasCap('payment_methods_activate_get'))
+											<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($payment_method->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Activar"><span class="label bg-yellow-saffron">{{ 'Inactivo' }}</span>
+										@else
+											{{ $payment_method->status == 'active' ? 'Activo' : 'Inactivo' }}
+										@endif
+									@else
+										{{ $payment_method->status == 'active' ? 'Activo' : 'Inactivo' }}
+									@endif
 								</td>
 								<!-- <td>
 									{{ $payment_method->method }}
