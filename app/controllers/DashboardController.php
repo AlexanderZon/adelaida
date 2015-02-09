@@ -17,7 +17,7 @@ class DashboardController extends \BaseController {
 			'name' => 'dashboard',
 			'title' => 'Escritorio',
 			'description' => 'Estadísticas y Reportes',
-			'breadcumbs' => $this->getBreadcumbs(),
+			'breadcrumbs' => $this->getBreadcumbs(),
 			'sections' => $this->sections,
 			'msg_danger' => Session::get('msg_danger'),
 			'msg_warning' => Session::get('msg_warning'),

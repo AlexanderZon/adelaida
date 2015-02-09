@@ -4,7 +4,6 @@ var ComponentsPickers = function () {
 
         if (jQuery().datepicker) {
             $('.date-picker').datepicker({
-                format: 'dd/mm/yyyy',
                 rtl: Metronic.isRTL(),
                 orientation: "left",
                 autoclose: true
@@ -51,7 +50,7 @@ var ComponentsPickers = function () {
 
         $('#defaultrange').daterangepicker({
                 opens: (Metronic.isRTL() ? 'left' : 'right'),
-                format: 'DD/MM/YYYY',
+                format: 'MM/DD/YYYY',
                 separator: ' to ',
                 startDate: moment().subtract('days', 29),
                 endDate: moment(),
@@ -65,7 +64,7 @@ var ComponentsPickers = function () {
 
         $('#defaultrange_modal').daterangepicker({
                 opens: (Metronic.isRTL() ? 'left' : 'right'),
-                format: 'DD/MM/YYYY',
+                format: 'MM/DD/YYYY',
                 separator: ' to ',
                 startDate: moment().subtract('days', 29),
                 endDate: moment(),
@@ -110,7 +109,7 @@ var ComponentsPickers = function () {
                 buttonClasses: ['btn'],
                 applyClass: 'green',
                 cancelClass: 'default',
-                format: 'DD/MM/YYYY',
+                format: 'MM/DD/YYYY',
                 separator: ' to ',
                 locale: {
                     applyLabel: 'Apply',

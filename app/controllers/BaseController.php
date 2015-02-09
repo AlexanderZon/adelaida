@@ -2,7 +2,7 @@
 
 class BaseController extends Controller {
 
-	protected $breadcumbs = array(
+	protected $breadcrumbs = array(
 		array(
 			'name' => 'Escritorio',
 			'route' => '/'
