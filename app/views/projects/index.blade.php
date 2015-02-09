@@ -122,8 +122,8 @@
 								<td>
 									{{ $project->saleOrder->client->name }}
 								</td>
-								<td>
-									{{ $project->saleOrder->budget }}
+								<td class="right">
+									{{ BaseController::numberFormat($project->saleOrder->budget) }} Bs.
 								</td>
 								<!-- <td>
 									{{ $project->method }}
@@ -136,6 +136,14 @@
 										@if(Auth::user()->hasCap('projects_show_get'))
 											&nbsp;&nbsp;
 											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($project->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
+										@endif
+										@if(Auth::user()->hasCap('tasks_view_get'))
+											&nbsp;&nbsp;
+											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/' . Crypt::encrypt($project->id)  . '/tasks/' }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Tareas"> <i class="fa fa-thumb-tack"></i> </a> 
+										@endif
+										@if(Auth::user()->hasCap('materials_view_get'))
+											&nbsp;&nbsp;
+											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/' . Crypt::encrypt($project->id) . '/materials/' }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Materiales"> <i class="fa fa-cubes"></i> </a> 
 										@endif
 										@if(Auth::user()->hasCap('projects_edit_get'))
 											&nbsp;&nbsp;

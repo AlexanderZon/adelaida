@@ -258,7 +258,8 @@
 													</div>
 												</div>
 												<div class="form-group {{ $module['msg_warning']['name'] == 'projects_invoice_account_err' ? 'has-error' : '' }}">
-													<label class="control-label col-md-3">Cuenta</label>
+													<label class="control-label col-md-3">Cuenta<span class="required">
+													* </span></label>
 													<div class="col-md-6">
 														<div class="input-group ">
 															<span class="input-group-addon">
@@ -274,7 +275,8 @@
 													</div>
 												</div>
 												<div class="form-group {{ $module['msg_warning']['name'] == 'projects_payment_method_err' ? 'has-error' : '' }}">
-													<label class="control-label col-md-3">Método de Pago</label>
+													<label class="control-label col-md-3">Método de Pago<span class="required">
+													* </span></label>
 													<div class="col-md-6">
 														<div class="input-group ">
 															<span class="input-group-addon">

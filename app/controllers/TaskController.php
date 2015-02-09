@@ -40,8 +40,11 @@ class TaskController extends \BaseController {
 	public function getIndex( $idProject )
 	{
 
+		$project = Projects::find( Crypt::decrypt($idProject) );
+
 		$args = array(
-			'tasks' => Tasks::all(),
+			'project' => $project,
+			'tasks' => $project->tasks,
 			'module' => $this->module,
 			);
 		Audits::add(Auth::user(), array(
@@ -249,12 +252,17 @@ class TaskController extends \BaseController {
 
 	private function getBreadcumbs(){
 
-		$self_breadcumb = array(
-			'name' => 'Tareas',
-			'route' => '/tasks'
+		$project_breadcumb = array(
+			'name' => 'Proyectos',
+			'route' => '/projects'
 			);
 
-		array_push( $this->breadcumbs, $self_breadcumb);
+		$self_breadcumb = array(
+			'name' => 'Tareas',
+			'route' => self::getRoute( Request::path() )
+			);
+
+		array_push( $this->breadcumbs, $project_breadcumb, $self_breadcumb);
 
 		return $this->breadcumbs;
 

@@ -565,7 +565,7 @@
 					@endif
 					<!-- BEGIN ANGULARJS LINK -->
 					@if(Auth::user()->hasCap('projects_view_get'))
-					<li class="tooltips {{ $module['name'] == 'projects' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Proyectos">
+					<li class="tooltips {{ $module['name'] == 'projects' || $module['name'] == 'tasks' || $module['name'] == 'materials' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Proyectos">
 						<a href="/projects">
 						<i class="icon-paper-plane"></i>
 						<span class="title">

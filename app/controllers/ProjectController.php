@@ -54,7 +54,6 @@ class ProjectController extends \BaseController {
 	public function getCreate()
 	{
 		$args = array(
-			'projects' => Projects::all(),
 			'module' => $this->module,
 			'clients' => Clients::all(),
 			'sellers' => Users::getSellers(),
@@ -232,6 +231,10 @@ class ProjectController extends \BaseController {
 		$args = array(
 			'project' => Projects::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
+			'clients' => Clients::all(),
+			'sellers' => Users::getSellers(),
+			'invoice_accounts' => InvoiceAccounts::getActive(),
+			'payment_methods' => PaymentMethods::getActive(),
 			);
 
 		return View::make('projects.edit')->with($args);
@@ -250,39 +253,73 @@ class ProjectController extends \BaseController {
 
 		$project = Projects::find( Crypt::decrypt($id) );
 
-		if(Projects::exists(Input::get('identification_number'), $project)):
+		if(SaleOrders::existsCorrelative(Input::get('correlative'), $project->sale_order->id )):
 
 			$args = array(
 				'msg_danger' => array(
-					'name' => 'project_identification_err',
+					'name' => 'project_correlative_err',
 					'title' => 'Error al editar el proyecto',
-					'description' => 'Ya existe una proyecto con la Cédula ' . Input::get('identification_number')
+					'description' => 'El Correlativo de Orden de Compra ' . Input::get('correlative') . ' ya existe.'
 					)
 				);
 
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($project->id) )->with( $args );
 
-		else:
+		elseif(Projects::existsCode(Input::get('code'), $project->id )):
 
-			$project->first_name = Input::get('first_name');
-			$project->last_name = Input::get('last_name');
-			$project->identification_number = Input::get('identification_number');
-			$project->email = Input::get('email');
-			$project->phone = Input::get('phone');
-			$project->type = 'project';
+			$args = array(
+				'msg_danger' => array(
+					'name' => 'project_code_err',
+					'title' => 'Error al editar el proyecto',
+					'description' => 'El Código del Proyecto ' . Input::get('code') . ' ya existe.'
+					)
+				);
+
+			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($project->id) )->with( $args );
+
+   		else:
+
+			$project->name = Input::get('name');
+			$project->code = Input::get('code');
+			$project->description = Input::get('description');
 			$project->status = 'active';
 			
 			if( $project->save() ):
 
-				$args = array(
-					'msg_success' => array(
-						'name' => 'project_edit',
-						'title' => 'Proyecto Editada',
-						'description' => 'El proyetco ' . $project->first_name . ' ' . $project->last_name . ' fue editada exitosamente'
-						)
-					);
+	   			$sale_order = $project->sale_order;
+	   			$sale_order->correlative = Input::get('correlative');
+	   			$sale_order->budget = Input::get('budget');
+	   			$sale_order->id_client = Input::get('id_client');
+	   			$sale_order->id_seller = Input::get('id_seller');
+	   			$sale_order->id_project = $project->id;
+	   			$sale_order->date = date('Y-m-d', strtotime(Input::get('date')));
+	   			$sale_order->period_days = Input::get('period_days');
 
-				return Redirect::to( $this->module['route'] )->with( $args );
+	   			if($sale_order->save()):
+
+					$args = array(
+						'msg_success' => array(
+							'name' => 'project_edit',
+							'title' => 'Proyecto Editado',
+							'description' => 'El proyetco ' . $project->first_name . ' ' . $project->last_name . ' fue editado exitosamente'
+							)
+						);
+
+					return Redirect::to( $this->module['route'] )->with( $args );
+
+	   			else:
+
+					$args = array(
+						'msg_danger' => array(
+							'name' => 'project_edit_err',
+							'title' => 'Error al editar el proyecto',
+							'description' => 'Hubo un error al editar el proyecto ' . $project->name . ' al momento de generar la orden de compra'
+							)
+						);
+
+					return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($project->id) )->with( $args );
+
+	   			endif;
 
 			else:
 
@@ -290,7 +327,7 @@ class ProjectController extends \BaseController {
 					'msg_danger' => array(
 						'name' => 'project_edit_err',
 						'title' => 'Error al editar el proyecto',
-						'description' => 'Hubo un error al editar el proyecto ' . $project->first_name . ' ' . $project->last_name 
+						'description' => 'Hubo un error al editar el proyecto ' . $project->name
 						)
 					);
 
@@ -298,7 +335,7 @@ class ProjectController extends \BaseController {
 
 			endif;
 
-		endif;
+	   	endif;
 
 	}
 
@@ -332,31 +369,95 @@ class ProjectController extends \BaseController {
 	{
 		$project =  Projects::find( Crypt::decrypt($id) );
 
-		if($project->delete()):
+		$bool = true;
+		$sale_order = $project->sale_order;
+		$receipts = $project->sale_order->receipts;
 
-			$args = array(
-				'msg_success' => array(
-					'name' => 'project_delete',
-					'title' => 'Proyecto Eliminada',
-					'description' => 'El proyetco ' . $project->first_name . ' ' . $project->last_name . ' fue eliminada exitosamente'
-					)
-				);
+		foreach($receipts as $receipt):
 
-			return Redirect::to( $this->module['route'] )->with( $args );
+			if(!$receipt->delete()):
+				$bool = false;
+			endif;
+
+		endforeach;
+
+		if($bool):
+
+			if($sale_order->delete()):
+
+				if($project->delete()):
+
+					$args = array(
+						'msg_success' => array(
+							'name' => 'project_delete',
+							'title' => 'Proyecto Eliminado',
+							'description' => 'El proyetco ' . $project->name . ' (' . $project->code . ') fue eliminada exitosamente'
+							)
+						);
+
+					return Redirect::to( $this->module['route'] )->with( $args );
+
+				else:
+
+					$sale_order->restore();
+					self::restoreReceipts($receipts);
+
+					$args = array(
+						'msg_danger' => array(
+							'name' => 'project_delete_err',
+							'title' => 'Error al eliminar el proyecto',
+							'description' => 'Hubo un error al eliminar el proyecto ' . $project->name . ' (' . $project->last_name . '). Los datos que se eliminaron han sido restaurados.'
+							)
+						);
+
+					return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($project->id) )->with( $args );
+
+				endif;
+
+			else:
+
+				self::restoreReceipts( $receipts );
+
+				$args = array(
+					'msg_danger' => array(
+						'name' => 'project_delete_err',
+						'title' => 'Error al eliminar el proyecto',
+						'description' => 'Hubo un error al eliminar el proyecto ' . $project->name . ' (' . $project->last_name . '). Los datos que se eliminaron han sido restaurados.'
+						)
+					);
+
+				return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($project->id) )->with( $args );
+
+			endif;
 
 		else:
+
+			self::restoreReceipts( $receipts );
 
 			$args = array(
 				'msg_danger' => array(
 					'name' => 'project_delete_err',
 					'title' => 'Error al eliminar el proyecto',
-					'description' => 'Hubo un error al eliminar el proyecto ' . $project->first_name . ' ' . $project->last_name 
+					'description' => 'Hubo un error al eliminar el proyecto ' . $project->name . ' (' . $project->last_name . '). Los datos que se eliminaron han sido restaurados.'
 					)
 				);
 
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($project->id) )->with( $args );
 
 		endif;
+
+	}
+
+	private static function restoreReceipts($receipts){
+
+		foreach( $receipts as $receipt ):
+
+			$receipt->restore();
+
+		endforeach;
+
+		return true;
+
 	}
 
 	private function getBreadcumbs(){

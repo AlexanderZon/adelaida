@@ -38,13 +38,45 @@ class DashboardController extends \BaseController {
 		$args = array(
 			'module' => $this->module,
 			'audits' => Audits::orderBy('created_at','DESC')->take(100)->get(),
+			'incomes' => self::incomes(),
 			);
-		return View::make('hello')->with($args);
+		return View::make('dashboard.index')->with($args);
 	}
 
 	private function getBreadcumbs(){
 
 		return array();
+
+	}
+
+	private static function incomes(){
+
+		$sale_orders = SaleOrders::all();
+		$receipts = Receipts::all();
+
+		$incomes = array(
+			'received' => 0,
+			'concreted' => 0,
+			'percentage' => 0
+			);
+
+		foreach($sale_orders as $sale_order):
+			$incomes['concreted'] += $sale_order->budget;
+		endforeach;
+
+		foreach($receipts as $receipt):
+			$incomes['received'] += $receipt->amount;
+		endforeach;
+
+		$incomes['percentage'] = number_format($incomes['received']/$incomes['concreted']*100, 2);
+
+		$incomes = array(
+			'received' => self::format($incomes['received']),
+			'concreted' => self::format($incomes['concreted']),
+			'percentage' => self::format($incomes['percentage'])
+			);
+
+		return $incomes;
 
 	}
 
