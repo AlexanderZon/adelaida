@@ -358,18 +358,39 @@
 						<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
 						<li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-							<i class="icon-calendar"></i>
+							<i class="icon-pin"></i>
 							<span class="badge badge-primary">
-							3 </span>
+							{{ count(My::pendingTasks()) }} </span>
 							</a>
 							<ul class="dropdown-menu extended tasks">
 								<li class="external">
-									<h3>You have <span class="bold">12 pending</span> tasks</h3>
-									<a href="/me/tasks">view all</a>
+									<h3>Tu tienes <span class="bold">{{ count(My::pendingTasks()) }} tareas pendientes</span></h3>
+									<a href="/my/tasks">Ver todas</a>
 								</li>
 								<li>
 									<ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
-										<li>
+										@foreach( My::tasks() as $task )
+											@if( $task->status != 'done' )
+												<li style="background-color:{{ $task->status == 'inactive' ? '#F0F4FF' : '#FFFFFF' }};">
+													<a href="{{ '/my/tasks/show/'.Crypt::encrypt($task->id) }};">
+														<span class="task">
+															<span class="desc">{{ $task->name }} de <em>{{ $task->project->code }}</em></span>
+															<span class="percent">
+																@if( $task->status == 'inactive' )
+																	<span>Sin iniciar</span>
+																@elseif( $task->status == 'active' )
+																	En Curso
+																@endif
+															</span>
+														</span>
+														<span class="status">
+															<br><em>{{ $task->description }}</em>
+														</span>
+													</a>
+												</li>
+											@endif
+										@endforeach
+										<!-- <li>
 											<a href="javascript:;">
 											<span class="task">
 											<span class="desc">New release v1.2 </span>
@@ -445,7 +466,7 @@
 											<span style="width: 38%;" class="progress-bar progress-bar-important" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">38% Complete</span></span>
 											</span>
 											</a>
-										</li>
+										</li> -->
 									</ul>
 								</li>
 							</ul>
@@ -706,7 +727,7 @@
 					@endif
 
 					@if(Auth::user()->hasCap('invoice_accounts_view_get') || Auth::user()->hasCap('payment_methods_view_get'))
-					<li class="tooltips {{ $module['name'] == 'invoice_accounts' || $module['name'] == 'payment_methods' || $module['name'] == 'capabilities' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Usuario, Roles y Capacidades">
+					<li class="tooltips {{ $module['name'] == 'invoice_accounts' || $module['name'] == 'payment_methods' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Usuario, Roles y Capacidades">
 						<a href="/invoice_accounts">
 						<i class="icon-wallet"></i>
 						<span class="title">

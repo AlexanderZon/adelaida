@@ -91,12 +91,20 @@
 								<th>
 									 Descripción
 								</th>
-								<!-- <th>
-									 Método
+								<th>
+									 Horas
 								</th>
 								<th>
-									 Ruta
-								</th> -->
+									 Tarea Padre
+								</th>
+								<th>
+									 Responsables
+								</th>
+								<th>
+									 Estado
+								</th>
+								<!-- 
+								 -->
 								@if(Auth::user()->hasCap('tasks_show_get') OR Auth::user()->hasCap('tasks_edit_get') OR Auth::user()->hasCap('tasks_delete_get'))
 									<th>
 										 Acciones
@@ -113,12 +121,48 @@
 								<td>
 									{{ $task->description }}
 								</td>
-								<!-- <td>
-									{{ $task->method }}
+								<td>
+									{{ $task->hours }}
 								</td>
 								<td>
-									{{ $task->route }}
-								</td> -->
+									<em>{{ $task->id_parent != 0 ? $task->parent->name : 'Ninguna' }}</em>
+								</td>
+								<td>
+									{{ count($task->users) }}
+								</td>
+								<td>
+									@if($task->id_parent == 0 )
+										@if( $task->status == 'inactive' )
+											<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Iniciar"><span class="label bg-red">{{ 'Sin Iniciar' }}</span></a>
+										@elseif( $task->status == 'active' )
+											<a href="{{ $module['route'] . '/done/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Finalizar"><span class="label bg-yellow">{{ 'En Curso' }}</span></a>
+										@else
+											<a href="{{ $module['route'] . '/undone/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Finalizar"><span class="label bg-blue">{{ 'Finalizado' }}</span></a>
+										@endif
+									@else
+										@if( $task->parent->status == 'done')
+											@if( $task->status == 'inactive' )
+												<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Iniciar"><span class="label bg-red">{{ 'Sin Iniciar' }}</span></a>
+											@elseif( $task->status == 'active' )
+												<a href="{{ $module['route'] . '/done/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Finalizar"><span class="label bg-yellow">{{ 'En Curso' }}</span></a>
+											@else
+												<a href="{{ $module['route'] . '/undone/' . Crypt::encrypt($task->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Regresar"><span class="label bg-blue">{{ 'Finalizado' }}</span></a>
+											@endif
+										@else
+											@if( $task->status == 'inactive' )
+												{{ 'Sin iniciar' }}
+											@elseif( $task->status == 'active' )
+												{{ 'En curso' }}
+											@elseif( $task->status == 'done' )
+												{{ 'Terminada' }}
+											@else
+												{{ 'No especificado' }}
+											@endif
+										@endif
+									@endif
+								</td>
+								<!-- 
+								 -->
 								@if(Auth::user()->hasCap('tasks_show_get') OR Auth::user()->hasCap('tasks_edit_get') OR Auth::user()->hasCap('tasks_delete_get'))
 									<td>
 										@if(Auth::user()->hasCap('tasks_show_get'))

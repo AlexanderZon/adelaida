@@ -127,4 +127,10 @@ class Users extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 
+	public static function getActive(){
+
+		return self::where('status', '=', 'active' )->get();
+
+	}
+
 }
