@@ -20,7 +20,7 @@ class CapabilityController extends \BaseController {
 			'name' => 'capabilities',
 			'title' => 'Capacidades',
 			'description' => 'Gestión de Capacidades del Sistema',
-			'breadcumbs' => $this->getBreadcumbs(),
+			'breadcrumbs' => $this->getBreadcumbs(),
 			'sections' => $this->sections,
 			'msg_danger' => Session::get('msg_danger'),
 			'msg_warning' => Session::get('msg_warning'),
@@ -314,14 +314,14 @@ class CapabilityController extends \BaseController {
 
 	private function getBreadcumbs(){
 
-		$self_breadcumb = array(
+		$self_breadcrumb = array(
 			'name' => 'Capacidades',
 			'route' => '/capabilities'
 			);
 
-		array_push( $this->breadcumbs, $self_breadcumb);
+		array_push( $this->breadcrumbs, $self_breadcrumb);
 
-		return $this->breadcumbs;
+		return $this->breadcrumbs;
 
 	}
 

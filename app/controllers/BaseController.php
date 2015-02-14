@@ -4,7 +4,7 @@ class BaseController extends Controller {
 
 	protected $uploadFolder = 'uploads/';
 
-	protected $breadcumbs = array(
+	protected $breadcrumbs = array(
 		array(
 			'name' => 'Escritorio',
 			'route' => '/'

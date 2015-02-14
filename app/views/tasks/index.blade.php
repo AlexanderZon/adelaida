@@ -27,7 +27,7 @@
 		<!-- END PAGE HEAD -->
 		<!-- BEGIN PAGE BREADCRUMB -->
 		<ul class="page-breadcrumb breadcrumb">
-			@foreach( $module['breadcumbs'] as $breadcumb )
+			@foreach( $module['breadcrumbs'] as $breadcumb )
 			<li>
 				<a href="{{ $breadcumb['route'] }}">{{ $breadcumb['name'] }}</a><i class="fa fa-circle"></i>
 			</li>

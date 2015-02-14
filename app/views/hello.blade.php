@@ -104,9 +104,9 @@
 		<!-- END PAGE HEAD -->
 		<!-- BEGIN PAGE BREADCRUMB -->
 		<ul class="page-breadcrumb breadcrumb">
-			@foreach( $module['breadcumbs'] as $breadcumb )
+			@foreach( $module['breadcrumbs'] as $breadcrumb )
 			<li>
-				<a href="{{ $breadcumb['route'] }}">{{ $breadcumb['name'] }}</a><i class="fa fa-circle"></i>
+				<a href="{{ $breadcrumb['route'] }}">{{ $breadcrumb['name'] }}</a><i class="fa fa-circle"></i>
 			</li>
 			@endforeach
 			<li class="active">
