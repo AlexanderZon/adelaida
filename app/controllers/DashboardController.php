@@ -39,6 +39,7 @@ class DashboardController extends \BaseController {
 			'module' => $this->module,
 			'audits' => Audits::orderBy('created_at','DESC')->take(100)->get(),
 			'incomes' => self::incomes(),
+			'projects' => self::projects(),
 			);
 		return View::make('dashboard.index')->with($args);
 	}
@@ -77,6 +78,14 @@ class DashboardController extends \BaseController {
 			);
 
 		return $incomes;
+
+	}
+
+	private static function projects(){
+
+		$projects = Projects::getActive();
+
+		return $projects;
 
 	}
 

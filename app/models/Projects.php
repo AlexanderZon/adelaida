@@ -59,4 +59,28 @@ class Projects extends \Eloquent {
 
 	}
 
+	public static function getActive(){
+
+		$projects = self::where('status', '=', 'active')->get();
+
+		return $projects;
+
+	}
+
+	public static function getInactive(){
+
+		$projects = self::where('status', '=', 'inactive')->get();
+
+		return $projects;
+
+	}
+
+	public static function getFinished(){
+
+		$projects = self::where('status', '=', 'finished')->get();
+
+		return $projects;
+
+	}
+
 }
