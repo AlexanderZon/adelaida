@@ -75,11 +75,79 @@ class Projects extends \Eloquent {
 
 	}
 
-	public static function getFinished(){
+	public static function getDone(){
 
-		$projects = self::where('status', '=', 'finished')->get();
+		$projects = self::where('status', '=', 'done')->get();
 
 		return $projects;
+
+	}
+
+	public function getDoneTasks(){
+
+		$done = array();
+
+		foreach( $this->tasks as $task ):
+
+			if( $task->status == 'done' ):
+
+				$done[] = $task;
+
+			endif;
+
+		endforeach;
+
+		return $done;
+
+	}
+
+	public function getActiveTasks(){
+
+		$active = array();
+
+		foreach( $this->tasks as $task ):
+
+			if( $task->status == 'active' ):
+
+				$active[] = $task;
+
+			endif;
+
+		endforeach;
+
+		return $active;
+
+	}
+
+	public function getInactiveTasks(){
+
+		$inactive = array();
+
+		foreach( $this->tasks as $task ):
+
+			if( $task->status == 'inactive' ):
+
+				$inactive[] = $task;
+
+			endif;
+
+		endforeach;
+
+		return $inactive;
+
+	}
+
+	public function getDoneTasksPercentage(){
+
+		if(count($this->getDoneTasks())+count($this->getActiveTasks())+count($this->getInactiveTasks()) != 0):
+
+			return number_format(count($this->getDoneTasks())/(count($this->getDoneTasks())+count($this->getActiveTasks())+count($this->getInactiveTasks()))*100,2);
+
+		else:
+
+			return 0;
+
+		endif;
 
 	}
 

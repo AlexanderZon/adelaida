@@ -40,6 +40,7 @@ class DashboardController extends \BaseController {
 			'audits' => Audits::orderBy('created_at','DESC')->take(100)->get(),
 			'incomes' => self::incomes(),
 			'projects' => self::projects(),
+			'tasks' => self::tasks(),
 			);
 		return View::make('dashboard.index')->with($args);
 	}
@@ -83,9 +84,59 @@ class DashboardController extends \BaseController {
 
 	private static function projects(){
 
+		$actives = Projects::getActive();
+		$inactives = Projects::getInactive();
+
+		$args = array(
+			'all' => count($actives) + count($inactives),
+			'active_percentage' => number_format(count($actives)/(count($actives) + count($inactives))*100, 2),
+			'actives' => $actives,
+			'inactive' => $inactives,
+			);
+
+		return $args;
+
+	}
+
+	private static function tasks(){
+
 		$projects = Projects::getActive();
 
-		return $projects;
+		$done = array();
+		$inactive = array();
+		$active = array();
+
+		foreach( $projects as $project ):
+
+			foreach( $project->tasks as $task ):
+
+				if( $task->status == 'done' ):
+
+					$done[] = $task;
+
+				elseif( $task->status == 'active' ):
+
+					$active[] = $task;
+
+				else:
+
+					$inactive[] = $task;
+
+				endif;
+
+			endforeach;
+
+		endforeach;
+
+		$args = array(
+			'all' => count($active)+count($done),
+			'done' => $done,
+			'active' => $active,
+			'inactive' => $inactive,
+			'done_percentage' => number_format(count($done)/(count($done)+count($active)+count($inactive))*100, 2),
+			);
+
+		return $args;
 
 	}
 

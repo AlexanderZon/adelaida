@@ -177,22 +177,22 @@
 				<div class="dashboard-stat2">
 					<div class="display">
 						<div class="number">
-							<h3 class="font-blue-sharp">567</h3>
+							<h3 class="font-blue-sharp">{{ $projects['all'] }}</h3>
 							<small>PROYECTOS ACTIVOS</small>
 						</div>
 						<div class="icon">
-							<i class="icon-wrench"></i>
+							<i class="icon-paper-plane"></i>
 						</div>
 					</div>
 					<div class="progress-info">
 						<div class="progress">
-							<span style="width: 45%;" class="progress-bar progress-bar-success blue-sharp">
+							<span style="width: {{ $projects['active_percentage'] }}%;" class="progress-bar progress-bar-success blue-sharp">
 							<span class="sr-only">80% grow</span>
 							</span>
 						</div>
 						<div class="status">
 							<div class="status-title">en ejecución</div>
-							<div class="status-number">45%</div>
+							<div class="status-number">{{ $projects['active_percentage'] }}%</div>
 						</div>
 					</div>
 				</div>
@@ -201,22 +201,22 @@
 				<div class="dashboard-stat2">
 					<div class="display">
 						<div class="number">
-							<h3 class="font-purple-soft">276</h3>
-							<small>PROYECTOS A FINALIZAR</small>
+							<h3 class="font-purple-soft">{{ $tasks['all'] }}</h3>
+							<small>TAREAS ACTIVAS</small>
 						</div>
 						<div class="icon">
-							<i class="icon-clock"></i>
+							<i class="icon-pin"></i>
 						</div>
 					</div>
 					<div class="progress-info">
 						<div class="progress">
-							<span style="width: 57%;" class="progress-bar progress-bar-success purple-soft">
+							<span style="width: {{ $tasks['done_percentage'] }}%;" class="progress-bar progress-bar-success purple-soft">
 							<span class="sr-only">56% change</span>
 							</span>
 						</div>
 						<div class="status">
 							<div class="status-title">tareas finalizadas</div>
-							<div class="status-number">57%</div>
+							<div class="status-number">{{ $tasks['done_percentage'] }}%</div>
 						</div>
 					</div>
 				</div>
@@ -230,17 +230,18 @@
 						<div class="caption caption-md">
 							<i class="icon-bar-chart theme-font-color hide"></i>
 							<span class="caption-subject theme-font-color bold uppercase">Movimientos</span>
-							<span class="caption-helper hide">estadísticas semanales...</span>
+							<!-- <span class="caption-helper hide">estadísticas semanales...</span> -->
 						</div>
 						<div class="actions">
-							<div class="btn-group btn-group-devided" data-toggle="buttons">
+								<label class="btn btn-transparent grey-salsa btn-circle btn-sm active">Anual</label>
+							<!-- <div class="btn-group btn-group-devided" data-toggle="buttons">
 								<label class="btn btn-transparent grey-salsa btn-circle btn-sm active">
 								<input type="radio" name="options" class="toggle" id="option1">Hoy</label>
 								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
 								<input type="radio" name="options" class="toggle" id="option2">Semana</label>
 								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
 								<input type="radio" name="options" class="toggle" id="option2">Mes</label>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<div class="portlet-body">
@@ -329,18 +330,18 @@
 					<div class="portlet-title">
 						<div class="caption caption-md">
 							<i class="icon-bar-chart theme-font-color hide"></i>
-							<span class="caption-subject theme-font-color bold uppercase">Proyectos Atrasados</span>
-							<span class="caption-helper hide">estadísticas semanales...</span>
+							<span class="caption-subject theme-font-color bold uppercase">Proyectos En Curso</span>
+							<!-- <span class="caption-helper hide">estadísticas semanales...</span> -->
 						</div>
 						<div class="actions">
-							<div class="btn-group btn-group-devided" data-toggle="buttons">
+							<!-- <div class="btn-group btn-group-devided" data-toggle="buttons">
 								<label class="btn btn-transparent grey-salsa btn-circle btn-sm active">
 								<input type="radio" name="options" class="toggle" id="option1">Hoy</label>
 								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
 								<input type="radio" name="options" class="toggle" id="option2">Semana</label>
 								<label class="btn btn-transparent grey-salsa btn-circle btn-sm">
 								<input type="radio" name="options" class="toggle" id="option2">Mes</label>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<div class="portlet-body">
@@ -349,14 +350,14 @@
 								<div class="stat-left">
 									<div class="stat-chart">
 										<!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-										<div id="sparkline_bar"></div>
+										<div id="sparkline_bar"> </div>
 									</div>
 									<div class="stat-number">
 										<div class="title">
-											Atrasados
+											Tareas en Espera
 										</div>
 										<div class="number">
-											2460
+											{{ count($tasks['inactive']) }}
 										</div>
 									</div>
 								</div>
@@ -365,24 +366,29 @@
 								<div class="stat-right">
 									<div class="stat-chart">
 										<!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-										<div id="sparkline_bar2"></div>
+										<div id="sparkline_bar2"> </div>
 									</div>
 									<div class="stat-number">
 										<div class="title">
-											En Curso
+											Tareas En Curso
 										</div>
 										<div class="number">
-											719
+											{{ count($tasks['active']) }}
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="table-scrollable table-scrollable-borderless">
+
+						<div class="scroller" style="height: 282px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+						<!-- <div class="table-scrollable table-scrollable-borderless"> -->
 							<table class="table table-hover table-light">
 								<thead>
 									<tr class="uppercase">
-										<th colspan="2">
+										<!-- <th colspan="2">
+											PROYECTO
+										</th> -->
+										<th>
 											PROYECTO
 										</th>
 										<th>
@@ -399,27 +405,29 @@
 										</th>
 									</tr>
 								</thead>
-								<tr>
-									<td class="fit">
-										<img class="user-pic" src="/assets/admin/layout3/img/avatar4.jpg">
-									</td>
-									<td>
-										<a href="javascript:;" class="primary-link">Brain</a>
-									</td>
-									<td>
-										$345
-									</td>
-									<td>
-										45
-									</td>
-									<td>
-										124
-									</td>
-									<td>
-										<span class="bold theme-font-color">80%</span>
-									</td>
-								</tr>
-								<tr>
+								@foreach($projects['actives'] as $project)
+									<tr>
+										<!-- <td class="fit">
+											<img class="user-pic" src="/assets/admin/layout3/img/avatar4.jpg">
+										</td> -->
+										<td>
+											<a href="javascript:;" class="primary-link">{{ $project->name }}</a>
+										</td>
+										<td>
+											{{ $project->sale_order->getFormatedBudget() }} Bs.
+										</td>
+										<td>
+											{{ $project->sale_order->getDaysLeft() }}
+										</td>
+										<td>
+											{{ count($project->tasks) }}
+										</td>
+										<td>
+											<span class="bold theme-font-color">{{ $project->getDoneTasksPercentage() }}%</span>
+										</td>
+									</tr>
+								@endforeach
+								<!-- <tr>
 									<td class="fit">
 										<img class="user-pic" src="/assets/admin/layout3/img/avatar5.jpg">
 									</td>
@@ -478,8 +486,9 @@
 									<td>
 										<span class="bold theme-font-color">58%</span>
 									</td>
-								</tr>
+								</tr> -->
 							</table>
+						<!-- </div> -->
 						</div>
 					</div>
 				</div>

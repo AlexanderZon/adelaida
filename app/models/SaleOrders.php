@@ -65,4 +65,28 @@ class SaleOrders extends \Eloquent {
 
 	}
 
+	public function getFormatedBudget(){
+
+		return BaseController::format( $this->budget );
+
+	}
+
+	public function getDaysLeft(){
+
+		$date = new DateTime($this->date);
+
+		// dd('P'.$this->period_days.'D');
+
+		$date->add(new DateInterval('P'.$this->period_days.'D'));
+
+		$today = new DateTime(date('Y-m-d'));
+
+		$interval = $today->diff($date);
+
+		return $interval->format('%a');
+
+		echo $date->format('Y-m-d') . "\n";
+
+	}
+
 }

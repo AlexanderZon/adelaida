@@ -604,15 +604,15 @@
 
 							@if(Auth::user()->hasCap('tasks_view_get'))
 							<li class="{{ $module['name'] == 'tasks' ? 'active' : '' }}">
-								<a href="/tasks">
+								<a href="/my/tasks">
 								<i class="icon-pin"></i>
 								Tareas</a>
 							</li>
 							@endif
 
-							@if(Auth::user()->hasCap('materials_view_get'))
+							@if(Auth::user()->hasCap('materials_view_get') AND $module['name'] == 'materials' )
 							<li class="{{ $module['name'] == 'materials' ? 'active' : '' }}">
-								<a href="/materials">
+								<a href="#">
 								<i class="icon-puzzle"></i>
 								Materiales</a>
 							</li>
