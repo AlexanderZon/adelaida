@@ -129,7 +129,7 @@ class DashboardController extends \BaseController {
 		endforeach;
 
 		$args = array(
-			'all' => count($active)+count($done),
+			'all' => count($active)+count($inactive)+count($done),
 			'done' => $done,
 			'active' => $active,
 			'inactive' => $inactive,
