@@ -31,6 +31,12 @@ class Tasks extends \Eloquent {
 
 	}
 
+	public function children(){
+
+		return $this->hasMany('Tasks', 'id_parent');
+
+	}
+
 	public function hasResponsable( $user ){
 
 		foreach( $this->users as $usr ):

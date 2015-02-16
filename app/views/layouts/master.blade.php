@@ -602,7 +602,7 @@
 							</li>
 							@endif
 
-							@if(Auth::user()->hasCap('tasks_view_get'))
+							@if(Auth::user()->hasCap('my_tasks_view_get'))
 							<li class="{{ $module['name'] == 'tasks' ? 'active' : '' }}">
 								<a href="/my/tasks">
 								<i class="icon-pin"></i>

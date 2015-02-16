@@ -20,6 +20,7 @@ if(Auth::check()):
 	Route::controller('/projects/{idProject}/materials', 'MaterialController');
 	Route::controller('/projects', 'ProjectController');
 	Route::controller('/stock', 'StockController');
+	Route::controller('/stock', 'StockController');
 	Route::controller('/measurement_units', 'MeasurementUnitController');
 	Route::controller('/invoice_accounts', 'InvoiceAccountController');
 	Route::controller('/payment_methods', 'PaymentMethodController');
@@ -30,6 +31,9 @@ if(Auth::check()):
 	Route::controller('/providers', 'ProviderController');
 	Route::controller('/sells', 'SellController');
 	Route::controller('/reports', 'ReportController');
+	Route::controller('/my/tasks', 'MyTaskController');
+	Route::controller('/my/messages', 'MyMessageController');
+	Route::controller('/my', 'MyTaskController');
 	Route::controller('/me', 'MeController');
 	Route::controller('/auth', 'AuthenticationController');
 	Route::controller('/', 'DashboardController');

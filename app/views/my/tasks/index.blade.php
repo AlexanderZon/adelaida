@@ -16,7 +16,7 @@
 			<div class="page-toolbar">
 				<!-- BEGIN THEME PANEL -->
 				<div class="btn-group btn-theme-panel">
-					@if(Auth::user()->hasCap('tasks_create_get'))
+					@if(Auth::user()->hasCap('my_tasks_create_get'))
 						<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir una nueva Tarea"><i class="icon-plus"></i></a>
 					@endif
 				</div>
@@ -73,10 +73,10 @@
 					<div class="portlet box green-haze">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-thumb-tack"></i>Listado de Tareas del proyecto <em>{{ $project->name }}</em>
+								<i class="fa fa-thumb-tack"></i>Listado de Mis Tareas</em>
 							</div>
 							<div class="tools">
-								@if(Auth::user()->hasCap('tasks_create_get'))
+								@if(Auth::user()->hasCap('my_tasks_create_get'))
 									<a href="{{ $module['route'] }}/create" class="label bg-green-haze"><i class="fa fa-plus-circle"></i> Añadir Nuevo</a>
 								@endif
 							</div>
@@ -98,11 +98,14 @@
 									 Tarea Padre
 								</th>
 								<th>
+									 Responsables
+								</th>
+								<th>
 									 Estado
 								</th>
 								<!-- 
 								 -->
-								@if(Auth::user()->hasCap('tasks_show_get') OR Auth::user()->hasCap('tasks_edit_get') OR Auth::user()->hasCap('tasks_delete_get'))
+								@if(Auth::user()->hasCap('my_tasks_show_get') OR Auth::user()->hasCap('my_tasks_edit_get') OR Auth::user()->hasCap('my_tasks_delete_get'))
 									<th>
 										 Acciones
 									</th>
@@ -123,6 +126,9 @@
 								</td>
 								<td>
 									<em>{{ $task->id_parent != 0 ? $task->parent->name : 'Ninguna' }}</em>
+								</td>
+								<td>
+									{{ count($task->users) }}
 								</td>
 								<td>
 									@if($task->id_parent == 0 )
@@ -157,17 +163,17 @@
 								</td>
 								<!-- 
 								 -->
-								@if(Auth::user()->hasCap('tasks_show_get') OR Auth::user()->hasCap('tasks_edit_get') OR Auth::user()->hasCap('tasks_delete_get'))
+								@if(Auth::user()->hasCap('my_tasks_show_get') OR Auth::user()->hasCap('my_tasks_edit_get') OR Auth::user()->hasCap('my_tasks_delete_get'))
 									<td>
-										@if(Auth::user()->hasCap('tasks_show_get'))
+										@if(Auth::user()->hasCap('my_tasks_show_get'))
 											&nbsp;&nbsp;
 											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($task->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
 										@endif
-										@if(Auth::user()->hasCap('tasks_edit_get'))
+										@if(Auth::user()->hasCap('my_tasks_edit_get'))
 											&nbsp;&nbsp;
 											<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($task->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
 										@endif
-										@if(Auth::user()->hasCap('tasks_delete_get'))
+										@if(Auth::user()->hasCap('my_tasks_delete_get') AND (count($task->children) == 0) AND ($task->status == 'inactive'))
 											&nbsp;&nbsp;
 											<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($task->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
 										@endif
