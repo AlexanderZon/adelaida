@@ -119,7 +119,7 @@
 													* </span>
 													</label>
 													<div class="col-md-4">
-														<input type="text" class="form-control" name="name"/>
+														<input type="text" class="form-control" name="name" id="name"/>
 														<span class="help-block">
 														Introduzca el Nombre del Proyecto </span>
 													</div>
@@ -129,7 +129,7 @@
 													* </span>
 													</label>
 													<div class="col-md-4">
-														<input type="text" class="form-control" name="code"/>
+														<input type="text" class="form-control" name="code" id="code"/>
 														<span class="help-block">
 														Introduzca el Código del Proyecto </span>
 													</div>
@@ -137,7 +137,7 @@
 												<div class="form-group">
 													<label class="control-label col-md-3">Descripción</label>
 													<div class="col-md-4">
-														<textarea class="form-control" rows="3" name="description"></textarea>
+														<textarea class="form-control" rows="3" name="description" id="description"></textarea>
 													</div>
 												</div>
 											</div>
@@ -320,8 +320,7 @@
 												<div class="form-group">
 													<label class="control-label col-md-3">Nombre:</label>
 													<div class="col-md-4">
-														<p class="form-control-static" data-display="name">
-														</p>
+														<p class="form-control-static" data-display="name"></p>
 													</div>
 												</div>
 												<div class="form-group">
@@ -409,6 +408,7 @@
            	Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
 			Demo.init(); // init demo features
+        	ComponentsPickers.init();
    			FormWizard.init({
 	            name: {
 	                required: true
@@ -418,11 +418,11 @@
 	            },
 	            period_days: {
 	                required: true,
-	                min: 0,
+	                min: 0
 	            },
 	            budget: {
 	                required: true,
-	                min: 0,
+	                min: 0
 	            },
 	            correlative: {
 	                required: true
@@ -432,7 +432,7 @@
 	            },
 	            advancement: {
 	                required: true,
-	                min: 0,
+	                min: 0
 	            },
 	            id_seller: {
 	                required: true
@@ -450,7 +450,6 @@
    			$('.button-submit').on('click',function(){
    				$('#submit_form').submit();
    			});
-           ComponentsPickers.init();
 
         });
 	</script>

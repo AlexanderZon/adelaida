@@ -1220,9 +1220,9 @@
 	<script src="/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
 	<script src="/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
 	<script src="/assets/global/plugins/jquery.mockjax.js" type="text/javascript" ></script>
-	<script src="../../assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.js" type="text/javascript"></script>
-	<script src="../../assets/global/plugins/bootstrap-editable/inputs-ext/address/address.js" type="text/javascript"></script>
-	<script src="../../assets/global/plugins/bootstrap-editable/inputs-ext/wysihtml5/wysihtml5.js" type="text/javascript"></script>
+	<script src="/assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.js" type="text/javascript"></script>
+	<script src="/assets/global/plugins/bootstrap-editable/inputs-ext/address/address.js" type="text/javascript"></script>
+	<script src="/assets/global/plugins/bootstrap-editable/inputs-ext/wysihtml5/wysihtml5.js" type="text/javascript"></script>
 
 
 	<!-- END PAGE LEVEL PLUGINS -->

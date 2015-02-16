@@ -39,7 +39,7 @@ class Projects extends \Eloquent {
 
 	}
 
-	public static function existsCode( $code, $id ){
+	public static function existsCode( $code, $id = '' ){
 
 		if( $id != '' ):
 

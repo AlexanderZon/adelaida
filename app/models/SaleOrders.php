@@ -45,7 +45,7 @@ class SaleOrders extends \Eloquent {
 		
 	}
 
-	public static function existsCorrelative( $correlative, $id ){
+	public static function existsCorrelative( $correlative, $id = '' ){
 
 		if( $id != '' ):
 
