@@ -380,7 +380,7 @@
 							</div>
 						</div>
 
-						<div class="scroller" style="height: 282px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+						<div class="scroller" style="height: 244px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
 						<!-- <div class="table-scrollable table-scrollable-borderless"> -->
 							<table class="table table-hover table-light">
 								<thead>
@@ -838,10 +838,10 @@
 								<a href="#tab_1_1" data-toggle="tab">
 								Sistema </a>
 							</li>
-							<li>
+							<!-- <li>
 								<a href="#tab_1_2" data-toggle="tab">
 								Actividades </a>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 					<div class="portlet-body">

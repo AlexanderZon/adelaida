@@ -16,6 +16,7 @@ class CreateMaterialsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('id_stock');
+			$table->integer('id_project');
 			$table->float('units');
 			$table->string('type');
 			$table->string('status');

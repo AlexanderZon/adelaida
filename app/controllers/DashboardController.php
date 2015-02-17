@@ -37,11 +37,17 @@ class DashboardController extends \BaseController {
 	{
 		$args = array(
 			'module' => $this->module,
-			'audits' => Audits::orderBy('created_at','DESC')->take(100)->get(),
+			// 'audits' => Audits::orderBy('created_at','DESC')->take(100)->get(),
+			'audits' => Auth::user()->audits()->orderBy('created_at','DESC')->get(),
 			'incomes' => self::incomes(),
 			'projects' => self::projects(),
 			'tasks' => self::tasks(),
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'dashboard_get_index',
+			'title' => 'Escritorio',
+			'description' => 'Vizualización del Escritorio'
+			), 'READ');
 		return View::make('dashboard.index')->with($args);
 	}
 

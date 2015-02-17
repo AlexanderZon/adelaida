@@ -42,6 +42,11 @@ class ProjectController extends \BaseController {
 			'projects' => Projects::all(),
 			'module' => $this->module,
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'project_get_index',
+			'title' => 'Proyectos',
+			'description' => 'Vizualización de Proyectos'
+			), 'READ');
 		return View::make('projects.index')->with($args);
 	}
 
@@ -60,6 +65,11 @@ class ProjectController extends \BaseController {
 			'invoice_accounts' => InvoiceAccounts::getActive(),
 			'payment_methods' => PaymentMethods::getActive(),
 			);
+		Audits::add(Auth::user(), array(
+			'name' => 'project_get_create',
+			'title' => 'Añadir proyecto',
+			'description' => 'Adición de proyectos'
+			), 'READ');
 		return View::make('projects.create')->with($args);
 	}
 
@@ -81,6 +91,8 @@ class ProjectController extends \BaseController {
 					'description' => 'El Correlativo de Orden de Compra ' . Input::get('correlative') . ' ya existe.'
 					)
 				);
+			
+			Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
@@ -93,6 +105,8 @@ class ProjectController extends \BaseController {
 					'description' => 'El Código del Proyecto ' . Input::get('code') . ' ya existe.'
 					)
 				);
+			
+			Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
@@ -105,6 +119,8 @@ class ProjectController extends \BaseController {
 					'description' => 'El Adelanto con valor '.Input::get('advancement').' no debe ser mayor que el presupuesto con valor ' . Input::get('budget')
 					)
 				);
+			
+			Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
@@ -152,6 +168,8 @@ class ProjectController extends \BaseController {
 									)
 								);
 
+							Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
+
 							return Redirect::to( $this->module['route'] )->with( $args );
 
 	   					else:
@@ -167,6 +185,8 @@ class ProjectController extends \BaseController {
 									)
 								);
 
+							Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
+
 							return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 	   					endif;
@@ -179,7 +199,9 @@ class ProjectController extends \BaseController {
 								'title' => 'Proyecto Agregado',
 								'description' => 'El proyetco ' . $project->first_name . ' ' . $project->last_name . ' fue agregado exitosamente'
 								)
-							);
+							);					
+
+						Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
 
 						return Redirect::to( $this->module['route'] )->with( $args );
 
@@ -197,6 +219,8 @@ class ProjectController extends \BaseController {
 							)
 						);
 
+					Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
+
 					return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 	   			endif;
@@ -210,6 +234,8 @@ class ProjectController extends \BaseController {
 						'description' => 'Hubo un error al agregar el proyecto ' . $project->name
 						)
 					);
+
+				Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 
 				return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
@@ -237,6 +263,12 @@ class ProjectController extends \BaseController {
 			'payment_methods' => PaymentMethods::getActive(),
 			);
 
+		Audits::add(Auth::user(), array(
+			'name' => 'project_get_edit',
+			'title' => 'Editar proyectos',
+			'description' => 'Edición de proyectos'
+			), 'READ');
+
 		return View::make('projects.edit')->with($args);
 
 	}
@@ -263,6 +295,8 @@ class ProjectController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
+
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($project->id) )->with( $args );
 
 		elseif(Projects::existsCode(Input::get('code'), $project->id )):
@@ -274,6 +308,8 @@ class ProjectController extends \BaseController {
 					'description' => 'El Código del Proyecto ' . Input::get('code') . ' ya existe.'
 					)
 				);
+
+			Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($project->id) )->with( $args );
 
@@ -305,6 +341,8 @@ class ProjectController extends \BaseController {
 							)
 						);
 
+					Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
+
 					return Redirect::to( $this->module['route'] )->with( $args );
 
 	   			else:
@@ -316,6 +354,8 @@ class ProjectController extends \BaseController {
 							'description' => 'Hubo un error al editar el proyecto ' . $project->name . ' al momento de generar la orden de compra'
 							)
 						);
+
+					Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 
 					return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($project->id) )->with( $args );
 
@@ -330,6 +370,8 @@ class ProjectController extends \BaseController {
 						'description' => 'Hubo un error al editar el proyecto ' . $project->name
 						)
 					);
+
+				Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
 
 				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($project->id) )->with( $args );
 
@@ -354,6 +396,12 @@ class ProjectController extends \BaseController {
 			'module' => $this->module,
 			);
 
+		Audits::add(Auth::user(), array(
+			'name' => 'project_get_delete',
+			'title' => 'Eliminar proyectos',
+			'description' => 'Vizualización de proyectos a eliminar'
+			), 'READ');
+
 		return View::make('projects.delete')->with($args);
 
 	}
@@ -372,10 +420,21 @@ class ProjectController extends \BaseController {
 		$bool = true;
 		$sale_order = $project->sale_order;
 		$receipts = $project->sale_order->receipts;
+		$tasks = $project->tasks;
 
 		foreach($receipts as $receipt):
 
 			if(!$receipt->delete()):
+				$bool = false;
+			endif;
+
+		endforeach;
+
+		foreach($tasks as $task):
+
+			$task->users()->sync( array() );
+
+			if(!$task->delete()):
 				$bool = false;
 			endif;
 
@@ -395,12 +454,15 @@ class ProjectController extends \BaseController {
 							)
 						);
 
+					Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
+
 					return Redirect::to( $this->module['route'] )->with( $args );
 
 				else:
 
 					$sale_order->restore();
 					self::restoreReceipts($receipts);
+					self::restoreTasks($tasks);
 
 					$args = array(
 						'msg_danger' => array(
@@ -410,6 +472,8 @@ class ProjectController extends \BaseController {
 							)
 						);
 
+					Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
+
 					return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($project->id) )->with( $args );
 
 				endif;
@@ -417,6 +481,7 @@ class ProjectController extends \BaseController {
 			else:
 
 				self::restoreReceipts( $receipts );
+				self::restoreTasks( $tasks );
 
 				$args = array(
 					'msg_danger' => array(
@@ -426,6 +491,8 @@ class ProjectController extends \BaseController {
 						)
 					);
 
+				Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
+
 				return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($project->id) )->with( $args );
 
 			endif;
@@ -433,6 +500,7 @@ class ProjectController extends \BaseController {
 		else:
 
 			self::restoreReceipts( $receipts );
+			self::restoreTasks( $tasks );
 
 			$args = array(
 				'msg_danger' => array(
@@ -442,21 +510,35 @@ class ProjectController extends \BaseController {
 					)
 				);
 
+			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
+
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($project->id) )->with( $args );
 
 		endif;
 
 	}
 
-	private static function restoreReceipts($receipts){
+	private static function restoreArray($array){
 
-		foreach( $receipts as $receipt ):
+		foreach( $array as $element ):
 
-			$receipt->restore();
+			$element->restore();
 
 		endforeach;
 
 		return true;
+
+	}
+
+	private static function restoreReceipts($receipts){
+
+		return self::restoreArray( $receipts);
+
+	}
+
+	private static function restoreTasks($tasks){
+
+		return self::restoreArray( $tasks);
 
 	}
 

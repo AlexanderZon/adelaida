@@ -98,7 +98,7 @@
 									 Tarea Padre
 								</th>
 								<th>
-									 Responsables
+									 Proyecto
 								</th>
 								<th>
 									 Estado
@@ -128,7 +128,7 @@
 									<em>{{ $task->id_parent != 0 ? $task->parent->name : 'Ninguna' }}</em>
 								</td>
 								<td>
-									{{ count($task->users) }}
+									{{ $task->project->name }} 
 								</td>
 								<td>
 									@if($task->id_parent == 0 )

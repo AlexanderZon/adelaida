@@ -227,7 +227,8 @@ class TaskController extends \BaseController {
 							)
 						);
 
-					Audits::add(Auth::user(), $args['msg_success'], 'CREATE');
+					Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
+
 					return Redirect::to( $this->module['route'] )->with( $args );
 
 				else:
@@ -257,7 +258,7 @@ class TaskController extends \BaseController {
 						)
 					);
 
-				Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
+				Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($task->id) )->with( $args );
 
 			endif;
@@ -272,7 +273,7 @@ class TaskController extends \BaseController {
 					)
 				);
 
-			Audits::add(Auth::user(), $args['msg_danger'], 'CREATE');
+			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
 			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($task->id) )->with( $args );
 
 		endif;
@@ -293,6 +294,7 @@ class TaskController extends \BaseController {
 			'task' => Tasks::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
+
 		Audits::add(Auth::user(), array(
 			'name' => 'task_get_delete',
 			'title' => 'Eliminar tareas',
@@ -324,7 +326,7 @@ class TaskController extends \BaseController {
 					)
 				);
 
-			Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
+			Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
 			return Redirect::to( $this->module['route'] )->with( $args );
 
 		else:
@@ -337,7 +339,7 @@ class TaskController extends \BaseController {
 					)
 				);
 
-			Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
+			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
 			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($task->id) )->with( $args );
 
 		endif;

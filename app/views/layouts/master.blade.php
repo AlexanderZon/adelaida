@@ -359,8 +359,10 @@
 						<li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 							<i class="icon-pin"></i>
-							<span class="badge badge-primary">
-							{{ count(My::pendingTasks()) }} </span>
+							@if(count(My::pendingTasks()) > 0 )
+								<span class="badge badge-primary">
+								{{ count(My::pendingTasks()) }} </span>
+							@endif
 							</a>
 							<ul class="dropdown-menu extended tasks">
 								<li class="external">
@@ -517,33 +519,36 @@
 							<ul class="dropdown-menu dropdown-menu-default">
 								<li>
 									<a href="/me">
-									<i class="icon-user"></i> My Profile </a>
+									<i class="icon-user"></i> Mi Perfil </a>
 								</li>
 								<li>
-									<a href="/me/calendar">
-									<i class="icon-calendar"></i> My Calendar </a>
+									<a href="/my/calendar">
+									<i class="icon-calendar"></i> Mi Calendario </a>
 								</li>
 								<li>
-									<a href="/me/inbox">
-									<i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
+									<a href="/my/inbox">
+									<i class="icon-envelope-open"></i> Mi Buzón <span class="badge badge-danger">
 									3 </span>
 									</a>
 								</li>
 								<li>
-									<a href="/me/tasks">
-									<i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
-									7 </span>
-									</a>
+									<a href="/my/tasks">
+									<i class="icon-pin"></i> Mis Tareas 
+									@if(count(My::pendingTasks()) > 0 )
+										<span class="badge badge-primary">
+										{{ count(My::pendingTasks()) }} </span>
+										</a>
+									@endif
 								</li>
 								<li class="divider">
 								</li>
 								<li>
 									<a href="/auth/lock">
-									<i class="icon-lock"></i> Lock Screen </a>
+									<i class="icon-lock"></i> Bloquear Pantalla </a>
 								</li>
 								<li>
 									<a href="/auth/logout">
-									<i class="icon-key"></i> Log Out </a>
+									<i class="icon-key"></i> Cerrar Sesión </a>
 								</li>
 							</ul>
 						</li>

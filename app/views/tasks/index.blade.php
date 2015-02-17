@@ -98,6 +98,9 @@
 									 Tarea Padre
 								</th>
 								<th>
+									 Responsables
+								</th>
+								<th>
 									 Estado
 								</th>
 								<!-- 
@@ -120,6 +123,9 @@
 								</td>
 								<td>
 									{{ $task->hours }}
+								</td>
+								<td>
+									{{ count($task->users) }}
 								</td>
 								<td>
 									<em>{{ $task->id_parent != 0 ? $task->parent->name : 'Ninguna' }}</em>
