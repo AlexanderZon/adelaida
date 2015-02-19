@@ -62,7 +62,7 @@
 				<div class="portlet box green-haze">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-user"></i>Eliminación de Tareas
+							<i class="fa fa-thumb-tack"></i>Eliminación de Tareas
 						</div>
 						<div class="tools">
 							<a href="{{ $module['route'] }}" class="label bg-green-haze"><i class="fa fa-arrow-circle-left"></i> Volver</a>

@@ -385,9 +385,9 @@
 																@endif
 															</span>
 														</span>
-														<span class="status">
+														<!-- <span class="status">
 															<br><em>{{ $task->description }}</em>
-														</span>
+														</span> -->
 													</a>
 												</li>
 											@endif

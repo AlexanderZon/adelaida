@@ -1,6 +1,9 @@
 @extends ('layouts.master')
 
 @section("css")
+	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
+	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-summernote/summernote.css">
 	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-multi-select/css/multi-select.css"/>
 @stop
 
@@ -89,18 +92,6 @@
 									</div>
 									<!--/span-->
 									<div class="col-md-6">
-										<div class="form-group {{ false ? 'has-error' : '' }}">
-											<label class="control-label col-md-3">Descripción</label>
-											<div class="col-md-9">
-												<input name="description" type="text" class="form-control" placeholder="Ingrese la Descripción de la Tarea">
-												<!-- <span class="help-block">This is inline help</span> -->
-											</div>
-										</div>
-									</div>
-									<!--/span-->
-								</div>
-								<div class="row">
-									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label col-md-3">Horas de Trabajo</label>
 											<div class="col-md-9">
@@ -109,6 +100,8 @@
 											</div>
 										</div>
 									</div>
+								</div>
+								<div class="row">
 									<!--/span-->
 									<div class="col-md-6">
 										<div class="form-group">
@@ -129,9 +122,7 @@
 										</div>
 									</div>
 									<!--/span-->
-								</div>
-								<div class="row">
-									<div class="col-md-12">
+									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label col-md-3">Responsables de Tarea</label>
 											<div class="col-md-9">
@@ -140,6 +131,17 @@
 														<option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
 													@endforeach
 												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="control-label col-md-2">Descripción</label>
+											<div class="col-md-10">
+												<textarea name="description" class="summernote">
+												</textarea>
 											</div>
 										</div>
 									</div>
@@ -173,17 +175,40 @@
 @stop
 
 @section('javascripts')
+	<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+	<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+	<script src="/assets/global/plugins/bootstrap-markdown/lib/markdown.js" type="text/javascript"></script>
+	<script src="/assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js" type="text/javascript"></script>
+	<script src="/assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
 
 	<script type="text/javascript" src="/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
 	<script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 
 
 	<script type="text/javascript">
+		var ComponentsEditors = function () {
+
+		    var handleSummernote = function () {
+		        $('.summernote').summernote({height: 300});
+		        //API:
+		        //var sHTML = $('#summernote_1').code(); // get code
+		        //$('#summernote_1').destroy(); // destroy
+		    }
+
+		    return {
+		        //main function to initiate the module
+		        init: function () {
+		            handleSummernote();
+		        }
+		    };
+
+		}();
         jQuery(document).ready(function() {  
            	Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
 			Demo.init(); // init demo features
         	ComponentsDropdowns.init();
+			ComponentsEditors.init();
         });
 	</script>
 @stop

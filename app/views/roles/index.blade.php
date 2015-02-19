@@ -133,7 +133,7 @@
 												{{ $role->status == 'active' ? 'Activo' : 'Inactivo' }}
 											@endif
 										@elseif( $role->status == 'inactive' )
-											@if(Auth::user()->hasCap('roles_deactivate_get'))
+											@if(Auth::user()->hasCap('roles_activate_get'))
 												<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($role->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Activar"><span class="label bg-yellow-saffron">{{ 'Inactivo' }}</span>
 											@else
 												{{ $role->status == 'active' ? 'Activo' : 'Inactivo' }}

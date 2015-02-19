@@ -18,8 +18,8 @@ class MyTaskController extends \BaseController {
 		$this->module = array(
 			'route' => '/my/tasks',
 			'name' => 'tasks',
-			'title' => 'Tareas',
-			'description' => 'Gestión de Tareas del Sistema',
+			'title' => 'Mis Tareas',
+			'description' => 'Gestionar Mis Tareas',
 			'breadcrumbs' => $this->getBreadcumbs(),
 			'sections' => $this->sections,
 			'msg_danger' => Session::get('msg_danger'),
@@ -155,6 +155,35 @@ class MyTaskController extends \BaseController {
 			return Redirect::to( $this->module['route'].'/create' )->with( $args );
 
 		endif;
+
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 * GET /tasks/edit/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getShow($id)
+	{
+
+		$task = Tasks::find( Crypt::decrypt($id) );
+
+		$args = array(
+			'task' => $task,
+			'tasks' => $task->project->tasks,
+			'users' => Users::getActive(),
+			'module' => $this->module,
+			);
+
+		Audits::add(Auth::user(), array(
+			'name' => 'task_get_show',
+			'title' => 'Visualizar Detalle de mis tareas',
+			'description' => 'Visualización Detallada de tareas'
+			), 'READ');
+
+		return View::make('my.tasks.show')->with($args);
 
 	}
 

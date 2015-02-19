@@ -1,9 +1,6 @@
 @extends ('layouts.master')
 
 @section("css")
-	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
-	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
-	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-summernote/summernote.css">
 	<link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-multi-select/css/multi-select.css"/>
 @stop
 
@@ -69,7 +66,7 @@
 				<div class="portlet box green-haze">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-thumb-tack"></i>Edición de Mis Tareas
+							<i class="fa fa-thumb-tack"></i>Visualización  de Mis Tareas
 						</div>
 						<div class="tools">
 							<a href="{{ $module['route'] }}" class="label bg-green-haze"><i class="fa fa-arrow-circle-left"></i> Volver</a>
@@ -77,64 +74,105 @@
 					</div>
 					<div class="portlet-body form">
 						<!-- BEGIN FORM-->
-						<form action="" method="post" class="form-horizontal">
 							<div class="form-body">
 								<h3 class="form-section">Información de Tarea</h3>
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-4">
 										<div class="form-group">
-											<label class="control-label col-md-3">Título</label>
-											<div class="col-md-9">
-												<input name="name" type="text" class="form-control" placeholder="Ingrese el título de la Tarea" value="{{ $task->name }}" required>
+											<label class="control-label col-md-5">Título</label>
+											<div class="form-control-static col-md-7">
+												{{ $task->name }}
 												<!-- <span class="help-block">This is inline help</span> -->
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-5">Horas de Trabajo</label>
+											<div class="form-control-static col-md-7">
+												{{ $task->hours }}
+												<!-- <span class="help-block">This is inline help</span> -->
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-5">Tarea Padre</label>
+											<div class="form-control-static col-md-7">
+												@if($task->id_parent == 0)
+													Ninguna
+												@else
+													@foreach( $tasks as $tsk )
+														@if($task->id_parent == $tsk->id)
+															{{ $tsk->name }}
+														@endif
+													@endforeach
+												@endif
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-5">Responsables</label>
+											<div class="form-control-static col-md-7">
+												<ul>
+													@foreach( $users as $user )
+														@if($task->hasResponsable($user))
+															<li>{{ $user->first_name }} {{ $user->last_name }}</li>
+														@endif
+													@endforeach
+												</ul>
 											</div>
 										</div>
 									</div>
 									<!--/span-->
 									<div class="col-md-6">
 										<div class="form-group">
-											<label class="control-label col-md-3">Horas de Trabajo</label>
-											<div class="col-md-9">
-												<input name="hours" type="number" class="form-control" placeholder="Ingrese el número de horas de trabajo" value="{{ $task->hours }}" required>
-												<!-- <span class="help-block">This is inline help</span> -->
+											<div class="col-md-12">
+												{{ $task->description }}
 											</div>
 										</div>
 									</div>
+									<!--/span-->
 								</div>
-								<div class="row">
+								<!-- <div class="row">
+									/span
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label col-md-3">Tarea Padre</label>
-											<div class="col-md-9">
-												<div class="input-group ">
-													<span class="input-group-addon">
-													<i class="fa fa-user"></i>
-													</span>
-													<select name="id_parent" class="form-control select2me" required>
-														<option value="0">NINGUNA</option>
-														@foreach( $tasks as $tsk )
-															<option value="{{ $tsk->id }}" {{ $task->id_parent == $tsk->id ? 'selected' : '' }}>{{ $tsk->name }}</option>
-														@endforeach
-													</select>
-												</div>
+											<div class="form-control-static col-md-9">
+												@if($task->id_parent == 0)
+													Ninguna
+												@else
+													@foreach( $tasks as $tsk )
+														@if($task->id_parent == $tsk->id)
+															{{ $tsk->name }}
+														@endif
+													@endforeach
+												@endif
 											</div>
 										</div>
 									</div>
-									<!--/span-->
-								</div>
-								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label col-md-3">Responsables</label>
+											<div class="form-control-static col-md-9">
+												<ul>
+													@foreach( $users as $user )
+														@if($task->hasResponsable($user))
+															<li>{{ $user->first_name }} {{ $user->last_name }}</li>
+														@endif
+													@endforeach
+												</ul>
+											</div>
+										</div>
+									</div>
+									/span
+								</div> -->
+								<!-- <div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label class="control-label col-md-1">Descripción</label>
+											<label class="control-label col-md-1">Descripcion</label>
 											<div class="col-md-11">
-												<textarea name="description" class="summernote">
-													{{ $task->description }}
-												</textarea>
+												{{ $task->description }}
 											</div>
 										</div>
 									</div>
-									<!--/span-->
-								</div>
+								</div> -->
 								<!-- <div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
@@ -155,7 +193,13 @@
 									<div class="col-md-6">
 										<div class="row">
 											<div class="col-md-offset-3 col-md-9">
-												<button type="submit" class="btn green">Actualizar</button>
+												@if($task->status == 'inactive')
+													<a href="{{ $module['route'] . '/activate/' . Crypt::encrypt($task->id) }}" class="btn red">Iniciar</a>
+												@elseif($task->status == 'active')
+													<a href="{{ $module['route'] . '/done/' . Crypt::encrypt($task->id) }}" class="btn yellow">Finalizar</a>
+												@elseif($task->status == 'done')
+													<a href="{{ $module['route'] . '/undone/' . Crypt::encrypt($task->id) }}" class="btn blue">Continuar Tarea</a>
+												@endif
 												<a href="{{ $module['route'] }}" class="btn default">Volver</a>
 											</div>
 										</div>
@@ -164,7 +208,6 @@
 									</div>
 								</div>
 							</div>
-						</form>
 						<!-- END FORM-->
 					</div>
 				</div>
@@ -177,39 +220,16 @@
 @stop
 
 @section('javascripts')
-	<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-	<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-	<script src="/assets/global/plugins/bootstrap-markdown/lib/markdown.js" type="text/javascript"></script>
-	<script src="/assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js" type="text/javascript"></script>
-	<script src="/assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
 
 	<script type="text/javascript" src="/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
 	<script src="/assets/admin/pages/scripts/components-dropdowns.js"></script>
 
 	<script type="text/javascript">
-		var ComponentsEditors = function () {
-
-		    var handleSummernote = function () {
-		        $('.summernote').summernote({height: 300});
-		        //API:
-		        //var sHTML = $('#summernote_1').code(); // get code
-		        //$('#summernote_1').destroy(); // destroy
-		    }
-
-		    return {
-		        //main function to initiate the module
-		        init: function () {
-		            handleSummernote();
-		        }
-		    };
-
-		}();
         jQuery(document).ready(function() {  
            	Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
 			Demo.init(); // init demo features
         	ComponentsDropdowns.init();
-			ComponentsEditors.init();
         });
 	</script>
 @stop

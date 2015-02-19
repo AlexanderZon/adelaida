@@ -88,9 +88,9 @@
 								<th>
 									 Título
 								</th>
-								<th>
+								<!-- <th>
 									 Descripción
-								</th>
+								</th> -->
 								<th>
 									 Horas
 								</th>
@@ -118,9 +118,9 @@
 								<td>
 									{{ $task->name }}
 								</td>
-								<td>
+								<!-- <td>
 									{{ $task->description }}
-								</td>
+								</td> -->
 								<td>
 									{{ $task->hours }}
 								</td>
