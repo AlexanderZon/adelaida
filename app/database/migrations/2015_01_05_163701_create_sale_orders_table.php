@@ -17,7 +17,7 @@ class CreateSaleOrdersTable extends Migration {
 			$table->increments('id');
 			$table->string('correlative');
 			$table->date('date');
-			$table->float('budget', 16);
+			$table->double('budget', 15, 2);
 			$table->integer('period_days');
 			$table->integer('id_client');
 			$table->integer('id_seller');

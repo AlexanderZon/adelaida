@@ -124,8 +124,12 @@
 								<td>
 									{{ $item->units }} {{ $item->measurement_unit->symbol }}
 								</td>
-								<td><em>En Desarrollo</em></td>
-								<td><em>En Desarrollo</em></td>
+								<td>
+									{{ $item->keeped() }} {{ $item->measurement_unit->symbol }}
+								</td>
+								<td>
+									<span class="{{ $item->available() < 0 ? 'font-red' : '' }}">{{ $item->available() }} {{ $item->measurement_unit->symbol }}</span>
+								</td>
 								<!-- <td>
 									{{ $item->method }}
 								</td>

@@ -27,4 +27,36 @@ class ProviderItems extends \Eloquent {
 		
 	}
 
+	public function project(){
+
+		return $this->belongsTo('Projects', 'id_project');
+		
+	}
+
+	public static function _get( $type, $status ){
+
+		$items = self::where('type', '=', $type);
+
+		if( $status != '' ):
+
+			$items = $items->where('status', '=', $status);
+
+		endif;
+
+		return $items->get();
+
+	}
+
+	public static function getRequest( $status = '' ){
+
+		return self::_get('request', $status);
+		
+	}
+
+	public static function getPurchase( $status = '' ){
+
+		return self::_get('purchase', $status);
+
+	}
+
 }

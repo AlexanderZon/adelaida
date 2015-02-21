@@ -16,7 +16,7 @@
 			<div class="page-toolbar">
 				<!-- BEGIN THEME PANEL -->
 				<div class="btn-group btn-theme-panel">
-					@if(Auth::user()->hasCap('materials_create_get'))
+					@if(Auth::user()->hasCap('requests_create_get'))
 						<a href="{{ $module['route'] }}/create" class="btn tooltips" data-toggle="Añadir un nuevo registro" data-container="body" data-placement="left" data-html="true"  data-original-title="Añadir una nueva Capacidad"><i class="icon-plus"></i></a>
 					@endif
 				</div>
@@ -72,10 +72,10 @@
 					<div class="portlet box green-haze">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-cubes"></i>Listado de Materiales del Proyecto <em>{{ $project->code }}</em>
+								<i class="fa fa-cubes"></i>Listado de Solicitudes de Materiales
 							</div>
 							<div class="tools">
-								@if(Auth::user()->hasCap('materials_create_get'))
+								@if(Auth::user()->hasCap('requests_create_get'))
 									<a href="{{ $module['route'] }}/create" class="label bg-green-haze"><i class="fa fa-plus-circle"></i> Añadir Nuevo</a>
 								@endif
 							</div>
@@ -91,13 +91,10 @@
 									 Descripción
 								</th>
 								<th>
-									 Cantidad a Utilizar
+									 Cantidad Solicitada
 								</th>
 								<th>
-									 Cantidad en Stock
-								</th>
-								<th>
-									 Cantidad en Solicitud
+									 Proyecto
 								</th>
 								<th>
 									 Estado
@@ -108,7 +105,7 @@
 								<th>
 									 Ruta
 								</th> -->
-								@if(Auth::user()->hasCap('materials_show_get') OR Auth::user()->hasCap('materials_edit_get') OR Auth::user()->hasCap('materials_delete_get'))
+								@if(Auth::user()->hasCap('requests_show_get') OR Auth::user()->hasCap('requests_edit_get') OR Auth::user()->hasCap('requests_delete_get'))
 									<th>
 										 Acciones
 									</th>
@@ -116,65 +113,54 @@
 							</tr>
 							</thead>
 							<tbody>
-							@foreach( $materials as $material )
+							@foreach( $requests as $request )
 							<tr>
 								<td>
-									{{ $material->stock->name }}
+									{{ $request->stock->name }}
 								</td>
 								<td>
-									{{ $material->stock->description }}
+									{{ $request->stock->description }}
 								</td>
 								<td>
-									{{ $material->units }} {{ $material->stock->measurement_unit->symbol }}
+									{{ $request->units }} {{ $request->stock->measurement_unit->symbol }}
 								</td>
 								<td>
-									<span class="{{ $material->stock->available() < 0 ? 'font-red' : 'font-green' }}">{{ $material->stock->units }} {{ $material->stock->measurement_unit->symbol }}</span>
+									{{ $request->id_project != 0 ? $request->project->code : '<em>Ninguno</em>' }}
 								</td>
 								<td>
-									{{ $material->stock->requested() }} {{ $material->stock->measurement_unit->symbol }}
-								</td>
-								<td>
-									@if( $material->status == 'keeped' )
-										@if(Auth::user()->hasCap('materials_assign_get') AND $material->stock->available() > 0)
-											<a href="{{ $module['route'] . '/assign/' . Crypt::encrypt($material->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Asignar Definitivamente"><span class="label bg-blue">{{ 'Apartado' }}</span></a>
-										@else
-											{{ $material->status == 'keeped' ? 'Apartado' : 'Asignado' }}
-										@endif
-									@elseif( $material->status == 'assigned' )
-										@if(Auth::user()->hasCap('materials_unassign_get'))
-											<a href="{{ $module['route'] . '/unassign/' . Crypt::encrypt($material->id) }}" class="tooltips" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Rehusar"><span class="label bg-yellow-saffron">{{ 'Asignado' }}</span>
-										@else
-											{{ 'Asignado' }}
-										@endif
+									@if( $request->status == 'inactive' )
+										{{ 'En espera' }}
+									@elseif( $request->status == 'active' )
+										{{ 'Solicitado' }}
 									@else
 										{{ 'No Definido' }}
 									@endif
 								</td>
 								<!-- <td>
-									{{ $material->method }}
+									{{ $request->method }}
 								</td>
 								<td>
-									{{ $material->route }}
+									{{ $request->route }}
 								</td> -->
-								@if(Auth::user()->hasCap('materials_show_get') OR Auth::user()->hasCap('materials_edit_get') OR Auth::user()->hasCap('materials_request_get') OR Auth::user()->hasCap('requests_view_get') OR Auth::user()->hasCap('materials_delete_get'))
+								@if(Auth::user()->hasCap('requests_show_get') OR Auth::user()->hasCap('requests_edit_get') OR Auth::user()->hasCap('requests_delete_get'))
 									<td>
-										@if(Auth::user()->hasCap('materials_show_get'))
+										@if(Auth::user()->hasCap('requests_show_get'))
 											&nbsp;&nbsp;
-											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($material->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
+											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/show/' . Crypt::encrypt($request->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Visualizar"> <i class="fa fa-eye"></i> </a> 
 										@endif
-										@if(Auth::user()->hasCap('materials_edit_get'))
+										@if(Auth::user()->hasCap('requests_edit_get'))
 											&nbsp;&nbsp;
-											<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($material->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
+											<a class="font-yellow-crusta tooltips" href="{{ $module['route'] . '/edit/' . Crypt::encrypt($request->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Editar"> <i class="fa fa-pencil"></i> </a> 
 										@endif
-										@if(Auth::user()->hasCap('materials_delete_get'))
+										@if(Auth::user()->hasCap('requests_delete_get'))
 											&nbsp;&nbsp;
-											<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($material->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
+											<a class="font-red-sunglo tooltips" href="{{ $module['route'] . '/delete/' . Crypt::encrypt($request->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Eliminar"> <i class="fa fa-trash-o"></i> </a>
 										@endif
-										@if(Auth::user()->hasCap('materials_request_get') AND $material->stock->available() + $material->stock->requested() < 0)
+										@if(Auth::user()->hasCap('requests_request_get') AND $request->stock->available() + $request->stock->requested() < 0)
 											&nbsp;&nbsp;
-											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/request/' . Crypt::encrypt($material->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Solicitar Material Restante"> <i class="fa fa-truck"></i> </a>
+											<a class="font-blue-steel tooltips" href="{{ $module['route'] . '/request/' . Crypt::encrypt($request->id) }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Solicitar Material Restante"> <i class="fa fa-truck"></i> </a>
 										@endif
-										@if(Auth::user()->hasCap('requests_view_get') AND $material->stock->available() < 0 AND $material->stock->requested() > 0)
+										@if(Auth::user()->hasCap('requested_view_get') AND $request->stock->available() < 0 AND $request->stock->requested() > 0)
 											&nbsp;&nbsp;
 											<a class="font-blue-seagreen tooltips" href="{{ '/requests' }}" data-container="body" data-placement="bottom" data-html="true"  data-original-title="Ir a Material Solicitado"> <i class="fa fa-sign-in"></i> </a>
 										@endif

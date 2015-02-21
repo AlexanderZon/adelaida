@@ -107,30 +107,25 @@
 					<span class="hidden-sm hidden-xs">Acciones&nbsp;</span><i class="fa fa-angle-down"></i>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-						<li>
-							<a href="#">
-							<i class="icon-docs"></i> New Post </a>
-						</li>
-						<li>
-							<a href="#">
-							<i class="icon-tag"></i> New Comment </a>
-						</li>
-						<li>
-							<a href="#">
-							<i class="icon-share"></i> Share </a>
-						</li>
+						@if(Auth::user()->hasCap('projects_view_get'))
+							<li>
+								<a href="/projects">
+								<i class="icon-paper-plane"></i> Proyectos <span class="badge badge-success">{{ count(Projects::all())}}</span></a>
+							</li>
+						@endif
+						@if(Auth::user()->hasCap('projects_create_get'))
+							<li>
+								<a href="/projects/create">
+								<i class="icon-plus"></i> Nuevo Proyecto </a>
+							</li>
+						@endif
 						<li class="divider">
-						</li>
-						<li>
-							<a href="#">
-							<i class="icon-flag"></i> Comments <span class="badge badge-success">4</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-							<i class="icon-users"></i> Feedbacks <span class="badge badge-danger">2</span>
-							</a>
-						</li>
+						@if(Auth::user()->hasCap('stock_view_get'))
+							<li>
+								<a href="/stock">
+								<i class="icon-social-dropbox"></i> Stock </a>
+							</li>
+						@endif
 					</ul>
 				</div>
 			</div>
@@ -628,7 +623,7 @@
 					@endif
 
 					@if(Auth::user()->hasCap('stock_view_get'))
-					<li class="tooltips {{ $module['name'] == 'stock' || $module['name'] == 'categories' || $module['name'] == 'measurement_units' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Stock">
+					<li class="tooltips {{ $module['name'] == 'stock' || $module['name'] == 'requests'  || $module['name'] == 'categories' || $module['name'] == 'measurement_units' ? 'active open' : '' }}" data-container="body" data-placement="right" data-html="true" data-original-title="Módulo de Stock">
 						<a href="/stock">
 						<i class="icon-social-dropbox"></i>
 						<span class="title">
@@ -642,6 +637,22 @@
 								<a href="/stock">
 								<i class="icon-list"></i>
 								Todos</a>
+							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('requests_view_get'))
+							<li class="{{ $module['name'] == 'requests' ? 'active' : '' }}">
+								<a href="/requests">
+								<i class="icon-puzzle"></i>
+								Solicitudes</a>
+							</li>
+							@endif
+
+							@if(Auth::user()->hasCap('purchase_orders_view_get'))
+							<li class="{{ $module['name'] == 'purchase_orders' ? 'active' : '' }}">
+								<a href="/purchase_orders">
+								<i class="icon-badge"></i>
+								Ordenes de Compra</a>
 							</li>
 							@endif
 

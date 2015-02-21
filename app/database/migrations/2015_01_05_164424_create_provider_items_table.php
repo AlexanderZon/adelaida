@@ -15,9 +15,11 @@ class CreateProviderItemsTable extends Migration {
 		Schema::create('provider_items', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->float('units');
+			$table->float('units')->default(0);
+			$table->double('cost_per_unit', 15, 2)->default(0);
 			$table->integer('id_stock');
 			$table->integer('id_purchase_order');
+			$table->integer('id_project');
 			$table->string('type');
 			$table->string('status');
 			$table->timestamps();

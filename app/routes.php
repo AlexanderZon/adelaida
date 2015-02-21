@@ -19,7 +19,7 @@ if(Auth::check()):
 	Route::controller('/projects/{idProject}/tasks', 'TaskController');
 	Route::controller('/projects/{idProject}/materials', 'MaterialController');
 	Route::controller('/projects', 'ProjectController');
-	Route::controller('/stock', 'StockController');
+	Route::controller('/requests', 'RequestController');
 	Route::controller('/stock', 'StockController');
 	Route::controller('/measurement_units', 'MeasurementUnitController');
 	Route::controller('/invoice_accounts', 'InvoiceAccountController');

@@ -16,7 +16,6 @@ class CreatePurchaseOrdersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->date('date');
-			$table->integer('id_project');
 			$table->integer('id_provider');
 			$table->timestamps();
 			$table->softDeletes();
