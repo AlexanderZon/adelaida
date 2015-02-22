@@ -46,7 +46,7 @@ class RequestController extends \BaseController {
 
 		Audits::add(Auth::user(), array(
 			'name' => 'requests_get_index',
-			'title' => 'Stock',
+			'title' => 'Materiales Solicitados',
 			'description' => 'Vizualización del listado de materiales solicitados'
 			), 'READ');
 
@@ -63,7 +63,7 @@ class RequestController extends \BaseController {
 	public function getCreate()
 	{
 		$args = array(
-			'requests' => Stock::all(),
+			'stock' => Stock::all(),
 			'categories' => Categories::all(),
 			'measurement_units' => MeasurementUnits::all(),
 			'module' => $this->module,
@@ -98,9 +98,9 @@ class RequestController extends \BaseController {
 
 				$args = array(
 					'msg_success' => array(
-						'name' => 'material_create',
-						'title' => 'Material asignado',
-						'description' => 'El material ' . $provider_item->stock->name . ' fue apartado al proyecto exitósamente'
+						'name' => 'request_create',
+						'title' => 'Material solicitado',
+						'description' => 'El material ' . $provider_item->stock->name . ' fue solicitado exitósamente'
 						)
 					);
 
@@ -112,8 +112,8 @@ class RequestController extends \BaseController {
 				$args = array(
 					'msg_danger' => array(
 						'name' => 'material_assign_err',
-						'title' => 'Error al asignar el material',
-						'description' => 'Hubo un error al asignar el material al proyecto'
+						'title' => 'Error al solicitar el material',
+						'description' => 'Hubo un error al solicitar el material'
 						)
 					);
 
@@ -129,7 +129,7 @@ class RequestController extends \BaseController {
 				$args = array(
 					'msg_warning' => array(
 						'name' => 'material_stock_category_err',
-						'title' => 'Error al agregar Item',
+						'title' => 'Error al solicitar Material',
 						'description' => 'Debe seleccionar una categoría'
 						)
 					);
@@ -143,7 +143,7 @@ class RequestController extends \BaseController {
 				$args = array(
 					'msg_warning' => array(
 						'name' => 'material_stock_measurement_unit_err',
-						'title' => 'Error al agregar Item',
+						'title' => 'Error al solicitar Material',
 						'description' => 'Debe seleccionar una unidad de medida'
 						)
 					);
@@ -174,8 +174,8 @@ class RequestController extends \BaseController {
 						$args = array(
 							'msg_success' => array(
 								'name' => 'material_stock_create',
-								'title' => 'Material asignado',
-								'description' => 'El material ' . $provider_item->stock->name . ' fue apartado al proyecto exitósamente'
+								'title' => 'Material solicitado',
+								'description' => 'El material ' . $provider_item->stock->name . ' fue solicitado exitósamente'
 								)
 							);
 
@@ -187,8 +187,8 @@ class RequestController extends \BaseController {
 						$args = array(
 							'msg_danger' => array(
 								'name' => 'material_stock_assign_err',
-								'title' => 'Error al asignar el material',
-								'description' => 'Hubo un error al asignar el material al proyecto'
+								'title' => 'Error al solicitar el material',
+								'description' => 'Hubo un error al solicitar el material'
 								)
 							);
 
@@ -202,8 +202,8 @@ class RequestController extends \BaseController {
 					$args = array(
 						'msg_danger' => array(
 							'name' => 'stock_create_err',
-							'title' => 'Error al agregar el item',
-							'description' => 'Hubo un error al agregar el item ' . $item->title
+							'title' => 'Error al solicitar el Material',
+							'description' => 'Hubo un error al solicitar el Material ' . $item->name
 							)
 						);
 
@@ -228,8 +228,7 @@ class RequestController extends \BaseController {
 	public function getEdit($id)
 	{
 		$args = array(
-			'item' => Stock::find( Crypt::decrypt($id) ),
-			'requests' => Stock::all(),
+			'request' => ProviderItems::find( Crypt::decrypt($id) ),
 			'categories' => Categories::all(),
 			'measurement_units' => MeasurementUnits::all(),
 			'module' => $this->module,
@@ -237,8 +236,8 @@ class RequestController extends \BaseController {
 
 		Audits::add(Auth::user(), array(
 			'name' => 'requests_get_edit',
-			'title' => 'Edición de materiales solicitados en requests',
-			'description' => 'Vizualización de formulario para edición de materiales solicitados requests'
+			'title' => 'Edición de materiales solicitados',
+			'description' => 'Vizualización de formulario para edición de materiales solicitados'
 			), 'READ');
 		
 		return View::make('requests.edit')->with($args);
@@ -253,52 +252,32 @@ class RequestController extends \BaseController {
 	 */
 	public function postEdit($id)
 	{
-			
-		$item = Stock::find( Crypt::decrypt($id) );
 
-		if( Input::get('category') == 0 || Input::get('category') == null ):
+		if( !$request = ProviderItems::find( Crypt::decrypt($id) ) ):
 
 			$args = array(
 				'msg_warning' => array(
 					'name' => 'requests_category_err',
-					'title' => 'Error al agregar Item',
-					'description' => 'Debe seleccionar una categoría'
+					'title' => 'Error al editar Solicitud de Material',
+					'description' => 'Solicitud no encontrada'
 					)
 				);
 
 			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
 
-			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($item->id) )->with( $args );
-
-		elseif( Input::get('measurement_unit') == 0 || Input::get('measurement_unit') == null ):
-
-			$args = array(
-				'msg_warning' => array(
-					'name' => 'requests_measurement_unit_err',
-					'title' => 'Error al agregar Item',
-					'description' => 'Debe seleccionar una unidad de medida'
-					)
-				);
-
-			Audits::add(Auth::user(), $args['msg_warning'], 'UPDATE');
-
-			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($item->id) )->with( $args );
+			return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($request->id) )->with( $args );
 
 		else:
 
-			$item->description = Input::get('description');
-			$item->name = Input::get('name');
-			$item->id_category = Input::get('id_category');
-			$item->id_measurement_unit = Input::get('id_measurement_unit');
-			$item->units = Input::get('units');
+			$request->units = Input::get('units');
 				
-			if( $item->save() ):
+			if( $request->save() ):
 
 				$args = array(
 					'msg_success' => array(
 						'name' => 'requests_edit',
-						'title' => 'Item editado del requests',
-						'description' => 'El item' . $item->title . ' fue editado del requests exitosamente'
+						'title' => 'Solicitud de Material Editada',
+						'description' => 'La Solicitud del material ' . $request->stock->name . ' fue editado exitosamente'
 						)
 					);
 				Audits::add(Auth::user(), $args['msg_success'], 'UPDATE');
@@ -309,13 +288,13 @@ class RequestController extends \BaseController {
 				$args = array(
 					'msg_danger' => array(
 						'name' => 'requests_edit_err',
-						'title' => 'Error al editar el item del requests',
-						'description' => 'Hubo un error al editar el'.$item->title.' del requests '
+						'title' => 'Error al editar la solicitud del material',
+						'description' => 'Hubo un error al editar la solicitud del material '.$request->stock->name.''
 						)
 					);
 
 				Audits::add(Auth::user(), $args['msg_danger'], 'UPDATE');
-				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($item->id) )->with( $args );
+				return Redirect::to( $this->module['route'].'/edit/'.Crypt::encrypt($request->id) )->with( $args );
 
 			endif;
 
@@ -333,8 +312,7 @@ class RequestController extends \BaseController {
 	public function getDelete($id)
 	{
 		$args = array(
-			'item' => Stock::find( Crypt::decrypt($id) ),
-			'requests' => Stock::all(),
+			'request' => ProviderItems::find( Crypt::decrypt($id) ),
 			'module' => $this->module,
 			);
 
@@ -356,15 +334,15 @@ class RequestController extends \BaseController {
 	 */
 	public function postDelete($id)
 	{
-		$item =  Stock::find( Crypt::decrypt($id) );
+		$request =  ProviderItems::find( Crypt::decrypt($id) );
 
-		if($item->delete()):
+		if($request->delete()):
 
 			$args = array(
 				'msg_success' => array(
 					'name' => 'requests_delete',
-					'title' => 'Item de eliminado del requests',
-					'description' => 'El item ' . $item->title . ' fue eliminado exitosamente'
+					'title' => 'Solicitud de material eliminado',
+					'description' => 'La solicitud del Material ' . $request->stock->name . ' fue eliminado exitosamente'
 					)
 				);
 			Audits::add(Auth::user(), $args['msg_success'], 'DELETE');
@@ -376,12 +354,12 @@ class RequestController extends \BaseController {
 				'msg_danger' => array(
 					'name' => 'requests_delete_err',
 					'title' => 'Error al eliminar el item',
-					'description' => 'Hubo un error al eliminar el item ' . $item->title
+					'description' => 'Hubo un error al eliminar el item ' . $request->stock->name
 					)
 				);
 
 			Audits::add(Auth::user(), $args['msg_danger'], 'DELETE');
-			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($item->id) )->with( $args );
+			return Redirect::to( $this->module['route'].'/delete/'.Crypt::encrypt($request->id) )->with( $args );
 
 		endif;
 	}

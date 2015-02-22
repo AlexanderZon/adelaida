@@ -62,7 +62,7 @@
 				<div class="portlet box green-haze">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-user"></i>Creación de Usuarios
+							<i class="fa fa-cubes"></i>Creación de Usuarios
 						</div>
 						<div class="tools">
 							<a href="{{ $module['route'] }}" class="label bg-green-haze"><i class="fa fa-arrow-circle-left"></i> Volver</a>
@@ -80,7 +80,7 @@
 											<div class="col-md-9">
 												<div class="input-group ">
 													<span class="input-group-addon">
-													<i class="fa fa-user"></i>
+													<i class="fa fa-cubes"></i>
 													</span>
 													<select name="id_stock" class="form-control select2me" data-placeholder="Seleccione un rol de usuario..." required>
 														<option value="0">--- SELECCIONE DE MATERIALES DISPONIBLES EN STOCK ---</option>

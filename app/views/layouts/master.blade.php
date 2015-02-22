@@ -88,7 +88,7 @@
 			<!-- BEGIN LOGO -->
 			<div class="page-logo">
 				<a href="/">
-				<img src="/assets/admin/layout4/img/logo-light.png" alt="logo" class="logo-default"/>
+				<img src="/assets/admin/layout4/img/logo-adelaida.png" height="50" alt="logo" class="logo-default"/>
 				</a>
 				<div class="menu-toggler sidebar-toggler">
 					<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -1192,7 +1192,7 @@
 	<!-- BEGIN FOOTER -->
 	<div class="page-footer">
 		<div class="page-footer-inner">
-			2014 © Magicmedia Inc. Todos los Derechos Reservados.
+			2015 © Magicmedia Inc. Todos los Derechos Reservados.
 		</div>
 		<div class="scroll-to-top">
 			<i class="icon-arrow-up"></i>
